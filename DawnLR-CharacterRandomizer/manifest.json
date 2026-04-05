@@ -1,0 +1,32 @@
+{
+	"dependencies": [],
+	"description": "a character randomizer, if you want to change characters each time you die or pass a level!",
+	"extra": {
+		"godot": {
+			"authors": [
+				"DawnLR"
+			],
+			"compatible_game_version": [
+				"1.0.2"
+			],
+			"compatible_mod_loader_version": [
+				"7.0.0"
+			],
+			"config_schema": {
+
+			},
+			"description_rich": "",
+			"image": null,
+			"incompatibilities": [],
+			"load_before": [],
+			"optional_dependencies": [],
+			"tags": [
+				"Randomizer"
+			]
+		}
+	},
+	"name": "CharacterRandomizer",
+	"namespace": "DawnLR",
+	"version_number": "0.0.1",
+	"website_url": "https://www.youtube.com/"
+}

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://d1r24qitwq1ql"]
+
+[ext_resource type="Texture2D" uid="uid://dfqmgukddsbpu" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/EditorShortcutFriendogIcons.png" id="1_4icqs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ise5w"]
+texture = ExtResource("1_4icqs")
+region_rect = Rect2(0, 12, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ym4r"]
+texture = ExtResource("1_4icqs")
+region_rect = Rect2(0, 0, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h8f07"]
+texture = ExtResource("1_4icqs")
+region_rect = Rect2(0, 0, 12, 12)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdin3"]
+
+[node name="CallFriendog" type="Button" unique_id=670919963]
+custom_minimum_size = Vector2(12, 12)
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_ise5w")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0ym4r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_h8f07")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jdin3")
+toggle_mode = true

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://dvfp1s3d6tb7m"]
+
+[ext_resource type="Texture2D" uid="uid://b3rj63ollfk53" path="res://mods-unpacked/DawnLR-SuperMario2004/Assets/Sprites/SourceIntro.png" id="1_j6f1w"]
+
+[sub_resource type="GDScript" id="GDScript_j6f1w"]
+resource_name = "Transition"
+script/source = "extends Node
+
+var stop := 10.0
+
+var can_skip := false
+
+func _ready() -> void:
+	Global.debugged_in = false
+	Global.get_node(\"GameHUD\").hide()
+	await get_tree().create_timer(1, false).timeout
+	can_skip = true
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"ui_accept\") and can_skip:
+		go_to_menu()
+	
+	if (stop > 0):
+		stop -= delta
+		return
+	
+	go_to_menu()
+
+func _exit_tree() -> void:
+	Global.get_node(\"GameHUD\").show()
+
+func go_to_menu() -> void:
+	if Global.rom_path == \"\":
+		Global.transition_to_scene(\"res://Scenes/Levels/RomVerifier.tscn\")
+	elif not Global.rom_assets_exist:
+		Global.transition_to_scene(\"res://Scenes/Levels/RomResourceGenerator.tscn\")
+	else:
+		Global.transition_to_scene(\"res://Scenes/Levels/TitleScreen.tscn\")
+"
+
+[node name="SourceEngineLogo" type="Node" unique_id=1583150026]
+script = SubResource("GDScript_j6f1w")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=642883567]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SourceIntro" type="TextureRect" parent="." unique_id=1326639454]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_j6f1w")
+expand_mode = 1
+stretch_mode = 5

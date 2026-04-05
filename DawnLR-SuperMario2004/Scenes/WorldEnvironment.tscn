@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://dqg8ao222kaoo"]
+
+[ext_resource type="AudioStream" uid="uid://cry2cl6w31m6l" path="res://mods-unpacked/DawnLR-SuperFuckingMario/Assets/Audio/HeavenAmbience.ogg" id="1_4xgdp"]
+[ext_resource type="AudioStream" uid="uid://bl8j4xwcwimfc" path="res://mods-unpacked/DawnLR-SuperFuckingMario/Assets/Audio/WhiteNoise.wav" id="2_lbkkc"]
+[ext_resource type="AudioStream" uid="uid://b4tk6rjhnw280" path="res://mods-unpacked/DawnLR-SuperFuckingMario/Assets/Audio/EarRinging.wav" id="3_lbkkc"]
+
+[sub_resource type="Environment" id="Environment_l1xcf"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(1, 0, 1, 1)
+ssao_radius = 16.0
+ssao_intensity = 15.2
+glow_enabled = true
+glow_intensity = 0.0
+fog_enabled = true
+fog_sun_scatter = 0.82
+fog_density = 0.7626
+fog_height = 886.76
+adjustment_saturation = 1.47
+
+[sub_resource type="GDScript" id="GDScript_g1kcl"]
+resource_name = "UnrealEngine4"
+script/source = "extends WorldEnvironment
+
+var canProgressWorsing := true
+var isRestoring := false
+
+
+var levelFlagpole = null
+var castleAxe = null
+
+var state := 0
+var glow := 0.0
+var intensity := 0.0
+var musicVolume := 0.0
+var overrideVolume := 0.0
+
+var saved_state := 0
+var saved_glow := 0.0
+var saved_intensity := 0.0
+var saved_musicVolume := 0.0
+var saved_overrideVolume := 0.0
+
+@onready var ambience: AudioStreamPlayer = $Ambience
+@onready var noise: AudioStreamPlayer = $WhiteNoise
+@onready var ring: AudioStreamPlayer = $EarRinging
+
+func _ready() -> void:
+	add_to_group(\"GameDestroyer\")
+
+func _process(delta: float) -> void:
+	var curScene := get_tree().current_scene
+	if (curScene is not Level || curScene is TitleScreen):
+		canProgressWorsing = false
+	elif (!isRestoring):
+		canProgressWorsing = true
+	else:
+		start_restore(delta)
+	
+	handle_values(delta)
+	
+	if (glow >= 1.0 && intensity >= 8.0):
+		await get_tree().create_timer(10.0).timeout
+		for player: Player in get_tree().get_nodes_in_group(\"Players\"):
+			player.die()
+
+func handle_values(delta: float) -> void:
+	environment.glow_bloom = glow
+	environment.glow_intensity = intensity
+	get_node(\"/root/AudioManager/Music\").volume_db = musicVolume
+	get_node(\"/root/AudioManager/MusicOverride\").volume_db = overrideVolume
+	
+	if (!canProgressWorsing):
+		return
+	
+	handle_glow(delta)
+	handle_sound(delta)
+
+func handle_glow(delta: float) -> void:
+	glow += delta/125.0
+	intensity += delta/20.0
+
+func handle_sound(delta: float) -> void:
+	handle_bad_sound_design(delta)
+	
+	musicVolume -= delta/3.5
+	overrideVolume -= delta/3.5
+	
+	AudioServer.set_bus_effect_enabled(1, 0, intensity > 4.0)
+
+func handle_state() -> void:
+	if (musicVolume <= -5):
+		if (state == 0):
+			state = 1
+	if (musicVolume <= -8.5):
+		state = 2
+	if (intensity > 4):
+		state = 3
+
+func handle_bad_sound_design(delta: float) -> void:
+	handle_state()
+	
+	if (state == 0):
+		return
+		
+	if (state >= 1):
+		if (!ambience.playing):
+			ambience.play()
+		if (ambience.volume_db < -10):
+			ambience.volume_db += delta
+	if (state >= 2):
+		musicVolume -= delta/3.5
+		overrideVolume -= delta/3.5
+		if (!noise.playing):
+			noise.play()
+			AudioServer.set_bus_volume_db(2, -17.5 - (float(Settings.file.audio.sfx) / 10))
+		if (noise.volume_db < -15):
+			noise.volume_db += delta
+	if (state >= 3):
+		if (!ring.playing):
+			ring.play()
+			AudioServer.set_bus_volume_db(2, -60.0 - (float(Settings.file.audio.sfx) / 10))
+		if (ring.volume_db < -20):
+			ring.volume_db += delta
+
+func reset_values(useSaved: bool = false) -> void:
+	isRestoring = false
+	
+	if (useSaved):
+		glow = saved_glow
+		intensity = saved_intensity
+		musicVolume = saved_musicVolume
+		overrideVolume = saved_overrideVolume
+		state = saved_state
+		AudioServer.set_bus_effect_enabled(1, 0, false)
+		AudioServer.set_bus_volume_db(2, (float(Settings.file.audio.sfx) / 10))
+	else:
+		glow = 0
+		intensity = 0
+		musicVolume = 0
+		overrideVolume = 0
+		state = 0
+		AudioServer.set_bus_effect_enabled(1, 0, false)
+		AudioServer.set_bus_volume_db(2, (float(Settings.file.audio.sfx) / 10))
+		
+		environment.glow_bloom = glow
+		environment.glow_intensity = intensity
+		get_node(\"/root/AudioManager/Music\").volume_db = musicVolume
+		get_node(\"/root/AudioManager/MusicOverride\").volume_db = overrideVolume
+	
+	ambience.playing = false
+	ambience.volume_db = -50
+	noise.playing = false
+	noise.volume_db = -50
+	ring.playing = false
+	ring.volume_db = -50
+	
+func start_restore(delta: float) -> void:
+	isRestoring = true
+	
+	if (glow <= 0.0 && intensity <= 0.0):
+		isRestoring = false
+	
+	AudioServer.set_bus_volume_db(2, (float(Settings.file.audio.sfx) / 10))
+	ambience.playing = false
+	ambience.volume_db = -50
+	noise.playing = false
+	noise.volume_db = -50
+	ring.playing = false
+	ring.volume_db = -50
+	
+	if (glow > 0):
+		glow += (0 - glow*delta)/1.25
+	if (intensity > 0):
+		intensity += (0 - intensity*delta)/1.25
+	if (musicVolume < 0):
+		musicVolume += (0 + -musicVolume * delta)/1.25
+	if (overrideVolume < 0):
+		musicVolume += (0 + -musicVolume * delta)/1.25
+		
+	if (levelFlagpole != null):
+		await levelFlagpole.sequence_begin
+		reset_values()
+	if (castleAxe != null):
+		await castleAxe.victory_begin
+		reset_values()
+"
+
+[node name="WorldEnvironment" type="WorldEnvironment" unique_id=1091520860]
+environment = SubResource("Environment_l1xcf")
+script = SubResource("GDScript_g1kcl")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=1401773685]
+stream = ExtResource("1_4xgdp")
+volume_db = -50.0
+
+[node name="WhiteNoise" type="AudioStreamPlayer" parent="." unique_id=337742000]
+stream = ExtResource("2_lbkkc")
+volume_db = -50.0
+
+[node name="EarRinging" type="AudioStreamPlayer" parent="." unique_id=551337807]
+stream = ExtResource("3_lbkkc")
+volume_db = -50.0

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bj48waoxao58t"]
+
+[sub_resource type="Environment" id="Environment_scsmh"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 5.08
+glow_bloom = 0.42
+
+[node name="TitleScreenWorld" type="WorldEnvironment" unique_id=1990141268]
+environment = SubResource("Environment_scsmh")

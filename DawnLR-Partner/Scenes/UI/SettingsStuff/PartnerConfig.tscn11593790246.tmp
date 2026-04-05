@@ -1,0 +1,687 @@
+[gd_scene format=3 uid="uid://b21p6m1u1loog"]
+
+[ext_resource type="Script" uid="uid://r7ycwnaxmihc" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/PartnerConfig.gd" id="1_suim7"]
+[ext_resource type="Script" uid="uid://caxi6rpy7284j" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/PartnerSettings.gd" id="2_a2mpo"]
+[ext_resource type="StyleBox" uid="uid://comkghpj0djcl" path="res://Resources/UI/Panel.tres" id="3_fjkbr"]
+[ext_resource type="Script" uid="uid://dcmjifllvi3qd" path="res://Scripts/UI/SettingsCategory.gd" id="4_coyea"]
+[ext_resource type="PackedScene" uid="uid://dbvy0rhwpv4w4" path="res://Scenes/Parts/SelectableOptionNode.tscn" id="5_4nppm"]
+[ext_resource type="Script" uid="uid://c0i2eqnddgmvt" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/Selectables/PartnerSelectableOptionNode.gd" id="6_14lom"]
+[ext_resource type="PackedScene" uid="uid://ccabvf866y58q" path="res://mods-unpacked/DawnLR-Partner/Scenes/UI/SettingsStuff/Selectables/SelectableNumberNode.tscn" id="7_nt44s"]
+[ext_resource type="Script" uid="uid://bxypgnae7pvpa" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/Appliers/PartnerOptionsApplier.gd" id="8_mod2r"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="9_w85xu"]
+[ext_resource type="Script" uid="uid://c20uihekmqmqs" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/Selectables/PartnerSettingsCategory.gd" id="10_a2mpo"]
+[ext_resource type="Script" uid="uid://ds2h7r4y1bf5a" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/Appliers/PartnerCopyOptionsApplier.gd" id="10_mod2r"]
+[ext_resource type="PackedScene" uid="uid://cajow22i40sqo" path="res://mods-unpacked/DawnLR-Partner/Scenes/UI/SettingsStuff/Selectables/SelectablePartnerOption.tscn" id="10_pkbio"]
+[ext_resource type="Script" uid="uid://bbo7yu1ey8ns8" path="res://mods-unpacked/DawnLR-Partner/Scripts/UI/SettingsStuff/Appliers/PartnerSelector.gd" id="11_uc1xa"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="13_fjkbr"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="14_coyea"]
+[ext_resource type="PackedScene" uid="uid://m8x4b3i8y1fv" path="res://mods-unpacked/DawnLR-Partner/Scenes/UI/SettingsStuff/Selectables/PartnerSelectableOptionBehaviorNode.tscn" id="14_w85xu"]
+[ext_resource type="Script" uid="uid://dwtrmo82e12ud" path="res://Scripts/Parts/ColourPaletteSampler.gd" id="15_nt44s"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="16_mod2r"]
+[ext_resource type="JSON" path="res://Assets/Sprites/Players/Mario/CharacterInfo.json" id="17_w85xu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt44s"]
+bg_color = Color(0, 0, 0, 1)
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="GDScript" id="GDScript_nt44s"]
+script/source = "extends Label
+
+@onready var parent := get_parent()
+
+var color := 0
+var colors := [Color.WHITE, Color.hex(0xf83910ff), Color.hex(0x1a912eff), Color.hex(0x5050ffff), Color.hex(0xff54d3ff)]
+
+enum INPUT_DEVICE {
+	KEYBOARDMOUSE, CONTROLLER
+}
+var lastInputDevice = INPUT_DEVICE.KEYBOARDMOUSE
+var device_name = \"\"
+
+func _ready() -> void:
+	Global.frame_rule.connect((func(): color += 1))
+	
+func _process(_delta: float) -> void:
+	update_tip()
+	
+	color %= colors.size()
+	self_modulate = colors[color]
+
+func _input(event: InputEvent) -> void:
+	if (event is InputEventKey 
+	|| event is InputEventMouseButton 
+	|| event is InputEventMouseMotion):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		lastInputDevice = INPUT_DEVICE.KEYBOARDMOUSE
+	elif (event is InputEventJoypadButton 
+	|| event is InputEventJoypadMotion):
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		lastInputDevice = INPUT_DEVICE.CONTROLLER
+		device_name = Input.get_joy_name(event.device)
+
+func update_tip() -> void:
+	visible = parent.charSelect.active
+	
+	var current_device_brand = 0
+	if device_name.to_upper().contains(\"NINTENDO\") or device_name.to_upper().contains(\"SWITCH\") or device_name.to_upper().contains(\"WII\"):
+		current_device_brand = 1
+	elif device_name.to_upper().contains(\"PS\") or device_name.to_upper().contains(\"PLAYSTATION\"):
+		current_device_brand = 2
+	else:
+		current_device_brand = 0
+	var input: String = \"P\" if (lastInputDevice == INPUT_DEVICE.KEYBOARDMOUSE) else [\"X\", \"Y\", \"□\"][current_device_brand]
+	text = parent.tipText.replace(\"open_partner_config\", input)
+"
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_mqbrp"]
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_byv6x"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_og2mi"]
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ijeiw"]
+content_margin_top = 0.0
+color = Color(1, 1, 1, 1)
+grow_begin = 3.0
+grow_end = -2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crnu0"]
+
+[sub_resource type="GDScript" id="GDScript_r4e75"]
+script/source = "extends VBoxContainer
+
+@export var settings_category := \"video\"
+@export var options: Array[Control] = []
+
+var selected_index = -1
+@export var minimum_idx := -1
+
+@export var selected := false
+
+var can_input = true
+
+@onready var PartnerSettings = get_node(\"/root/ModLoader/DawnLR-Partner/PartnerSettingsManager\")
+func _ready() -> void:
+	update_partner_options(PartnerSettings.file.selector.partners_amount, true)
+
+func _process(_delta: float) -> void:
+	if (%Selector.active):
+		if (%Selector.selected_index == %Selector.options.size() - 1):
+			%Selector.can_input = false
+			
+			selected = true
+			if (can_input):
+				handle_input()
+		if (selected_index == -1):
+			if (!%Selector.can_input):
+				selected = false
+				%Selector.can_input = true
+				%Selector.selected_index = %Selector.options.size() - 2
+	var idx := 0
+	for i in options:
+		if i != null:
+			i.selected = selected_index == idx and selected and can_input
+			idx += 1
+
+func handle_input() -> void:
+	if Input.is_action_just_pressed(\"ui_down\"):
+		selected_index += 1
+		if Settings.file.audio.extra_sfx == 1:
+			AudioManager.play_global_sfx(\"menu_move\")
+	if Input.is_action_just_pressed(\"ui_up\"):
+		selected_index -= 1
+		if Settings.file.audio.extra_sfx == 1:
+			AudioManager.play_global_sfx(\"menu_move\")
+	if Input.is_action_just_pressed(\"ui_back\") && selected && can_input:
+		selected_index = -1
+	selected_index = clamp(selected_index, minimum_idx, options.size() - 1)
+	if (get_children().size() != 0):
+		get_child(selected_index).grab_focus()
+
+func auto_get_options() -> void:
+	options.clear()
+	for i in get_children():
+		if i is HBoxContainer || i is VBoxContainer:
+			options.append(i)
+
+var partnerOptionScene: PackedScene = preload(\"res://mods-unpacked/DawnLR-Partner/Scenes/UI/SettingsStuff/Selectables/SelectablePartnerOption.tscn\")
+func update_partner_options(new_value: int, menuOnly: bool = false) -> void:
+	var old_size = options.size() 
+	
+	if (old_size == new_value): 
+		return
+	elif (new_value > old_size):
+		while options.size() < new_value:
+			add_partner_option((new_value >= 4 && !menuOnly), !menuOnly)
+	else:
+		while options.size() > new_value:
+			remove_partner_option((new_value >= 3 && !menuOnly))
+	
+	await get_tree().physics_frame
+	auto_get_options()
+	if (!menuOnly):
+		PartnerSettings.file.selector.characters = Global.player_characters
+		PartnerSettings.save_settings()
+
+func add_partner_option(add_to_global: bool = false, override_global_value: bool = true) -> void:
+	var new_value = options.size() + 1
+	if (add_to_global):
+		Global.player_characters.push_back(0)
+	elif (override_global_value):
+		Global.player_characters[new_value] = 0
+	
+	var newOpt = partnerOptionScene.instantiate()
+	newOpt.option_key = \"characters\"
+	newOpt.title = \"PARTNER player_id\"
+	newOpt.settings_category = \"selector\"
+	newOpt.value_changed.connect(%PartnerSelector.a_partner_id_changed)
+	newOpt.player_id = new_value
+	
+	add_child(newOpt)
+	options.push_back(newOpt)
+
+func remove_partner_option(remove_from_global: bool = false) -> void:
+	var new_value = options.size() - 1
+	if (options[new_value] != null):
+		options[new_value].queue_free()
+	options.resize(new_value)
+	if (remove_from_global):
+		Global.player_characters.resize(new_value + 1)
+	else:
+		Global.player_characters[new_value + 1] = -1
+"
+
+[sub_resource type="GDScript" id="GDScript_w85xu"]
+script/source = "extends Node
+
+@onready var PartnerSettings = get_node(\"/root/ModLoader/DawnLR-Partner/PartnerSettingsManager\")
+
+func set_value(value_name := \"\", value = null) -> void:
+	{
+		\"partner_follow_mode\": null,
+		\"partners_amount\": null
+	}[value_name].call(value)
+"
+
+[node name="PartnerConfig" type="Node" unique_id=507090945]
+script = ExtResource("1_suim7")
+
+[node name="TipText" type="Label" parent="." unique_id=1817050854]
+unique_name_in_owner = true
+z_index = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_nt44s")
+horizontal_alignment = 1
+uppercase = true
+script = SubResource("GDScript_nt44s")
+
+[node name="PartnerSelect" type="Control" parent="." unique_id=597591234 node_paths=PackedStringArray("containers")]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(240, 196)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -64.0
+offset_right = 120.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_a2mpo")
+containers = [NodePath("PanelContainer/MarginContainer/VBoxContainer/Selector"), NodePath("PanelContainer/MarginContainer/VBoxContainer/Behavior"), NodePath("PanelContainer/MarginContainer/VBoxContainer/CPUOptions"), NodePath("PanelContainer/MarginContainer/VBoxContainer/CopyOptions")]
+
+[node name="PanelContainer" type="PanelContainer" parent="PartnerSelect" unique_id=238995525]
+custom_minimum_size = Vector2(240, 196)
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 80.0
+theme_override_styles/panel = ExtResource("3_fjkbr")
+
+[node name="MarginContainer" type="MarginContainer" parent="PartnerSelect/PanelContainer" unique_id=952502835]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer" unique_id=1325266196]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1273481094]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Partner Settings!"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Title" unique_id=601952130]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_mqbrp")
+
+[node name="Control" type="Control" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1610990284]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1948050326]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_byv6x")
+
+[node name="CategorySelect" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1665036573]
+layout_mode = 2
+theme_override_constants/separation = -4
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CategorySelect" unique_id=1563390973]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="LeftArrow" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer" unique_id=1629635920]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◄"
+
+[node name="Category" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer" unique_id=1158659796]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text = "options"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer/Category" unique_id=888155724]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_og2mi")
+
+[node name="RightArrow" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer" unique_id=1602256359]
+unique_name_in_owner = true
+layout_mode = 2
+text = "►"
+
+[node name="Control2" type="Control" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1043401899]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="CPUOptions" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=804201448 node_paths=PackedStringArray("options", "description_node")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -4
+script = ExtResource("4_coyea")
+category_name = "cpu options"
+options = [NodePath("PermanentSize"), NodePath("PowerUpExclusive"), NodePath("FullyMuted"), NodePath("ApplyCharacterPhysics"), NodePath("RespawnTime")]
+description_node = NodePath("Description/AutoScrollContainer/MarginContainer/Desc")
+
+[node name="PermanentSize" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=347535005 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "permanent_size"
+title = "PERMANENT SIZE"
+value_descs = Array[String](["PARTNERS CAN CHANGE THEIR SIZE WHEN POWERED UP.", "PARTNERS WILL STAY SMALL EVEN WHEN GRABBING A FIRE FLOWER.", "PARTNERS WILL STAY BIG EVEN WHEN YOU ARE SMALL."])
+values = ["SETTING_OFF", "SMALL", "BIG"]
+settings_category = "cpu_options"
+
+[node name="PowerUpExclusive" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=238803696 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "power_up_exclusivity"
+title = "POWER UP EXCLUSIVITY"
+value_descs = Array[String](["ALL CHARACTERS WILL SHARE THE SAME POWER UP STATE.", "PARTNER WILL NOT SHARE POWER UP STATE AND KEEP THE POWER UP TO THEMSELVES."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "cpu_options"
+
+[node name="FullyMuted" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=820078558 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "muted"
+title = "MUTED"
+value_descs = Array[String](["PARTNERS WILL MAKE SOUNDS, JUST SLIGHTLY QUIETER.", "PARTNERS WILL NOT PRODUCE SOME SOUNDS.", "PARTNERS WILL NOT PRODUCE SOUND AT ALL. (BUGGY)"])
+values = ["SETTING_OFF", "PARTIALLY", "FULL"]
+settings_category = "cpu_options"
+
+[node name="ApplyCharacterPhysics" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=1982518865 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "apply_partner_physics"
+title = "APPLY PHYSICS TO PARTNERS"
+value_descs = Array[String](["PARTNERS KEEP THE VANILLA PHYSICS WITH NO ALTERATION.", "PARTNERS WILL HAVE THE CHARACTER'S PHYSICS.", "PARTNERS WILL HAVE THE SAME PHYSICS AS THE PLAYER."])
+values = ["SETTING_OFF", "SETTING_ON", "LEADER"]
+settings_category = "cpu_options"
+
+[node name="RespawnTime" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=985266124 instance=ExtResource("7_nt44s")]
+layout_mode = 2
+option_key = "respawn_time"
+title = "RESPAWN TIME"
+value_descs = "TIME IN SECONDS FOR YOUR PARTNERS TO RESPAWN BEHIND YOUR BACK"
+minimum = 0.0
+maximum = 30.0
+extraInfo = "SECONDS"
+settings_category = "cpu_options"
+
+[node name="LevelInteraction" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=103948085 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "level_interaction"
+title = "INTERACTION WITH LVL"
+value_descs = Array[String](["CHARACTERS WILL NOT INTERACT WITH THE LEVEL. (BEHAVIOR STILL ARE APPLIED)", "PARTNERS WILL INTERACT WITH EVERYTHING, JUST LIKE THE PLAYER"])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "cpu_options"
+
+[node name="PartnerOptionsApplier" type="Node" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=1069126943]
+script = ExtResource("8_mod2r")
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=1629273907]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ijeiw")
+
+[node name="Description" type="PanelContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions" unique_id=803820432]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_crnu0")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/Description" unique_id=1937252132]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("9_w85xu")
+direction = 1
+is_active = true
+auto_connect_focus = false
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="MarginContainer" type="MarginContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/Description/AutoScrollContainer" unique_id=1985208493]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -4
+
+[node name="Desc" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/Description/AutoScrollContainer/MarginContainer" unique_id=254251312]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 2
+uppercase = true
+
+[node name="CopyOptions" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1577480323 node_paths=PackedStringArray("options", "description_node")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -4
+script = ExtResource("4_coyea")
+category_name = "cpu options"
+options = [NodePath("PermanentSize"), null, NodePath("FullyMuted"), null, null]
+description_node = NodePath("Description/AutoScrollContainer/MarginContainer/Desc")
+
+[node name="PermanentSize" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions" unique_id=380752510 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "permanent_size"
+title = "PERMANENT SIZE"
+value_descs = Array[String](["PARTNERS CAN CHANGE THEIR SIZE WHEN POWERED UP.", "PARTNERS WILL STAY SMALL EVEN WHEN GRABBING A FIRE FLOWER.", "PARTNERS WILL STAY BIG EVEN WHEN YOU ARE SMALL."])
+values = ["SETTING_OFF", "SMALL", "BIG"]
+settings_category = "cpu_options"
+
+[node name="FullyMuted" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions" unique_id=446332631 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "muted"
+title = "MUTED"
+value_descs = Array[String](["PARTNERS WILL MAKE SOUNDS, JUST SLIGHTLY QUIETER.", "PARTNERS WILL NOT PRODUCE SOME SOUNDS.", "PARTNERS WILL NOT PRODUCE SOUND AT ALL. (BUGGY)"])
+values = ["SETTING_OFF", "PARTIALLY", "FULL"]
+settings_category = "cpu_options"
+
+[node name="LevelInteraction" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions" unique_id=2068071190 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "level_interaction"
+title = "INTERACTION WITH LVL"
+value_descs = Array[String](["CHARACTERS WILL NOT INTERACT WITH THE LEVEL. (BEHAVIOR STILL ARE APPLIED)", "PARTNERS WILL INTERACT WITH EVERYTHING, JUST LIKE THE PLAYER"])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "cpu_options"
+
+[node name="PartnerCopyOptionsApplier" type="Node" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions" unique_id=1812767554]
+script = ExtResource("10_mod2r")
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions" unique_id=46536722]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ijeiw")
+
+[node name="Description" type="PanelContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions" unique_id=1798192358]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_crnu0")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/Description" unique_id=1048488480]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("9_w85xu")
+direction = 1
+is_active = true
+auto_connect_focus = false
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="MarginContainer" type="MarginContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/Description/AutoScrollContainer" unique_id=1584623319]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -4
+
+[node name="Desc" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/Description/AutoScrollContainer/MarginContainer" unique_id=1903243610]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 2
+uppercase = true
+
+[node name="Selector" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=1673412036 node_paths=PackedStringArray("options")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("10_a2mpo")
+category_name = "selector"
+options = [NodePath("PartnerFollowMode"), NodePath("PartnersAmount"), NodePath("ScrollContainer/PartnerList")]
+
+[node name="PartnerFollowMode" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=1069986998 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "partner_follow_mode"
+title = "FOLLOW MODE"
+value_descs = Array[String](["PARTNERS FOLLOW YOU USING COMPUTER INPUTS.", "PARTNERS FOLLOW YOU USING A COPY OF YOUR MOVEMENTS. WITH SLIGHT DELAY."])
+values = ["CPU", "COPY MOVES"]
+settings_category = "selector"
+
+[node name="PartnersAmount" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=1348187407 instance=ExtResource("7_nt44s")]
+layout_mode = 2
+option_key = "partners_amount"
+title = "PARTNERS AMOUNT"
+selectMode = 1
+minimum = 0.0
+maximum = 99.0
+step = 1.0
+extraInfo = "PARTNERS"
+settings_category = "selector"
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=1792848375]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ijeiw")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=934521338]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 0
+
+[node name="PartnerList" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer" unique_id=433741040 node_paths=PackedStringArray("options")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_r4e75")
+settings_category = "selector"
+options = [NodePath("Partner")]
+
+[node name="Partner" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" unique_id=906794177 instance=ExtResource("10_pkbio")]
+layout_mode = 2
+option_key = "characters"
+title = "PARTNER player_id"
+settings_category = "selector"
+
+[node name="PartnerSelector" type="Node" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=1735774830]
+unique_name_in_owner = true
+script = ExtResource("11_uc1xa")
+
+[node name="Behavior" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer" unique_id=93959111 node_paths=PackedStringArray("options", "description_node")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("10_a2mpo")
+category_name = "selector"
+options = [NodePath("SetAll"), null, NodePath("ScrollContainer/BehaviorList")]
+description_node = NodePath("Description")
+
+[node name="SetAll" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=675838905 groups=["Options"] instance=ExtResource("5_4nppm")]
+layout_mode = 2
+script = ExtResource("6_14lom")
+option_key = "characters_behavior"
+title = "SET TO ALL"
+value_descs = Array[String](["PARTNERS FOLLOW YOU USING COMPUTER INPUTS.", "PARTNERS FOLLOW YOU USING A COPY OF YOUR MOVEMENTS. WITH SLIGHT DELAY."])
+values = ["CPU", "COPY MOVES"]
+settings_category = "behavior"
+
+[node name="HSeparator" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=1196776338]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ijeiw")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=1404374895]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 0
+
+[node name="BehaviorList" type="VBoxContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer" unique_id=1878486971 node_paths=PackedStringArray("options")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_r4e75")
+settings_category = "behavior"
+options = [NodePath("PartnerBehavior")]
+
+[node name="PartnerBehavior" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList" unique_id=77562408 instance=ExtResource("14_w85xu")]
+layout_mode = 2
+
+[node name="PartnerBehavior" type="Node" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=928757135]
+script = SubResource("GDScript_w85xu")
+
+[node name="HSeparator2" type="HSeparator" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=1128126864]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ijeiw")
+
+[node name="Description" type="PanelContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=2015315240]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_crnu0")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/Description" unique_id=1272625096]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("9_w85xu")
+direction = 1
+is_active = true
+auto_connect_focus = false
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="MarginContainer" type="MarginContainer" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/Description/AutoScrollContainer" unique_id=1199404191]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -4
+
+[node name="Desc" type="Label" parent="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/Description/AutoScrollContainer/MarginContainer" unique_id=617849569]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 2
+uppercase = true
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=964309181 node_paths=PackedStringArray("labels")]
+script = ExtResource("13_fjkbr")
+labels = [NodePath("../TipText")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="TextShadowColourChanger" type="Node" parent="." unique_id=1562983974 node_paths=PackedStringArray("labels")]
+script = ExtResource("14_coyea")
+labels = [NodePath("../TipText")]
+
+[node name="ColourPaletteSampler" type="Node" parent="." unique_id=1496035065]
+unique_name_in_owner = true
+script = ExtResource("15_nt44s")
+value_to_set = "self_modulate"
+metadata/_custom_type_script = "uid://dwtrmo82e12ud"
+
+[node name="PlayerColourTexture" type="Node" parent="ColourPaletteSampler" unique_id=812713485 node_paths=PackedStringArray("node_to_affect")]
+unique_name_in_owner = true
+script = ExtResource("16_mod2r")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+resource_json = ExtResource("17_w85xu")
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PermanentSize" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="permanent_size_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PowerUpExclusive" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="power_up_exclusivity_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/FullyMuted" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="fully_muted_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/ApplyCharacterPhysics" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="apply_partner_physics_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/RespawnTime" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="respawn_time_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/LevelInteraction" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="level_interaction_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/PermanentSize" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/PartnerCopyOptionsApplier" method="permanent_size_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/FullyMuted" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/PartnerCopyOptionsApplier" method="fully_muted_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/LevelInteraction" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CopyOptions/PartnerCopyOptionsApplier" method="level_interaction_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/PartnerFollowMode" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="partner_follow_mode_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/PartnerFollowMode" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/PartnerSelector" method="partner_follow_mode_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/PartnersAmount" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/PartnerSelector" method="partners_amount_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList/Partner" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList/Partner" method="on_value_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList/Partner" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Selector/PartnerSelector" method="a_partner_id_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/SetAll" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/CPUOptions/PartnerOptionsApplier" method="partner_follow_mode_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/SetAll" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/PartnerBehavior" method="partner_follow_mode_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList/PartnerBehavior" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/PartnerBehavior" method="a_partner_id_changed"]
+[connection signal="value_changed" from="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList/PartnerBehavior" to="PartnerSelect/PanelContainer/MarginContainer/VBoxContainer/Behavior/PartnerBehavior" method="on_value_changed"]
