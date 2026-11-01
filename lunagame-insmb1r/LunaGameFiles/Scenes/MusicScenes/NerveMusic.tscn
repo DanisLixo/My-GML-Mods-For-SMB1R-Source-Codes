@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://smc4boq0npi"]
+
+[ext_resource type="AudioStream" uid="uid://5g8kdx2csb6a" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/Music/Foreboding.wav" id="1"]
+[ext_resource type="Script" uid="uid://c6xt4jd6ndhoh" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/music.gd" id="2"]
+
+[node name="Forebosion" type="AudioStreamPlayer"]
+stream = ExtResource("1")
+volume_db = -2.0
+autoplay = true
+script = ExtResource("2")

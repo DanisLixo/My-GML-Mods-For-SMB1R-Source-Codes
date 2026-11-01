@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c16i42vu7yfy5"]
+
+[ext_resource type="Script" uid="uid://blbx64y5cvdya" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/PowerStates/HammerSuit.gd" id="1_bvunw"]
+
+[node name="HammerSuit" type="Node"]
+script = ExtResource("1_bvunw")
+state_name = "HammerSuit"
+power_tier = 2
+hitbox_size = "Big"

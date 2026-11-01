@@ -1,26 +1,18 @@
 extends Object
 
-func transition_to_scene(c: ModLoaderHookChain, scene_path := "") -> void:
-	var characterRandomizer = c.reference_object.get_node("/root/ModLoader/DawnLR-CharacterRandomizer/CharacterRandomizer")
-	var p = c.reference_object.get_tree().get_nodes_in_group("Players")
+func transition_to_scene(c: ModLoaderHookChain, scene_path = "") -> void:
+	var RandomizerSettings = Settings.get_meta("RandomizerMod")
 	
-	if (characterRandomizer.active && !scene_path.contains("TitleScreen")):
-		characterRandomizer.load_settings()
-		if (characterRandomizer.file.options.every_transition && !(characterRandomizer.firstLoad && characterRandomizer.file.options.randomize_on_start)
-		&& !(scene_path.contains("LevelTransition") || c.reference_object.get_tree().current_scene.name == "LevelTransition")):
-			var real_connected = 0
-			for i in Settings.file.game.characters:
-				if (i != -1):
-					real_connected += 1
-			for i in real_connected:
-				if (i > 0 && characterRandomizer.file.options.randomize_player_one_only):
-					continue
-				
-				Global.player_characters[i] = characterRandomizer.set_new_character(i)
-				for j in p:
-					if (j != null):
-						characterRandomizer.force_player_soft_restart(j)
-			
-			if (characterRandomizer.firstLoad):
-				characterRandomizer.firstLoad = false
+	if (scene_path is String && !scene_path.contains("TitleScreen")):
+		RandomizerSettings.load_settings()
+		
+		var every_transition = RandomizerSettings.file.options.every_transition
+		var can_randomize = (RandomizerSettings.firstLoad && RandomizerSettings.file.options.randomize_on_start) || !RandomizerSettings.firstLoad
+		var next_not_lvl_trans = (scene_path is String && !scene_path.contains("LevelTransition"))
+		var current_lvl_trans = (Global.get_tree().current_scene is LevelTransition)
+		
+		if (every_transition && can_randomize):
+			if (next_not_lvl_trans && !current_lvl_trans):
+				var randomizer = load("res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/Scripts/Randomizer.gd").new()
+				randomizer.start_randomizing(true)
 	c.execute_next_async([scene_path])

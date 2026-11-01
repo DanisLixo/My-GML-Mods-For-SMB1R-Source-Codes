@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://clqav6ff3ug3v"]
+
+[ext_resource type="Texture2D" uid="uid://cfoy341v5esmw" path="res://mods-unpacked/BawbLR-EntitiesAPI/Assets/Sprites/Entities/FallbackImage.png" id="1_jngjr"]
+[ext_resource type="Script" uid="uid://ctfbuoxtnnl0q" path="res://Scripts/Classes/Components/EditorPropertyExposer.gd" id="2_8pq7y"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_yhtj6"]
+
+[sub_resource type="GDScript" id="GDScript_jngjr"]
+script/source = "extends Node2D
+
+var original_scene := \"\"
+@export var original_id := \"\"
+@export var original_info := \"\"
+
+var backup := [original_scene, original_id, original_info]
+
+func _enter_tree() -> void:
+	var c_list = NewLevelBuilder.get_meta(\"custom_list\", {})
+	
+	if (!c_list.is_empty()):
+		original_scene = c_list[original_id][0]
+	backup = [original_scene, original_id, original_info]
+
+func _process(_delta: float) -> void:
+	if (Global.level_editor == null):
+		free()
+		return 
+	if (Global.level_editor.playing_level): return
+	
+	if (original_scene != backup[0]):
+		original_scene = backup[0]
+	if (original_id != backup[1]):
+		original_id = backup[1]
+	if (original_info != backup[2]):
+		original_info = backup[2]
+"
+
+[node name="FallbackObject" type="Node2D" unique_id=544337899 groups=["Gizmos"]]
+process_mode = 3
+script = SubResource("GDScript_jngjr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2093160298]
+texture = ExtResource("1_jngjr")
+
+[node name="ResourceSetterNew" type="Node" parent="Sprite2D" unique_id=292226344 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_yhtj6")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://mods-unpacked/BawbLR-EntitiesAPI/Assets/Sprites/Entities/FallbackImage.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="EditorPropertyExposer" type="Node" parent="." unique_id=1967242851]
+script = ExtResource("2_8pq7y")
+properties = Array[String](["original_id", "original_info"])
+animate_change = false

@@ -5,14 +5,14 @@ func enter(c:ModLoaderHookChain, msg := {}) -> void:
 	
 	c.reference_object.player.get_node("CameraCenterJoint/RightWall").set_collision_layer_value(13, false)
 	
-	var thing = c.reference_object.player.get_meta("PartnerMod")
+	var thing = c.reference_object.player.get_meta("thingie")
 	
 	if (thing != null):
 		if (thing.isEnemy):
 			thing.leader.die()
 		elif (thing.leader == c.reference_object.player):
-			for i in c.reference_object.get_tree().get_nodes_in_group("CharPartners-Partners"):
+			for i in c.reference_object.get_tree().get_nodes_in_group("Players-AI"):
 				if (i == null):
 					continue
-				if (i.get_meta("PartnerMod").isEnemy):
+				if (i.get_meta("thingie").isEnemy):
 					i.die_as_enemy()

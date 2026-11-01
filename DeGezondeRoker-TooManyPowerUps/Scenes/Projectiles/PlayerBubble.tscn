@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://boajj1db3lddq"]
+
+[ext_resource type="Script" uid="uid://b6yohdr5s8m6m" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/Projectiles/PlayerBubble.gd" id="1_4p2ok"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_t2egy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajyso"]
+size = Vector2(24, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dhdpv"]
+radius = 8.0
+
+[node name="PlayerBubble" type="CharacterBody2D" unique_id=483605649]
+collision_layer = 0
+collision_mask = 2
+slide_on_ceiling = false
+script = ExtResource("1_4p2ok")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1706923249]
+z_index = 2
+
+[node name="ResourceSetter" type="Node" parent="Sprite" unique_id=898119751 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_t2egy")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/ModdedItems/Bubble.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Coin" type="AnimatedSprite2D" parent="." unique_id=465232335]
+z_index = 2
+position = Vector2(0, -1)
+
+[node name="ResourceSetter" type="Node" parent="Coin" unique_id=545546030 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_t2egy")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/Items/Coin.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=148857408]
+shape = SubResource("RectangleShape2D_ajyso")
+disabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=888342915]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2128993689]
+shape = SubResource("CircleShape2D_dhdpv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1911228843]
+position = Vector2(-10, -10)
+rect = Rect2(-10, -10, 40, 40)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]

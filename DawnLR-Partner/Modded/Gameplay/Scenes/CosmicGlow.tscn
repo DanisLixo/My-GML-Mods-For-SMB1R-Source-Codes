@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://b6ftx7c1jcttx"]
+
+[ext_resource type="Script" uid="uid://bs2apcldf3qgb" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Classes/Entities/CosmicGlow.gd" id="1_rjm55"]
+[ext_resource type="Texture2D" uid="uid://bk7g57rbgh2vr" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/CosmicSparkle.png" id="3_dkcjd"]
+[ext_resource type="Script" uid="uid://dde1tbnfum3yr" path="res://Scripts/Classes/Components/PackParticles.gd" id="4_uk7xl"]
+[ext_resource type="Texture2D" uid="uid://drortr6imgkjp" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/EnemyFlag.png" id="7_bvd7x"]
+[ext_resource type="Texture2D" uid="uid://e0voy262nd05" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/BubbleTimerIcon.png" id="8_m0f1q"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="9_uq4v6"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="10_cl84m"]
+
+[sub_resource type="Gradient" id="Gradient_n081i"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.25925925, 0.49382716, 0.75308645, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.7731482, 1, 1, 1, 0.56790125, 1, 1, 1, 0.24691355, 1, 1, 1, 0)
+
+[sub_resource type="GDScript" id="GDScript_n081i"]
+script/source = "extends TimerSprite
+
+@export var node: Node2D
+
+func _process(_delta: float) -> void:
+	if (node == null):
+		return
+	var value = node.get(value_name)
+	var percent = inverse_lerp(max_value, 0, value)
+	percent = clamp(percent, 0, 1)
+	frame = lerp(0, 6, percent)
+	if (threshold_type == 0 and percent >= warn_threshold) or (threshold_type == 1 and value <= warn_threshold) and Settings.file.audio.extra_sfx == 1:
+		if can_warn and percent > 0 and percent < 1:
+			can_warn = false
+			AudioManager.play_global_sfx(\"timer_warning\")
+	else:
+		can_warn = true
+"
+
+[sub_resource type="GDScript" id="GDScript_rxwtu"]
+script/source = "extends Label
+
+@export var parent: Control
+@export var timer: Node
+@export var valueName := \"\"
+
+func _process(delta: float) -> void:
+	if (timer == null): return
+	var value = timer.get(valueName)
+	
+	text = str(snappedf(value, 0.1))
+"
+
+[sub_resource type="Animation" id="Animation_g8725"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p2vuw"]
+resource_name = "enter"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-64, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pljdi"]
+_data = {
+&"RESET": SubResource("Animation_g8725"),
+&"enter": SubResource("Animation_p2vuw")
+}
+
+[node name="CosmicGlow" type="Node2D" unique_id=829938287]
+script = ExtResource("1_rjm55")
+
+[node name="Label" type="Label" parent="." unique_id=565632264]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -15.0
+offset_top = -31.0
+offset_right = 17.0
+offset_bottom = -15.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "5.0"
+
+[node name="CosmicParticles" type="CPUParticles2D" parent="." unique_id=682812462]
+amount = 64
+texture = ExtResource("3_dkcjd")
+lifetime = 2.5
+lifetime_randomness = 0.25
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 16.0
+gravity = Vector2(0, -1)
+color_ramp = SubResource("Gradient_n081i")
+script = ExtResource("4_uk7xl")
+metadata/_custom_type_script = "uid://dde1tbnfum3yr"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1571964568]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=259572560]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = -257.00015
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1983069657]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 64.0
+grow_vertical = 0
+texture = ExtResource("7_bvd7x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=891531775]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -16.0
+offset_right = 48.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/HBoxContainer" unique_id=1510249461]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpawnTimeSprite" type="Sprite2D" parent="CanvasLayer/Control/HBoxContainer/Control" unique_id=266820619 node_paths=PackedStringArray("node")]
+texture = ExtResource("8_m0f1q")
+centered = false
+hframes = 7
+region_enabled = true
+region_rect = Rect2(0, 0, 56, 8)
+script = SubResource("GDScript_n081i")
+node = NodePath("../../../../..")
+value_name = "spawnTime"
+metadata/_custom_type_script = "uid://dn5efttgugwvb"
+
+[node name="SpawnTimeLabel" type="Label" parent="CanvasLayer/Control/HBoxContainer" unique_id=781454344 node_paths=PackedStringArray("parent", "timer")]
+layout_mode = 2
+text = "5.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_rxwtu")
+parent = NodePath("../..")
+timer = NodePath("../../../..")
+valueName = "spawnTime"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=2146950989]
+libraries/ = SubResource("AnimationLibrary_pljdi")
+autoplay = &"RESET"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1903156349]
+position = Vector2(-3, -62)
+rect = Rect2(-10, -10, 10, 17)
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=2010174120 node_paths=PackedStringArray("labels")]
+script = ExtResource("9_uq4v6")
+labels = [NodePath("../Label"), NodePath("../CanvasLayer/Control/HBoxContainer/SpawnTimeLabel")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="TextShadowColourChanger" type="Node" parent="." unique_id=1577971244 node_paths=PackedStringArray("labels")]
+script = ExtResource("10_cl84m")
+labels = [NodePath("../Label"), NodePath("../CanvasLayer/Control/HBoxContainer/SpawnTimeLabel")]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="on_screen"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="off_screen"]

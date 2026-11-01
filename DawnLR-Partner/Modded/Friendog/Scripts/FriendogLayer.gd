@@ -1,0 +1,13 @@
+extends CanvasLayer
+
+var editor: LevelEditor
+var active := false
+var isMouseToPet := false
+
+func set_friendog() -> void:
+	if (!active):
+		active = true
+		$AnimationPlayer.play("Enter")
+
+func _process(delta: float) -> void:
+	pass

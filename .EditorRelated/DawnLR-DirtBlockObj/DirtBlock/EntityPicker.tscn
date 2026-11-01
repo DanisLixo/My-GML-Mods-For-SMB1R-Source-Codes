@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://bf31cbd5rsg37"]
+
+[ext_resource type="Texture2D" uid="uid://c6ntviqwnepy2" path="res://mods-unpacked/DawnLR-DirtBlockObj/DirtBlock/Sprites/GrassBlock.png" id="1_x86k2"]
+[ext_resource type="PackedScene" uid="uid://cluckbsiwogna" path="res://mods-unpacked/DawnLR-DirtBlockObj/DirtBlock/DirtBlock.tscn" id="2_cuign"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="3_ybmgl"]
+[ext_resource type="Texture2D" uid="uid://dd3s0d7y11p4x" path="res://Assets/Sprites/Editor/ConnectableIcon.png" id="4_ma6il"]
+
+[sub_resource type="GDScript" id="GDScript_esc8w"]
+script/source = "extends EditorTileSelector
+
+func _ready() -> void:
+	set_icon_texture()
+	set_second_icon_texture()
+	update_visuals()
+	set_process(false)
+	if tile_selected.is_connected(get_tree().current_scene.on_tile_selected) == false:
+		tile_selected.connect(get_tree().current_scene.on_tile_selected)
+	%NameLabel.text = tile_name
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ru7c4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecw13"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xy0d6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bh0ve"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xy0d6"]
+bg_color = Color(0, 0, 0, 0.892)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ecw13"]
+color = Color(1, 1, 1, 1)
+grow_begin = -1.0
+grow_end = -1.0
+
+[node name="GameKiller" type="Control" unique_id=314033112 groups=["Selectors"]]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+script = SubResource("GDScript_esc8w")
+tile_name = "Game Killer"
+tile_desc = "Kills the game."
+icon_texture = ExtResource("1_x86k2")
+icon_region_override = Rect2(0, 0, 16, 16)
+secondary_icon_region_override = Rect2(0, 0, 16, 16)
+entity_id = "Dg"
+entity_scene = ExtResource("2_cuign")
+
+[node name="Button" type="Button" parent="." unique_id=2020569173]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ru7c4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ecw13")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xy0d6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bh0ve")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ecw13")
+
+[node name="Icon" type="NinePatchRect" parent="Button" unique_id=669392483]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+axis_stretch_vertical = 2
+
+[node name="SecondaryIcon" type="NinePatchRect" parent="Button/Icon" unique_id=913569602]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+axis_stretch_vertical = 2
+
+[node name="ResourceSetterNew" type="Node" parent="." unique_id=1755899989 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_ybmgl")
+node_to_affect = NodePath("../Button/Icon")
+property_name = "texture"
+mode = 1
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="ResourceSetterNew2" type="Node" parent="." unique_id=1831657285 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_ybmgl")
+node_to_affect = NodePath("../Button/Icon/SecondaryIcon")
+property_name = "texture"
+mode = 1
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1973961453]
+layer = 99999
+
+[node name="NamePanel" type="Node2D" parent="CanvasLayer" unique_id=1056436072]
+unique_name_in_owner = true
+visible = false
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer/NamePanel" unique_id=147240500]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xy0d6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NamePanel/Panel" unique_id=497560930]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="CanvasLayer/NamePanel/Panel/VBoxContainer" unique_id=1315698533]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "DICE"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Line" type="HSeparator" parent="CanvasLayer/NamePanel/Panel/VBoxContainer/NameLabel" unique_id=426704278]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ecw13")
+
+[node name="DescriptionSizer" type="Control" parent="CanvasLayer/NamePanel/Panel/VBoxContainer" unique_id=775314944]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="DescPreview" type="Label" parent="CanvasLayer/NamePanel/Panel/VBoxContainer" unique_id=601642446]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.46229053, 0.4622907, 0.46229017, 1)
+layout_mode = 2
+text = "..."
+uppercase = true
+
+[node name="Description" type="Label" parent="CanvasLayer/NamePanel/Panel/VBoxContainer" unique_id=871381622]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.46229053, 0.4622907, 0.46229017, 1)
+layout_mode = 2
+text = "Emits a Signal"
+autowrap_mode = 2
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1524920433]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_ma6il")
+
+[connection signal="mouse_entered" from="Button" to="." method="on_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="on_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="on_pressed"]
+[connection signal="pressed" from="Button" to="Button" method="grab_focus"]

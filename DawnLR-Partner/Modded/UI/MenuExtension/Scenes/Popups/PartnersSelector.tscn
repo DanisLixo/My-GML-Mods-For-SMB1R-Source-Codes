@@ -1,0 +1,256 @@
+[gd_scene format=3 uid="uid://1ittqohcvtxs"]
+
+[ext_resource type="Script" uid="uid://caxi6rpy7284j" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/PartnerSelector.gd" id="1_fxqcd"]
+[ext_resource type="StyleBox" uid="uid://comkghpj0djcl" path="res://Resources/UI/Panel.tres" id="1_o2kta"]
+[ext_resource type="Script" uid="uid://c20uihekmqmqs" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/PartnerSettingsCategory.gd" id="2_f1grw"]
+[ext_resource type="Script" uid="uid://bbo7yu1ey8ns8" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Appliers/ConfigApplier.gd" id="3_pw73r"]
+[ext_resource type="Script" uid="uid://bi6xs4xauver1" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/BetterWaveTextEffect.gd" id="3_rfueo"]
+[ext_resource type="Script" uid="uid://dtuayxny0qou2" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Lists/PartnerList.gd" id="4_0yi2w"]
+[ext_resource type="Script" uid="uid://b0phsj43sk0xg" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Lists/BehaviorList.gd" id="6_8amip"]
+[ext_resource type="PackedScene" uid="uid://bflpf2fdtbgkt" path="res://Scenes/Parts/SelectableInputOptionNode.tscn" id="6_jgugy"]
+[ext_resource type="Script" uid="uid://cnrwa60fyrm1n" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Appliers/InputMapAppiler.gd" id="7_s1e3b"]
+[ext_resource type="PackedScene" uid="uid://ncsttyeer2wl" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scenes/Selectables/SetToAllNode.tscn" id="9_ytjg3"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="10_r4yg6"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_fxqcd"]
+script = ExtResource("3_rfueo")
+metadata/_custom_type_script = "uid://bi6xs4xauver1"
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uvu8j"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_61ost"]
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_om3iy"]
+content_margin_top = 0.0
+color = Color(1, 1, 1, 1)
+grow_begin = 3.0
+grow_end = -2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yh4o8"]
+
+[node name="PartnersSelector" type="Control" unique_id=1864976713 node_paths=PackedStringArray("containers")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fxqcd")
+containers = [NodePath("PanelContainer/MarginContainer/VBoxContainer/Selector"), NodePath("PanelContainer/MarginContainer/VBoxContainer/Behavior")]
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=931468307]
+custom_minimum_size = Vector2(240, 196)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -98.0
+offset_right = 120.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_o2kta")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=439341702]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=716801143]
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1659879826]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[better_wave freq=4 amp=2]PARTNERS SETUP![/better_wave]"
+fit_content = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_fxqcd")]
+visible_characters_behavior = 4
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1506950908]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1807598911]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uvu8j")
+
+[node name="CategorySelect" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1852375414]
+layout_mode = 2
+theme_override_constants/separation = -4
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/CategorySelect" unique_id=977895383]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="LeftArrow" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer" unique_id=1837797068]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◄"
+
+[node name="Category" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer" unique_id=602905905]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text = "options"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer/Category" unique_id=1759874242]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_61ost")
+
+[node name="RightArrow" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer" unique_id=335912178]
+unique_name_in_owner = true
+layout_mode = 2
+text = "►"
+
+[node name="Control2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1762679206]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="Selector" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=329459876 node_paths=PackedStringArray("options", "scroll_container")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_f1grw")
+category_name = "selector"
+options = [NodePath("ScrollContainer/PartnerList/CharacterChange"), NodePath("ScrollContainer/PartnerList/CharacterChange2")]
+scroll_container = NodePath("ScrollContainer")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=880586254]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="PartnerList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer" unique_id=1980483457 node_paths=PackedStringArray("myCategory")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_0yi2w")
+myCategory = NodePath("../..")
+
+[node name="CharacterChange" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" unique_id=1668701586 groups=["Options"] instance=ExtResource("6_jgugy")]
+layout_mode = 2
+settings_category = "mods_keyboard"
+action_names = ["swap_characters"]
+title = "KB-Swap Char"
+
+[node name="CharacterChange2" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" unique_id=1109484744 groups=["Options"] instance=ExtResource("6_jgugy")]
+layout_mode = 2
+settings_category = "mods_controller"
+action_names = ["swap_characters"]
+title = "Cont-Swap Char"
+type = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" unique_id=1138526328]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_om3iy")
+
+[node name="InputMapSaving" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" unique_id=1901128433 groups=["Options"]]
+script = ExtResource("7_s1e3b")
+
+[node name="InputMapSaving2" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" unique_id=752645030 groups=["Options"]]
+script = ExtResource("7_s1e3b")
+type = 1
+
+[node name="Behavior" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1555381676 node_paths=PackedStringArray("options", "description_node", "scroll_container")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_f1grw")
+category_name = "behavior"
+options = [NodePath("ScrollContainer/BehaviorList/SetAllTo")]
+description_node = NodePath("Description/AutoScrollContainer/MarginContainer/Desc")
+disappear_at = 1
+scroll_container = NodePath("ScrollContainer")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=2146773305]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="BehaviorList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer" unique_id=1865334781 node_paths=PackedStringArray("myCategory")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6_8amip")
+myCategory = NodePath("../..")
+
+[node name="SetAllTo" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList" unique_id=1412415357 groups=["Options"] instance=ExtResource("9_ytjg3")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList" unique_id=465237956]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_om3iy")
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=1441125437]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_om3iy")
+
+[node name="Description" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior" unique_id=355932300]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yh4o8")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior/Description" unique_id=86373228]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("10_r4yg6")
+direction = 1
+is_active = true
+auto_connect_focus = false
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior/Description/AutoScrollContainer" unique_id=1040483569]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -4
+
+[node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Behavior/Description/AutoScrollContainer/MarginContainer" unique_id=759280468]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 2
+uppercase = true
+
+[node name="ConfigSelector" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1328634363]
+unique_name_in_owner = true
+script = ExtResource("3_pw73r")
+
+[connection signal="closed" from="." to="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList/InputMapSaving" method="save_inputs"]
+[connection signal="closed" from="." to="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList/InputMapSaving2" method="save_inputs"]
+[connection signal="options_changed" from="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/PartnerList" to="PanelContainer/MarginContainer/VBoxContainer/Selector" method="update_options"]
+[connection signal="options_changed" from="PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList" to="PanelContainer/MarginContainer/VBoxContainer/Behavior" method="update_options"]
+[connection signal="decided" from="PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList/SetAllTo" to="PanelContainer/MarginContainer/VBoxContainer/Behavior/ScrollContainer/BehaviorList" method="on_decided"]

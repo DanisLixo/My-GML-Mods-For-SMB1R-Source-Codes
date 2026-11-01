@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bskm7d3gnc8pl"]
+
+[ext_resource type="StyleBox" uid="uid://comkghpj0djcl" path="res://Resources/UI/Panel.tres" id="1_6dt4i"]
+[ext_resource type="Script" uid="uid://bl3jxjalh4stw" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/LimitWarningPanel.gd" id="2_u2s6g"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_w2ljb"]
+color = Color(1, 1, 1, 1)
+
+[node name="LimitWarningPanel" type="PanelContainer" unique_id=916715577]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -51.0
+offset_right = 122.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = ExtResource("1_6dt4i")
+script = ExtResource("2_u2s6g")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1801165416]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=844385165]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "WARNING!!"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Label" unique_id=890939792]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_w2ljb")
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=2016570290]
+layout_mode = 2
+size_flags_vertical = 6
+text = "This mod can get REALLY laggy with too many partners following you. The limit exists because of that, watch out!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true

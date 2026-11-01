@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c64go5rovcygw"]
+
+[ext_resource type="Script" uid="uid://0k3q7nkd3hb0" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/PowerStates/SuperBall.gd" id="1_vn8ni"]
+
+[node name="SuperBall" type="Node"]
+script = ExtResource("1_vn8ni")
+state_name = "SuperBall"
+power_tier = 2
+hitbox_size = "Big"

@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://c7d0vbe81fow1"]
+
+[ext_resource type="Script" uid="uid://ch5n3hnlxo4t6" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/ListEditor.gd" id="1_mt8cy"]
+[ext_resource type="StyleBox" uid="uid://comkghpj0djcl" path="res://Resources/UI/Panel.tres" id="2_t8n38"]
+[ext_resource type="Script" uid="uid://hpm0gsftinhy" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/ListSelector.gd" id="3_3cgwc"]
+[ext_resource type="PackedScene" uid="uid://dyg4qqml0p0u2" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/Selectables/SelectableCharacterOption.tscn" id="3_mt8cy"]
+[ext_resource type="PackedScene" uid="uid://bhaekyi2jfwok" path="res://Scenes/Parts/SelectableOptionButton.tscn" id="4_3cgwc"]
+[ext_resource type="Script" uid="uid://bsub6d1owa0q2" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/ListNode.gd" id="5_mt8cy"]
+[ext_resource type="PackedScene" uid="uid://bqy0nm0h7f5sl" path="res://Scenes/Parts/DataDeletionNode.tscn" id="6_f4ub6"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uvu8j"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_om3iy"]
+content_margin_top = 0.0
+color = Color(1, 1, 1, 1)
+grow_begin = 3.0
+grow_end = -2.0
+
+[node name="PartnersSelector" type="Control" unique_id=1864976713]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mt8cy")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=931468307]
+custom_minimum_size = Vector2(240, 196)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -98.0
+offset_right = 120.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_t8n38")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=439341702]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=716801143]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2112378974]
+layout_mode = 2
+text = "List editor"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 4
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1506950908]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1807598911]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uvu8j")
+
+[node name="Selector" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=329459876 node_paths=PackedStringArray("options", "scroll_container")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_3cgwc")
+options = [NodePath("AddCharacter"), NodePath("RemoveFromList"), NodePath("ClearList")]
+minimum_idx = 0
+scroll_container = NodePath("ScrollContainer")
+
+[node name="AddCharacter" parent="PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=120713357 instance=ExtResource("3_mt8cy")]
+layout_mode = 2
+title = "Add Character"
+
+[node name="RemoveFromList" parent="PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=103761395 instance=ExtResource("4_3cgwc")]
+layout_mode = 2
+title = "Remove character from list"
+press_sfx = ""
+
+[node name="ClearList" parent="PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=1412415357 instance=ExtResource("6_f4ub6")]
+layout_mode = 2
+title = "Clear list"
+campaigns = Array[String](["Remove all"])
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=880586254]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+follow_focus = true
+horizontal_scroll_mode = 0
+scroll_horizontal_by_default = true
+
+[node name="List" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer" unique_id=1980483457]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/List" unique_id=1138526328]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_om3iy")
+
+[node name="NoCharas" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Selector/ScrollContainer/List" unique_id=1291923749]
+unique_name_in_owner = true
+layout_mode = 2
+text = "no characters here!"
+horizontal_alignment = 1
+autowrap_mode = 2
+uppercase = true
+
+[node name="ListNode" type="Node" parent="PanelContainer/MarginContainer/VBoxContainer/Selector" unique_id=8122095]
+unique_name_in_owner = true
+script = ExtResource("5_mt8cy")
+
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Selector/AddCharacter" to="PanelContainer/MarginContainer/VBoxContainer/Selector/ListNode" method="add_to_list"]
+[connection signal="button_pressed" from="PanelContainer/MarginContainer/VBoxContainer/Selector/RemoveFromList" to="PanelContainer/MarginContainer/VBoxContainer/Selector" method="on_remove_pressed"]
+[connection signal="deleted" from="PanelContainer/MarginContainer/VBoxContainer/Selector/ClearList" to="PanelContainer/MarginContainer/VBoxContainer/Selector/ListNode" method="on_clear_list"]

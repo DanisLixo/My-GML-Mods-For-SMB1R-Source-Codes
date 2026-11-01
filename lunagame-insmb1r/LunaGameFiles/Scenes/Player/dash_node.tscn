@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm3iaw64d4ecv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_33pbv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"Move",
+"speed": 10.0
+}]
+
+[node name="dash_node" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_33pbv")
+animation = &"Move"
+autoplay = "Idle"
+frame_progress = 0.64617

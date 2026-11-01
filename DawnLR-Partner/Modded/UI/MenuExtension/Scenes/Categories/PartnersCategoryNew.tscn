@@ -1,0 +1,300 @@
+[gd_scene format=3 uid="uid://4mppax805now"]
+
+[ext_resource type="Script" uid="uid://c20uihekmqmqs" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/PartnerSettingsCategory.gd" id="1_8bd2s"]
+[ext_resource type="PackedScene" uid="uid://dbvy0rhwpv4w4" path="res://Scenes/Parts/SelectableOptionNode.tscn" id="2_ohcg0"]
+[ext_resource type="Script" uid="uid://c0i2eqnddgmvt" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Selectables/PartnerSelectableOptionNode.gd" id="3_2ymnb"]
+[ext_resource type="PackedScene" uid="uid://ccabvf866y58q" path="res://Scenes/Parts/SelectableNumberNode.tscn" id="4_3x5s1"]
+[ext_resource type="Script" uid="uid://dx72r52jqaujb" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Selectables/PartnerSelectableNumberNode.gd" id="5_ug7ka"]
+[ext_resource type="Script" uid="uid://c0y8v7a3hybcf" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/AmountLimitHandler.gd" id="6_hitin"]
+[ext_resource type="PackedScene" uid="uid://bhaekyi2jfwok" path="res://Scenes/Parts/SelectableOptionButton.tscn" id="7_332j2"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="8_i2cvi"]
+[ext_resource type="Script" uid="uid://bbo7yu1ey8ns8" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Appliers/ConfigApplier.gd" id="9_80w3e"]
+
+[sub_resource type="GDScript" id="GDScript_34jd6"]
+script/source = "extends Node
+
+@export var warning_label: Label
+
+var text := \"OOPS! SEEMS LIKE IT's STILL IN DEVELOPMENT!\"
+
+func on_value_changed(_new_value: Variant) -> void:
+	if (get_parent().selected_index == 1):
+		AudioManager.play_global_sfx(\"bump\")
+		
+		get_parent().selected_index = 0
+		get_parent().value_changed.emit(0)
+		
+		show_label()
+
+func show_label() -> void:
+	if warning_label != null:
+		warning_label.self_modulate = Color.RED
+		
+		var before = get_parent().value_descs[0]
+		
+		get_parent().value_descs[0] = text
+		await get_tree().create_timer(2.0, true).timeout
+		get_parent().value_descs[0] = before
+		warning_label.self_modulate = Color.WHITE
+"
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_4t6np"]
+content_margin_top = 0.0
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0q10x"]
+
+[node name="PartnersSettingsMenuNew" type="VBoxContainer" unique_id=833593939 node_paths=PackedStringArray("options", "description_node", "scroll_container")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_8bd2s")
+category_name = "partners mod"
+options = [NodePath("ScrollContainer/Settings/PartnerFollowMode"), NodePath("ScrollContainer/Settings/EnemyDelay"), NodePath("ScrollContainer/Settings/UnlockLimit"), NodePath("ScrollContainer/Settings/PartnersAmount"), NodePath("ScrollContainer/Settings/PartnersSetup"), NodePath("ScrollContainer/Settings/CPU/PowerUpExclusive"), NodePath("ScrollContainer/Settings/CPU/PermanentSizeCPU"), NodePath("ScrollContainer/Settings/CPU/MutedCPU"), NodePath("ScrollContainer/Settings/CPU/ApplyCharacterPhysics"), NodePath("ScrollContainer/Settings/CPU/RespawnTime"), NodePath("ScrollContainer/Settings/COPY/PermanentSizeCopy"), NodePath("ScrollContainer/Settings/COPY/MutedCopy")]
+description_node = NodePath("Description/AutoScrollContainer/MarginContainer/Desc")
+scroll_container = NodePath("ScrollContainer")
+
+[node name="Control" type="Control" parent="." unique_id=625957116]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1418803621]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 3
+scroll_hint_mode = 3
+
+[node name="Settings" type="VBoxContainer" parent="ScrollContainer" unique_id=1533863912]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = -4
+
+[node name="PartnerFollowMode" parent="ScrollContainer/Settings" unique_id=215292564 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+option_key = "follow_mode"
+title = "FOLLOW MODE"
+value_descs = Array[String](["PARTNERS FOLLOW YOU USING COMPUTER INPUTS.", "PARTNERS FOLLOW YOU USING A COPY OF YOUR MOVEMENTS. WITH SLIGHT DELAY."])
+values = ["CPU", "COPY MOVES"]
+settings_category = "partners"
+
+[node name="Node" type="Node" parent="ScrollContainer/Settings/PartnerFollowMode" unique_id=1063798130 node_paths=PackedStringArray("warning_label")]
+script = SubResource("GDScript_34jd6")
+warning_label = NodePath("../../../../Description/AutoScrollContainer/MarginContainer/Desc")
+
+[node name="EnemyDelay" parent="ScrollContainer/Settings" unique_id=1500174924 groups=["Options"] instance=ExtResource("4_3x5s1")]
+layout_mode = 2
+script = ExtResource("5_ug7ka")
+settings_category = "partners"
+option_key = "enemy_spawn_delay"
+title = "ENEMIES SPAWN DELAY"
+extraInfo = "SECONDS"
+value_descs = "TIME IN SECONDS FOR ENEMIES TO SPAWN."
+minimum = 0.0
+maximum = 30.0
+
+[node name="UnlockLimit" parent="ScrollContainer/Settings" unique_id=1287060004 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+option_key = "unlock_limit"
+title = "UNLOCK AMOUNT LIMIT"
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "partners"
+
+[node name="PartnersAmount" parent="ScrollContainer/Settings" unique_id=1056089136 groups=["Options"] instance=ExtResource("4_3x5s1")]
+layout_mode = 2
+script = ExtResource("5_ug7ka")
+selectMode = 1
+settings_category = "partners"
+option_key = "amount"
+title = "PARTNERS AMOUNT"
+extraInfo = "PARTNERS"
+minimum = 0.0
+maximum = 7.0
+step = 1.0
+
+[node name="AmountLimitHandler" type="Node" parent="ScrollContainer/Settings/PartnersAmount" unique_id=277162418 node_paths=PackedStringArray("amount_node")]
+script = ExtResource("6_hitin")
+amount_node = NodePath("..")
+
+[node name="PartnersSetup" parent="ScrollContainer/Settings" unique_id=103761395 groups=["Options"] instance=ExtResource("7_332j2")]
+layout_mode = 2
+title = "OPEN PARTNERS SETUP"
+
+[node name="CPU" type="VBoxContainer" parent="ScrollContainer/Settings" unique_id=84630742]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/Settings/CPU" unique_id=574453861]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="ScrollContainer/Settings/CPU/MarginContainer" unique_id=471532310]
+layout_mode = 2
+text = "CPU OPTIONS"
+vertical_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/Settings/CPU/MarginContainer/Label" unique_id=305337845]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_4t6np")
+
+[node name="PowerUpExclusive" parent="ScrollContainer/Settings/CPU" unique_id=953011632 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+script = ExtResource("3_2ymnb")
+settings_category = "partners"
+option_key = "power_up_exclusivity"
+title = "POWER UP EXCLUSIVITY"
+values = ["SETTING_OFF", "SETTING_ON"]
+value_descs = Array[String](["ALL CHARACTERS WILL SHARE THE SAME POWER UP STATE.", "PARTNERS WILL NOT SHARE POWER UP STATE AND KEEP THE POWER UP TO THEMSELVES."])
+
+[node name="PermanentSizeCPU" parent="ScrollContainer/Settings/CPU" unique_id=750039716 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+script = ExtResource("3_2ymnb")
+settings_category = "partners"
+option_key = "cpu_permanent_size"
+title = "PERMANENT SIZE"
+values = ["SETTING_OFF", "SMALL", "BIG"]
+value_descs = Array[String](["PARTNERS CAN CHANGE THEIR SIZE WHEN POWERED UP.", "PARTNERS WILL STAY SMALL EVEN WHEN GRABBING A FIRE FLOWER.", "PARTNERS WILL STAY BIG EVEN WHEN YOU ARE SMALL."])
+
+[node name="MutedCPU" parent="ScrollContainer/Settings/CPU" unique_id=1873469038 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+script = ExtResource("3_2ymnb")
+settings_category = "partners"
+option_key = "cpu_muted"
+title = "MUTED"
+values = ["SETTING_OFF", "PARTIALLY", "FULL"]
+value_descs = Array[String](["PARTNERS WILL MAKE SOUNDS, JUST SLIGHTLY QUIETER.", "PARTNERS WILL NOT PRODUCE SOME SOUNDS.", "PARTNERS WILL NOT PRODUCE SOUND AT ALL. (BUGGY)"])
+
+[node name="ApplyCharacterPhysics" parent="ScrollContainer/Settings/CPU" unique_id=1268344814 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+script = ExtResource("3_2ymnb")
+settings_category = "partners"
+option_key = "apply_physics"
+title = "APPLY PHYSICS TO PARTNERS"
+values = ["SETTING_OFF", "SETTING_ON", "LEADER"]
+value_descs = Array[String](["PARTNERS KEEP THE VANILLA PHYSICS WITH NO ALTERATION.", "PARTNERS WILL HAVE THE CHARACTER'S PHYSICS.", "PARTNERS WILL HAVE THE SAME PHYSICS AS THE PLAYER."])
+
+[node name="RespawnTime" parent="ScrollContainer/Settings/CPU" unique_id=1719685355 groups=["Options"] instance=ExtResource("4_3x5s1")]
+layout_mode = 2
+script = ExtResource("5_ug7ka")
+settings_category = "partners"
+option_key = "respawn_time"
+title = "RESPAWN TIME"
+extraInfo = "SECONDS"
+value_descs = "TIME IN SECONDS FOR YOUR PARTNERS TO RESPAWN BEHIND YOUR BACK"
+minimum = 0.0
+maximum = 30.0
+
+[node name="COPY" type="VBoxContainer" parent="ScrollContainer/Settings" unique_id=1555770314]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/Settings/COPY" unique_id=524947428]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="ScrollContainer/Settings/COPY/MarginContainer" unique_id=746024151]
+layout_mode = 2
+text = "COPY OPTIONS"
+vertical_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/Settings/COPY/MarginContainer/Label" unique_id=282380027]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_4t6np")
+
+[node name="PermanentSizeCopy" parent="ScrollContainer/Settings/COPY" unique_id=1252122870 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+script = ExtResource("3_2ymnb")
+settings_category = "partners"
+option_key = "copy_permanent_size"
+title = "PERMANENT SIZE"
+values = ["SETTING_OFF", "SMALL", "BIG"]
+value_descs = Array[String](["PARTNERS CAN CHANGE THEIR SIZE WHEN POWERED UP.", "PARTNERS WILL STAY SMALL EVEN WHEN GRABBING A FIRE FLOWER.", "PARTNERS WILL STAY BIG EVEN WHEN YOU ARE SMALL."])
+
+[node name="MutedCopy" parent="ScrollContainer/Settings/COPY" unique_id=2085289599 groups=["Options"] instance=ExtResource("2_ohcg0")]
+layout_mode = 2
+script = ExtResource("3_2ymnb")
+settings_category = "partners"
+option_key = "copy_muted"
+title = "MUTED"
+values = ["SETTING_OFF", "SETTING_ON"]
+value_descs = Array[String](["PARTNERS WILL MAKE SOUNDS, JUST SLIGHTLY QUIETER.", "PARTNERS WILL NOT PRODUCE SOUND AT ALL."])
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=869309732]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_4t6np")
+
+[node name="Description" type="PanelContainer" parent="." unique_id=1662122095]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0q10x")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="Description" unique_id=603258393]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("8_i2cvi")
+direction = 1
+is_active = true
+auto_connect_focus = false
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="MarginContainer" type="MarginContainer" parent="Description/AutoScrollContainer" unique_id=1820487077]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -4
+
+[node name="Desc" type="Label" parent="Description/AutoScrollContainer/MarginContainer" unique_id=482973686]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 2
+uppercase = true
+
+[node name="ConfigApplier" type="Node" parent="." unique_id=1188823009]
+script = ExtResource("9_80w3e")
+
+[connection signal="value_changed" from="ScrollContainer/Settings/PartnerFollowMode" to="." method="update_options"]
+[connection signal="value_changed" from="ScrollContainer/Settings/PartnerFollowMode" to="ScrollContainer/Settings/PartnerFollowMode/Node" method="on_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/PartnerFollowMode" to="ConfigApplier" method="partner_follow_mode_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/EnemyDelay" to="ConfigApplier" method="enemy_spawn_delay_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/UnlockLimit" to="." method="show_limit_warning"]
+[connection signal="value_changed" from="ScrollContainer/Settings/UnlockLimit" to="ScrollContainer/Settings/PartnersAmount/AmountLimitHandler" method="limit_toggled"]
+[connection signal="value_changed" from="ScrollContainer/Settings/UnlockLimit" to="ConfigApplier" method="unlock_limit_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/PartnersAmount" to="." method="amount_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/PartnersAmount" to="ConfigApplier" method="partners_amount_changed"]
+[connection signal="button_pressed" from="ScrollContainer/Settings/PartnersSetup" to="." method="show_setup_menu"]
+[connection signal="value_changed" from="ScrollContainer/Settings/CPU/PowerUpExclusive" to="ConfigApplier" method="power_up_exclusivity_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/CPU/PermanentSizeCPU" to="ConfigApplier" method="permanent_size_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/CPU/MutedCPU" to="ConfigApplier" method="muted_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/CPU/ApplyCharacterPhysics" to="ConfigApplier" method="apply_partner_physics_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/CPU/RespawnTime" to="ConfigApplier" method="respawn_time_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/COPY/PermanentSizeCopy" to="ConfigApplier" method="copy_permanent_size_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/COPY/MutedCopy" to="ConfigApplier" method="copy_muted_changed"]

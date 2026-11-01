@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://2vbd4a7bg8je"]
+
+[ext_resource type="Script" uid="uid://dlnxr546jm84p" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/pause.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://cluthy6jutypp" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/Pause.wav" id="2"]
+[ext_resource type="FontFile" uid="uid://bkb0jvkkb4asf" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Emulogic-zrEw.ttf" id="3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8hsbq"]
+line_spacing = -2.0
+font = ExtResource("3")
+outline_size = 5
+outline_color = Color(1, 0, 0.501961, 1)
+shadow_size = 0
+shadow_color = Color(1, 0, 0.501961, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pjo2v"]
+line_spacing = -2.0
+font = ExtResource("3")
+font_size = 8
+shadow_size = 0
+shadow_color = Color(0.364706, 0.223529, 0.654902, 1)
+
+[node name="Pauser" type="CanvasLayer" unique_id=297462593]
+process_mode = 3
+script = ExtResource("1")
+
+[node name="Paused" type="AudioStreamPlayer2D" parent="." unique_id=525747045]
+stream = ExtResource("2")
+volume_db = 3.333
+pitch_scale = 1.31
+max_distance = 1000000000000.0
+attenuation = 1.57968e-05
+panning_strength = 0.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=39953178]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.00235525, 0.0665367, 0.443137)
+metadata/_edit_use_anchors_ = true
+
+[node name="Pause" type="Control" parent="." unique_id=1586074086]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseText" type="Label" parent="Pause" unique_id=903519681]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.125
+anchor_right = 1.125
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "- GAME PAUSED -
+
+
+"
+label_settings = SubResource("LabelSettings_8hsbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseText2" type="Label" parent="Pause" unique_id=786605333]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.125
+anchor_right = 1.125
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+
+
+
+
+
+
+Press ACTION for clear view"
+label_settings = SubResource("LabelSettings_pjo2v")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseText3" type="Label" parent="Pause" unique_id=1683070079]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.125
+anchor_top = 0.12916666
+anchor_right = 1.125
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+
+
+
+
+
+
+Press ALT to return to SMB1R"
+label_settings = SubResource("LabelSettings_pjo2v")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+metadata/_edit_use_anchors_ = true

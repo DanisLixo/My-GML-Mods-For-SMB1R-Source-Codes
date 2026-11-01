@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dj8bmtmfn3ik4"]
+
+[ext_resource type="Script" uid="uid://clvfs58daqf1m" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Parts/LevelTransitionPartnersList.gd" id="1_cg6p8"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="2_kp43f"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="3_l4gom"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_34jd6"]
+color = Color(1, 1, 1, 1)
+
+[node name="LevelTransitionPartnersList" type="Control" unique_id=1019008442]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cg6p8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=775924945]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -68.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="Partners" type="Label" parent="VBoxContainer" unique_id=259512037]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Partners"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Partners" unique_id=1174881335]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_34jd6")
+
+[node name="PartnersFlow" type="HFlowContainer" parent="VBoxContainer" unique_id=75606015]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Enemies" type="Label" parent="VBoxContainer" unique_id=1902656815]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Enemies"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Enemies" unique_id=1841349894]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_34jd6")
+
+[node name="EnemiesFlow" type="HFlowContainer" parent="VBoxContainer" unique_id=414050355]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=341342947 node_paths=PackedStringArray("labels")]
+script = ExtResource("2_kp43f")
+labels = [NodePath("../VBoxContainer/Partners"), NodePath("../VBoxContainer/Enemies")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="TextShadowColourChanger" type="Node" parent="." unique_id=1909485185 node_paths=PackedStringArray("labels")]
+script = ExtResource("3_l4gom")
+labels = [NodePath("../VBoxContainer/Partners"), NodePath("../VBoxContainer/Enemies")]
+metadata/_custom_type_script = "uid://dt2p68xl462v2"

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://duyl0gs6131hr"
+path="res://.godot/imported/devious chuckle.wav-bc1a23451facd98056c7a74cfad8a609.sample"
+
+[deps]
+
+source_file="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/devious chuckle.wav"
+dest_files=["res://.godot/imported/devious chuckle.wav-bc1a23451facd98056c7a74cfad8a609.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=48000
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0

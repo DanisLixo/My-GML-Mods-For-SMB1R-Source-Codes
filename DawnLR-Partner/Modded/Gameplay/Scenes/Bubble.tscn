@@ -1,0 +1,280 @@
+[gd_scene format=3 uid="uid://d1prs1s5cofi8"]
+
+[ext_resource type="Texture2D" uid="uid://uddsl8hud65l" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Bubble.png" id="1_6245m"]
+[ext_resource type="Script" uid="uid://cjln7kgotnneo" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Classes/Entities/Bubble.gd" id="1_qr6kk"]
+[ext_resource type="Script" uid="uid://364rywt44hy6" path="res://Scripts/Classes/UI/PackSprite.gd" id="3_55lo3"]
+[ext_resource type="Texture2D" uid="uid://drortr6imgkjp" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/EnemyFlag.png" id="6_g8725"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="6_p2vuw"]
+[ext_resource type="Texture2D" uid="uid://e0voy262nd05" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/BubbleTimerIcon.png" id="7_p2vuw"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="7_rag6q"]
+
+[sub_resource type="Animation" id="Animation_qr6kk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scaleAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_55lo3"]
+resource_name = "new_animation"
+length = 2.0
+loop_mode = 1
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scaleAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.95, 1.05), Vector2(1, 1), Vector2(1.05, 0.95), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5fnvr"]
+_data = {
+&"RESET": SubResource("Animation_qr6kk"),
+&"new_animation": SubResource("Animation_55lo3")
+}
+
+[sub_resource type="GDScript" id="GDScript_g8725"]
+script/source = "extends TimerSprite
+
+@export var node: Node2D
+
+func _process(_delta: float) -> void:
+	if (node == null):
+		return
+	var value = node.get(value_name)
+	var percent = inverse_lerp(max_value, 0, value)
+	percent = clamp(percent, 0, 1)
+	frame = lerp(0, 6, percent)
+	if (threshold_type == 0 and percent >= warn_threshold) or (threshold_type == 1 and value <= warn_threshold) and Settings.file.audio.extra_sfx == 1:
+		if can_warn and percent > 0 and percent < 1:
+			can_warn = false
+			AudioManager.play_global_sfx(\"timer_warning\")
+	else:
+		can_warn = true
+"
+
+[sub_resource type="GDScript" id="GDScript_p2vuw"]
+script/source = "extends Label
+
+@export var parent: Control
+@export var timer: Node
+@export var valueName := \"\"
+
+func _process(delta: float) -> void:
+	if (timer == null): return
+	var value = timer.get(valueName)
+	
+	text = str(snappedf(value, 0.1))
+"
+
+[sub_resource type="Animation" id="Animation_g8725"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p2vuw"]
+resource_name = "enter"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-64, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rag6q"]
+_data = {
+&"RESET": SubResource("Animation_g8725"),
+&"enter": SubResource("Animation_p2vuw")
+}
+
+[sub_resource type="GDScript" id="GDScript_5fnvr"]
+script/source = "extends Node
+
+@export var length := 80
+
+var currentRotation := 0.0
+
+func _physics_process(delta: float) -> void:
+	# I grabbed this from the BooBuddies script but I made some adjustments
+	var amount = owner.icons.size()
+	var spread = (360 / amount)
+	
+	currentRotation = wrap(currentRotation + (45 * [1, -1][1]) * delta, 0, 360)
+	
+	var idx := 0
+	for i in owner.icons:
+		if is_instance_valid(i) == false:
+			idx += 1
+			continue
+		i.show()
+		# Position if there's only one
+		if (amount == 1):
+			owner.scaleMultiplier = Vector2(0.5, 0.5)
+			i.global_position = $\"../Icons\".global_position
+			continue
+		# Position for the first four
+		if (idx < 4):
+			owner.scaleMultiplier = Vector2(0.75, 0.75)
+			var real_amount = clampi(amount, 2, 4)
+			spread = (360 / real_amount)
+			if idx < amount:
+				i.global_position = $\"../Icons\".global_position + Vector2.from_angle(deg_to_rad(currentRotation + (spread * idx))).normalized() * (length - 10)
+			else:
+				i.global_position = Vector2(-999, 999)
+		# Yeah
+		else:
+			spread = (360 / (amount - 4))
+			if idx < amount:
+				i.global_position = $\"../Icons\".global_position + Vector2.from_angle(deg_to_rad(currentRotation + (spread * (idx - 3)))).normalized() * length
+			else:
+				i.global_position = Vector2(-999, 999)
+		idx += 1
+"
+
+[node name="Bubble" type="Node2D" unique_id=1345400567]
+script = ExtResource("1_qr6kk")
+
+[node name="Icons" type="Node2D" parent="." unique_id=1680155898]
+position = Vector2(0, -16)
+
+[node name="Bubble" type="Sprite2D" parent="." unique_id=1862525656]
+position = Vector2(0, -16)
+texture = ExtResource("1_6245m")
+script = ExtResource("3_55lo3")
+metadata/_custom_type_script = "uid://364rywt44hy6"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bubble" unique_id=1620362390]
+libraries/ = SubResource("AnimationLibrary_5fnvr")
+autoplay = &"new_animation"
+
+[node name="Label" type="Label" parent="." unique_id=1187542676]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = -70.0
+offset_right = 16.0
+offset_bottom = -54.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "5.0"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1298168189]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1018173995]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = -257.00006
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=833953381]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 64.0
+grow_vertical = 0
+texture = ExtResource("6_g8725")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1556769151]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -16.0
+offset_right = 48.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/HBoxContainer" unique_id=1384948494]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpawnTimeSprite" type="Sprite2D" parent="CanvasLayer/Control/HBoxContainer/Control" unique_id=1320126516 node_paths=PackedStringArray("node")]
+texture = ExtResource("7_p2vuw")
+centered = false
+hframes = 7
+region_enabled = true
+region_rect = Rect2(0, 0, 56, 8)
+script = SubResource("GDScript_g8725")
+node = NodePath("../../../../..")
+value_name = "spawnTime"
+metadata/_custom_type_script = "uid://dn5efttgugwvb"
+
+[node name="SpawnTimeLabel" type="Label" parent="CanvasLayer/Control/HBoxContainer" unique_id=194285448 node_paths=PackedStringArray("parent", "timer")]
+layout_mode = 2
+text = "5.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_p2vuw")
+parent = NodePath("../..")
+timer = NodePath("../../../..")
+valueName = "spawnTime"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=1562220299]
+libraries/ = SubResource("AnimationLibrary_rag6q")
+autoplay = &"RESET"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=134284146]
+position = Vector2(-3, -62)
+rect = Rect2(-10, -10, 10, 17)
+
+[node name="IconPositioner" type="Node" parent="." unique_id=832345470]
+script = SubResource("GDScript_5fnvr")
+length = 16
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=693179034 node_paths=PackedStringArray("labels")]
+script = ExtResource("6_p2vuw")
+labels = [NodePath("../CanvasLayer/Control/HBoxContainer/SpawnTimeLabel"), NodePath("../Label")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="TextShadowColourChanger" type="Node" parent="." unique_id=780489244 node_paths=PackedStringArray("labels")]
+script = ExtResource("7_rag6q")
+labels = [NodePath("../CanvasLayer/Control/HBoxContainer/SpawnTimeLabel"), NodePath("../Label")]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="on_screen"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="off_screen"]

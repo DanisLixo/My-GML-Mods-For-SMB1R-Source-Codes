@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cmf7j3ckqlhn3"]
+
+[ext_resource type="Texture2D" uid="uid://bc524vjobda4t" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/luna-health.png" id="1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_suayv"]
+
+[node name="CContainer" type="Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_suayv")
+
+[node name="Crescent" type="Sprite2D" parent="."]
+position = Vector2(7, 7)
+texture = ExtResource("1")
+
+[node name="Crescent" type="Sprite2D" parent="Crescent"]
+position = Vector2(16, 0)
+texture = ExtResource("1")
+
+[node name="Crescent" type="Sprite2D" parent="Crescent/Crescent"]
+position = Vector2(16, 0)
+texture = ExtResource("1")
+
+[node name="Crescent" type="Sprite2D" parent="Crescent/Crescent/Crescent"]
+position = Vector2(16, 0)
+texture = ExtResource("1")

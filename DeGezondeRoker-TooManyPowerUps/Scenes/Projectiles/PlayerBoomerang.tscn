@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d03ycd7rgos21"]
+
+[ext_resource type="Script" uid="uid://0idfq8s12tum" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/Projectiles/PlayerBoomerang.gd" id="1_8fl0a"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_mue3k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajyso"]
+size = Vector2(6, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dhdpv"]
+radius = 8.0
+
+[node name="PlayerBoomerang" type="CharacterBody2D" unique_id=905875063]
+collision_layer = 0
+collision_mask = 2
+slide_on_ceiling = false
+script = ExtResource("1_8fl0a")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=430339458]
+z_index = 2
+
+[node name="ResourceSetter" type="Node" parent="Sprite" unique_id=669820330 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_mue3k")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/ModdedItems/PlayerBoomerang.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=314236882]
+shape = SubResource("RectangleShape2D_ajyso")
+disabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=945297709]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=886020816]
+shape = SubResource("CircleShape2D_dhdpv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=89210773]
+rect = Rect2(-10, -10, 20, 116)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]

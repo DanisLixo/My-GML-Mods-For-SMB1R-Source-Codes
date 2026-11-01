@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://6xj7uber0yso"]
+
+[ext_resource type="Script" uid="uid://bdjv16qmjxky8" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/Projectiles/Turnip.gd" id="1_wkxjy"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_t6eol"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajyso"]
+size = Vector2(6, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dhdpv"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkxjy"]
+size = Vector2(16, 16)
+
+[node name="Turnip" type="CharacterBody2D" unique_id=345628964]
+collision_layer = 0
+collision_mask = 2
+slide_on_ceiling = false
+script = ExtResource("1_wkxjy")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=9044075]
+z_index = 2
+
+[node name="ResourceSetter" type="Node" parent="Sprite" unique_id=1599489701 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_t6eol")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/ModdedItems/Turnip.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=697091903]
+shape = SubResource("RectangleShape2D_ajyso")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2061821626]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1882379506]
+shape = SubResource("CircleShape2D_dhdpv")
+
+[node name="BlockHitbox" type="Area2D" parent="." unique_id=1476410216]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockHitbox" unique_id=940640710]
+shape = SubResource("RectangleShape2D_wkxjy")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1696592263]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]

@@ -1,0 +1,181 @@
+[gd_scene format=3 uid="uid://whhymm1pkvi5"]
+
+[ext_resource type="Script" uid="uid://btj5rpip076lg" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/end_screen.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://biklqfbds1m6q" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/luna_eepy.png" id="2"]
+[ext_resource type="FontFile" uid="uid://bkb0jvkkb4asf" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Emulogic-zrEw.ttf" id="3"]
+[ext_resource type="AudioStream" uid="uid://dudtxcke7rkht" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/Music/Dark (sleepy time version).wav" id="4"]
+[ext_resource type="Script" uid="uid://c6xt4jd6ndhoh" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/music.gd" id="5"]
+[ext_resource type="AudioStream" uid="uid://dn83x7kxmi2n4" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/Star Grab.wav" id="6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4dub"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5jof"]
+atlas = ExtResource("2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lgal3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4dub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5jof")
+}],
+"loop": 1,
+"name": &"Eeper",
+"speed": 2.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jg12e"]
+line_spacing = -2.0
+font = ExtResource("3")
+outline_size = 5
+outline_color = Color(1, 0, 0.501961, 1)
+shadow_size = 0
+shadow_color = Color(1, 0, 0.501961, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r0wdo"]
+line_spacing = -2.0
+font = ExtResource("3")
+font_size = 8
+shadow_size = 0
+shadow_color = Color(0.780392, 0.227451, 0.611765, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xy3l7"]
+line_spacing = -2.0
+font = ExtResource("3")
+font_size = 8
+font_color = Color(0.937255, 0.521569, 0.803922, 1)
+outline_color = Color(0.937255, 0.521569, 0.803922, 1)
+shadow_size = 0
+shadow_color = Color(0.364706, 0.223529, 0.654902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qtbls"]
+line_spacing = -2.0
+font = ExtResource("3")
+font_size = 8
+font_color = Color(0.780392, 0.227451, 0.611765, 1)
+shadow_size = 0
+shadow_color = Color(0.172549, 0.184314, 0.27451, 1)
+
+[node name="Menu" type="Node" unique_id=1065533217]
+script = ExtResource("1")
+
+[node name="Sleepy Luna" type="AnimatedSprite2D" parent="." unique_id=1213665835]
+position = Vector2(165, 194)
+sprite_frames = SubResource("SpriteFrames_lgal3")
+animation = &"Eeper"
+autoplay = "Eeper"
+frame_progress = 0.437379
+
+[node name="Title" type="Label" parent="." unique_id=1354872763]
+offset_top = 15.0
+offset_right = 320.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(1, 0.73794, 0.860238, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Thanks for playing"
+label_settings = SubResource("LabelSettings_jg12e")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Version" type="Label" parent="." unique_id=1142648848]
+offset_top = 56.0
+offset_right = 320.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(1, 0.73794, 0.860238, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Sorry the end was so sudden"
+label_settings = SubResource("LabelSettings_r0wdo")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Lunaduction" type="Label" parent="." unique_id=121042987]
+offset_top = 97.0
+offset_right = 320.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(1, 0.73794, 0.860238, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "This placeholder screen was put in
+place in case i don't finish the
+story cards before the deadline.
+
+A game of this type 
+does need an end screen of some sort."
+label_settings = SubResource("LabelSettings_xy3l7")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Instructions" type="Label" parent="." unique_id=363275035]
+offset_top = 150.0
+offset_right = 320.0
+offset_bottom = 240.0
+theme_override_colors/font_color = Color(1, 0.73794, 0.860238, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "You're free to return to SMB1R.
+
+
+
+
+
+
+Or you can Press start to go back
+and keep racking up your score!"
+label_settings = SubResource("LabelSettings_qtbls")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1772477715]
+stream = ExtResource("4")
+volume_db = -5.0
+pitch_scale = 0.75
+script = ExtResource("5")
+
+[node name="StartDelay" type="Timer" parent="." unique_id=756606930]
+wait_time = 3.0
+one_shot = true
+
+[node name="EndDelay" type="Timer" parent="." unique_id=253913893]
+
+[node name="StartGame" type="AudioStreamPlayer2D" parent="." unique_id=419274617]
+visible = false
+position = Vector2(160, 120)
+stream = ExtResource("6")
+volume_db = 10.0
+pitch_scale = 0.44
+
+[node name="Control" type="Control" parent="." unique_id=1633671921]
+z_index = -16
+layout_mode = 3
+anchors_preset = 0
+offset_left = -170.0
+offset_top = -317.0
+offset_right = 404.0
+offset_bottom = 220.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1117799068]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 118.0
+offset_right = 8.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="timeout" from="StartDelay" to="." method="_on_start_delay_timeout"]
+[connection signal="timeout" from="EndDelay" to="." method="_on_end_delay_timeout"]

@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://lxbqg63q1v2e"]
+
+[ext_resource type="Script" uid="uid://cbmjlqulmc1dl" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/Objects/collectible.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://3kt5i2jd77ek" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/lunacollectibles.png" id="2"]
+[ext_resource type="AudioStream" uid="uid://dn83x7kxmi2n4" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/Star Grab.wav" id="3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thqhn"]
+atlas = ExtResource("2")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vngjs"]
+atlas = ExtResource("2")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4ddt"]
+atlas = ExtResource("2")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4c6v"]
+atlas = ExtResource("2")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8h1h2"]
+atlas = ExtResource("2")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trc1q"]
+atlas = ExtResource("2")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj8ot"]
+atlas = ExtResource("2")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_okj7j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thqhn")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vngjs")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4ddt")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Collect",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4c6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8h1h2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trc1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj8ot")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqy6x"]
+size = Vector2(10, 10)
+
+[node name="Collectible" type="Area2D"]
+script = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_okj7j")
+autoplay = "default"
+frame_progress = 0.0972028
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uqy6x")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3")
+volume_db = 6.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

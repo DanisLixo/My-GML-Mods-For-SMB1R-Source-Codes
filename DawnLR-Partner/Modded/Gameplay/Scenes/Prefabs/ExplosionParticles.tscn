@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cc2yqq6lle16f"]
+
+[ext_resource type="Shader" uid="uid://j44aqhf4xupk" path="res://mods-unpacked/DawnLR-Partner/Assets/PartnerSpriteShader.gdshader" id="1_hmnfp"]
+[ext_resource type="Texture2D" uid="uid://bk7g57rbgh2vr" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/CosmicSparkle.png" id="2_g0w1y"]
+[ext_resource type="Texture2D" uid="uid://bue4tdmvjmfjj" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Players/CosmicGradient.png" id="4_h4ep6"]
+[ext_resource type="Script" uid="uid://bsdhwp2di7nlq" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Parts/GradientSetter.gd.gd" id="5_v4si5"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="6_k04op"]
+[ext_resource type="JSON" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Players/CosmicGradient.json" id="7_87rpx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxc7w"]
+shader = ExtResource("1_hmnfp")
+shader_parameter/mix_amount = 1.0
+shader_parameter/mode = 0
+shader_parameter/speed = 50.0
+shader_parameter/enabled = false
+shader_parameter/palette_size = 3.0
+shader_parameter/palette_height = 4.0
+shader_parameter/palette_idx = 0
+shader_parameter/invincible_palette_size = 3
+shader_parameter/dist_1 = 0.0
+
+[sub_resource type="Gradient" id="Gradient_6bhur"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.25925925, 0.49382716, 0.75308645, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.7731482, 1, 1, 1, 0.56790125, 1, 1, 1, 0.24691355, 1, 1, 1, 0)
+
+[sub_resource type="GDScript" id="GDScript_cyxv3"]
+script/source = "extends PackParticles
+
+var character := \"\"
+var player_id := 0
+"
+
+[node name="ExplosionParticles" type="CPUParticles2D" unique_id=1678971052]
+material = SubResource("ShaderMaterial_yxc7w")
+emitting = false
+amount = 64
+texture = ExtResource("2_g0w1y")
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.45
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, -64)
+initial_velocity_max = 16.0
+linear_accel_max = 16.0
+color_ramp = SubResource("Gradient_6bhur")
+script = SubResource("GDScript_cyxv3")
+metadata/_custom_type_script = "uid://dde1tbnfum3yr"
+
+[node name="GradientImage" type="Sprite2D" parent="." unique_id=1814637011 node_paths=PackedStringArray("targetNode")]
+visible = false
+position = Vector2(0, -16)
+texture = ExtResource("4_h4ep6")
+script = ExtResource("5_v4si5")
+targetNode = NodePath("..")
+
+[node name="ResourceSetterNew" type="Node" parent="GradientImage" unique_id=1970639165 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("6_k04op")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+resource_json = ExtResource("7_87rpx")
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[connection signal="finished" from="." to="." method="queue_free"]

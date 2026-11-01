@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bmttjck3fi5wu"]
+
+[ext_resource type="Script" uid="uid://bja2yaa0j5e4e" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/PowerStates/Bubble.gd" id="1_q7g12"]
+
+[node name="Bubble" type="Node"]
+script = ExtResource("1_q7g12")
+state_name = "Bubble"
+power_tier = 2
+hitbox_size = "Big"

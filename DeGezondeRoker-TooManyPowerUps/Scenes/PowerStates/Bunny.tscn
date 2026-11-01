@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://v7krd6sfos0y"]
+
+[ext_resource type="Script" uid="uid://dvooop3usnk0q" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/PowerStates/Bunny.gd" id="1_47s7q"]
+[ext_resource type="AudioStream" uid="uid://bjqdm55df0buf" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Assets/SFX/Bunny.ogg" id="2_poxha"]
+
+[node name="Bunny" type="Node"]
+script = ExtResource("1_47s7q")
+state_name = "Bunny"
+power_tier = 2
+hitbox_size = "Big"
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_poxha")
+volume_db = 13.0
+bus = &"SFX"

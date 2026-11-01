@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dlrxwp6wei2fo"]
+
+[ext_resource type="Script" uid="uid://d8lyxq2xw5wk" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/Projectiles/PlayerHammer.gd" id="1_i8m0l"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_vlasy"]
+[ext_resource type="Script" uid="uid://5octqlf4ohel" path="res://Scripts/Classes/Components/ScoreNoteSpawner.gd" id="4_ucjql"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajyso"]
+size = Vector2(6, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dhdpv"]
+radius = 8.0
+
+[node name="PlayerHammer" type="CharacterBody2D" unique_id=419881584]
+collision_layer = 0
+collision_mask = 2
+slide_on_ceiling = false
+script = ExtResource("1_i8m0l")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=848292613]
+z_index = 2
+
+[node name="ResourceSetter" type="Node" parent="Sprite" unique_id=141368873 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_vlasy")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/ModdedItems/PlayerHammer.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=546067271]
+shape = SubResource("RectangleShape2D_ajyso")
+disabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2090104113]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2110466488]
+shape = SubResource("CircleShape2D_dhdpv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2067385625]
+rect = Rect2(-10, -10, 20, 116)
+
+[node name="ScoreNoteSpawner" type="Node" parent="." unique_id=1856031674]
+script = ExtResource("4_ucjql")
+add_score = true
+play_sfx = true
+metadata/_custom_type_script = "uid://5octqlf4ohel"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]

@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://ncsttyeer2wl"]
+
+[ext_resource type="Script" uid="uid://cdsu8ohdddu82" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Selectables/SetToAllNode.gd" id="1_nu37g"]
+[ext_resource type="Texture2D" uid="uid://3p2l7rec0gh5" path="res://Assets/Sprites/UI/Cursor.png" id="2_5phju"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="3_p4b61"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="5_cf2uw"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="6_u02vo"]
+[ext_resource type="Texture2D" uid="uid://fcpetyiuuyox" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/BehaviorIcons.png" id="7_i18wf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qti1l"]
+atlas = ExtResource("2_5phju")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_okfoe"]
+color = Color(1, 1, 1, 1)
+grow_begin = -2.0
+grow_end = -2.0
+vertical = true
+
+[node name="SelectableOptionNode" type="HBoxContainer" unique_id=1412415357]
+offset_right = 253.0
+offset_bottom = 8.0
+focus_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_nu37g")
+title = "SET ALL TO"
+values = Array[String](["NORMAL", "ENEMY", "AGRESSIVE", "GREEDY", "FREE"])
+value_descs = Array[String](["THEY WILL FOLLOW YOU TO KEEP THEMSELVES BEHIND YOUR BACK.", "THEY WILL FOLLOW YOU TO KILL YOU, DON'T TOUCH THEM.", "THEY WILL FOLLOW YOU UNLESS THEY FIND ENEMIES! THEY WILL GET TO YOUR BACK AFTER CLEANING UP.", "THEY WILL FOLLOW YOU UNLESS THEY FIND COOL STUFF! THEY WILL GET TO YOUR BACK AFTER CLEANING UP.", "THEY WILL DO WHATEVER IT TAKES TO FINISH THE LEVEL, BUT WILL WAIT FOR YOU IF YOU'RE FAR AWAY."])
+
+[node name="Cursor" type="Control" parent="." unique_id=596087522]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="Cursor" type="TextureRect" parent="Cursor" unique_id=1292650146]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 8.0
+offset_bottom = 12.0
+texture = SubResource("AtlasTexture_qti1l")
+stretch_mode = 2
+
+[node name="ResourceSetter" type="Node" parent="Cursor/Cursor" unique_id=1393047290 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_p4b61")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://Assets/Sprites/UI/Cursor.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="." unique_id=429674600]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("5_cf2uw")
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="Title" type="Label" parent="AutoScrollContainer" unique_id=47089781]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "modeadpiawjda:"
+uppercase = true
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=1864924069 node_paths=PackedStringArray("labels")]
+script = ExtResource("6_u02vo")
+labels = [NodePath("../AutoScrollContainer/Title"), NodePath("../VBoxContainer/HBoxContainer/AutoScrollContainer2/Value")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1904388784]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1005795196]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="LeftArrow" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=536245758]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◄"
+uppercase = true
+
+[node name="AutoScrollContainer2" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=44590428]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("5_cf2uw")
+is_active = true
+auto_minimum_resize = true
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="Value" type="Label" parent="VBoxContainer/HBoxContainer/AutoScrollContainer2" unique_id=562541434]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "aaaaaa"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=531038617]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_okfoe")
+
+[node name="BehaviorIcon" type="NinePatchRect" parent="VBoxContainer/HBoxContainer" unique_id=226706019]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("7_i18wf")
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="RightArrow" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=912273606]
+unique_name_in_owner = true
+layout_mode = 2
+text = "►"
+uppercase = true
+
+[connection signal="focus_entered" from="." to="." method="set_selected" binds= [true]]
+[connection signal="focus_exited" from="." to="." method="set_selected" binds= [false]]

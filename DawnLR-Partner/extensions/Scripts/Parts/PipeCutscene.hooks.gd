@@ -7,7 +7,7 @@ func _ready(c: ModLoaderHookChain) -> void:
 	var count := 0
 	
 	for i in Global.player_characters.size():
-		if (i == 0 || Global.player_characters[i] == -1):
+		if (i == 0 || Global.player_characters[i] == -1 || Settings.file.partners.behavior[i] == 1):
 			continue
 		
 		count += 1
@@ -15,7 +15,7 @@ func _ready(c: ModLoaderHookChain) -> void:
 		var ogPlayer: PlayerSprite = cutManager.get_node("Player1")
 		var playerAgain: PlayerSprite = load("res://Scripts/Parts/PlayerSprite.gd").new()
 		playerAgain.add_child(load("res://Scripts/Classes/Components/ResourceSetterNew.gd").new())
-		playerAgain.add_child(load("res://mods-unpacked/DawnLR-Partner/Scripts/Parts/Partner/PartnerPlayerSpriteWalkScript.gd").new())
+		playerAgain.add_child(load("res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Parts/Partner/PartnerPlayerSpriteWalkScript.gd").new())
 		playerAgain.player_id = i
 		playerAgain.resource_setter = playerAgain.get_child(0)
 		

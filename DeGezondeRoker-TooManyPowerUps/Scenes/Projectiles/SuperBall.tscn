@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://h8tq5uhqhnef"]
+
+[ext_resource type="Script" uid="uid://b2ic5k5c1edo1" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/Projectiles/SuperBall.gd" id="1_76ryl"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_f36h3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajyso"]
+size = Vector2(6, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dhdpv"]
+radius = 8.0
+
+[node name="SuperBall" type="CharacterBody2D" unique_id=601604865]
+collision_layer = 0
+collision_mask = 2
+slide_on_ceiling = false
+script = ExtResource("1_76ryl")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1657194207]
+z_index = 2
+
+[node name="ResourceSetter" type="Node" parent="Sprite" unique_id=19051339 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_f36h3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/ModdedItems/SuperBall.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1892101324]
+shape = SubResource("RectangleShape2D_ajyso")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1017080842]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1915291790]
+shape = SubResource("CircleShape2D_dhdpv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=472468038]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]

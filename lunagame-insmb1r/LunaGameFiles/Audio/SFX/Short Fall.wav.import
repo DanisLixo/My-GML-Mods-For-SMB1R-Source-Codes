@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c1daqctpdcpgi"
+path="res://.godot/imported/Short Fall.wav-bd664f75d3121542b7a7835c650c9669.sample"
+
+[deps]
+
+source_file="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/Short Fall.wav"
+dest_files=["res://.godot/imported/Short Fall.wav-bd664f75d3121542b7a7835c650c9669.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=48000
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=0
+compress/mode=0

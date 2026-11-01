@@ -1,0 +1,20 @@
+CPU:
+
+Transforming into fire with the Classic transformation style auto puts the character into the fire palette without any flashing BUGGED
+
+Interactions are missing for the following:
+- Wing/Swim
+- Trampoline *? 
+- Blocks with Items (for Greedy, Free and Enemy only) *?
+- Exit pipe in Underground/Underwater areas (for Free only, if not possible randomize their behavior to anything except Enemy) *?
+- Checkpoint (For normal only, remove interaction if Enemy) *?
+
+Copy:
+
+SFX will still play even after hitting the End Castle whilst in Copy Moves mode
+
+Spamming Jump makes Partners always play sounds
+
+Partners animations get bugged and when running they start freaking out and freeze framing
+
+Characters with extra animation frames bug out and loop

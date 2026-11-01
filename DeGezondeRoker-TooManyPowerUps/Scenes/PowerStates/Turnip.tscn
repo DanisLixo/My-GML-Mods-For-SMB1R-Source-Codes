@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://djy7jgxme3hgv"]
+
+[ext_resource type="Script" uid="uid://xm7fwkmbun55" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/PowerStates/Turnip.gd" id="1_7yirp"]
+
+[node name="Turnip" type="Node"]
+script = ExtResource("1_7yirp")
+state_name = "Turnip"
+power_tier = 2
+hitbox_size = "Big"

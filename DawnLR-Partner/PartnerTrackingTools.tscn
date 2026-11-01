@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://jv5xkx171h7p"]
+
+[ext_resource type="Script" uid="uid://cod3gkrecjbwt" path="res://mods-unpacked/DawnLR-Partner/PartnerTrackingTools.gd" id="1_lasmc"]
+[ext_resource type="Script" uid="uid://blfnd65xcx78c" path="res://Scripts/Classes/Components/LedgeDetectionCast.gd" id="1_r3xwk"]
+[ext_resource type="Script" uid="uid://uucu1rcd3qtu" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Parts/Partner/PlayerFinder.gd" id="2_lasmc"]
+[ext_resource type="Script" uid="uid://hg4na6xoc5p2" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Parts/Partner/ObjectsFinder.gd" id="3_xn05k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r08xd"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pvfrq"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glrfc"]
+size = Vector2(128, 216)
+
+[node name="PartnerTrackingTools" type="Node" unique_id=888165793]
+script = ExtResource("1_lasmc")
+
+[node name="InsideWallDetect" type="Area2D" parent="." unique_id=213284297]
+visible = false
+collision_layer = 0
+collision_mask = 7
+
+[node name="InsideWall" type="CollisionShape2D" parent="InsideWallDetect" unique_id=877850155]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_r08xd")
+debug_color = Color(0.9372549, 0.1254902, 0, 0.09803922)
+
+[node name="EnemyDetector" type="Area2D" parent="." unique_id=1904156464]
+visible = false
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="EnemyDetectorCollision" type="CollisionShape2D" parent="EnemyDetector" unique_id=1563668561]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_pvfrq")
+debug_color = Color(0.9372549, 0.1254902, 0, 0.09803922)
+
+[node name="ObjectsTracking" type="Area2D" parent="." unique_id=1559495504]
+visible = false
+collision_layer = 0
+collision_mask = 9
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectsTracking" unique_id=1425778405]
+position = Vector2(64, -20)
+shape = SubResource("RectangleShape2D_glrfc")
+debug_color = Color(0.6156863, 0.52156866, 0.3372549, 0.21176471)
+
+[node name="WallDetectionCast" type="RayCast2D" parent="." unique_id=82244694]
+position = Vector2(4, -15)
+rotation = -1.5707964
+scale = Vector2(5.714, 1)
+target_position = Vector2(0, 8)
+collision_mask = 6
+script = ExtResource("1_r3xwk")
+metadata/_custom_type_script = "uid://blfnd65xcx78c"
+
+[node name="LedgeDetectionCast" type="RayCast2D" parent="." unique_id=1467408465]
+visible = false
+position = Vector2(8, -7)
+target_position = Vector2(0, 8)
+collision_mask = 6
+script = ExtResource("1_r3xwk")
+metadata/_custom_type_script = "uid://blfnd65xcx78c"
+
+[node name="PlayerFinder" type="RayCast2D" parent="." unique_id=1830378191]
+visible = false
+position = Vector2(0, -16)
+target_position = Vector2(0, 0)
+collision_mask = 6
+script = ExtResource("2_lasmc")
+
+[node name="ObjectsFinder" type="RayCast2D" parent="." unique_id=1973598050]
+visible = false
+modulate = Color(1, 1, 0, 1)
+position = Vector2(0, -16)
+target_position = Vector2(0, 0)
+collision_mask = 0
+collide_with_bodies = false
+script = ExtResource("3_xn05k")
+
+[node name="GroundFinder" type="RayCast2D" parent="." unique_id=724636266]
+modulate = Color(1, 1, 0, 1)
+target_position = Vector2(0, 64)
+collision_mask = 6
+
+[node name="OnScreen" type="VisibleOnScreenNotifier2D" parent="." unique_id=571305447]
+position = Vector2(-6, -21)
+rect = Rect2(-10, -10, 32, 32)

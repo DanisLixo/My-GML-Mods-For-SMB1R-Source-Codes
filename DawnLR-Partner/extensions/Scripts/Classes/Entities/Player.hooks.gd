@@ -1,165 +1,75 @@
 extends Object
 
-var player: Player
-var thingie: PartnerThingie
+var PartnersHandler: Node
 
-#region Settings Related
-var PartnerSettings: Node
-#endregion
+var is_leader: bool
+var player: Player
+var input_handler: Node
+var communicator: Node
 
 func _ready(c: ModLoaderHookChain) -> void:
-	player = c.reference_object
-	PartnerSettings = player.get_node("/root/ModLoader/DawnLR-Partner/PartnerSettingsManager") 
-	
-	if (player.player_id == 0):
-		player.set_collision_mask_value(13, true)
-	set_partner_mod_stuff()
-	
 	c.execute_next()
+	l_set_essencials(c, false)
+	
+	if (is_leader):
+		PartnersHandler.start_game(player)
+		l_setup_leader()
+	else:
+		l_setup_partner()
 
-func _physics_process(c: ModLoaderHookChain, delta: float) -> void:
-	set_essencials(c, true)
+func damage(c: ModLoaderHookChain, type: String = "") -> void:
+	l_set_essencials(c)
+	c.execute_next_async([type])
 	
-	c.execute_next([delta])
-	
-	if (player.get_meta("PowerStateDifference") == 2):
-		player.set_meta("PowerStateDifference", 0)
+	communicator.power_lost.emit(player, type)
 
 func get_power_up(c: ModLoaderHookChain, power_name := "", give_points := true) -> void:
-	set_essencials(c, true)
+	l_set_essencials(c)
+	c.execute_next_async([power_name, give_points])
 	
-	if (thingie.is_leader()):
-		c.execute_next_async([power_name, give_points])
-	else:
-		if (thingie.PARTNER_PERMANENT_SIZE != 1):
-			c.execute_next_async([power_name, give_points])
-		if (thingie.PARTNER_MUTED >= 2):
-			AudioManager.kill_sfx("power_up")
+	communicator.power_up.emit(player, power_name)
 	
-	if (thingie == null): return
-	if (thingie.PARTNER_POWER_EXCLUSIVE): return
-	
-	player.set_meta("PowerStateDifference", 1)
-	for partner in thingie.partners:
-		if (partner != null && partner.get_meta("PowerStateDifference") == 0):
-			partner.get_power_up(power_name, false)
-	
-	set_essencials(c, true)
-	player.set_meta("PowerStateDifference", 2)
-
 func super_star(c: ModLoaderHookChain):
-	set_essencials(c, true)
+	l_set_essencials(c)
 	c.execute_next()
 	
-	if (thingie == null): return
-	if (thingie.PARTNER_POWER_EXCLUSIVE): return
-	
-	for partner in thingie.partners:
-		if (partner != null && !partner.has_star):
-			partner.super_star()
+	communicator.star_up.emit(player)
 
 func wing_get(c: ModLoaderHookChain) -> void:
-	set_essencials(c, true)
+	l_set_essencials(c)
 	c.execute_next()
 	
-	if (thingie == null): return
-	if (thingie.PARTNER_POWER_EXCLUSIVE): return
-	
-	for partner in thingie.partners:
-		if (partner != null && !partner.has_wings):
-			partner.wing_get()
-			
+	communicator.wing_up.emit(player)
+
 func hammer_get(c: ModLoaderHookChain) -> void:
-	set_essencials(c, true)
+	l_set_essencials(c)
 	c.execute_next()
 	
-	if (thingie == null): return
-	if (thingie.PARTNER_POWER_EXCLUSIVE): return
+	communicator.hammer_up.emit(player)
+
+func l_setup_leader() -> void:
+	var _input_handler = load("res://mods-unpacked/DawnLR-Partner/LeaderInputTransmitter.gd").new()
+	player.add_child(_input_handler)
+	player.set_meta("input_handler", _input_handler)
 	
-	for partner in thingie.partners:
-		if (partner != null && !partner.has_hammer):
-			partner.hammer_get()
+	var _communicator = load("res://mods-unpacked/DawnLR-Partner/PlayerCommunicator.gd").new()
+	player.add_child(_communicator)
+	player.set_meta("communicator", _communicator)
 
-func throw_projectile(c: ModLoaderHookChain) -> void:
-	set_essencials(c, true)
+func l_setup_partner() -> void:
+	var _input_handler = load("res://mods-unpacked/DawnLR-Partner/PartnerInputReceiver.gd").new()
+	player.add_child(_input_handler)
+	player.set_meta("input_handler", _input_handler)
 	
-	if (thingie == null):
-		c.execute_next_async()
-	else:
-		thingie.throw_projective_with_thingie()
+	var _communicator = load("res://mods-unpacked/DawnLR-Partner/PlayerCommunicator.gd").new()
+	player.add_child(_communicator)
+	player.set_meta("communicator", _communicator)
 
-func on_area_entered(c: ModLoaderHookChain, area: Area2D) -> void:
-	set_essencials(c, true)
-	
-	var obj := area.owner
-	if (obj is Player):
-		var difCheck = area.owner.global_position.y > player.global_position.y + 8
-		if (player.state_machine.get_state() == "FlagPole" && difCheck):
-			player.state_machine.state.set_meta("playerUnderMe", true)
-	elif (obj is Projectile):
-		if (obj.get_meta("player") != null):
-			if (!thingie.partners.has(obj.get_meta("player"))
-			&& obj.get_meta("player") != player && player.can_hurt):
-				player.damage()
-
-func on_area_exited(c: ModLoaderHookChain, area: Area2D):
-	set_essencials(c, true)
-	c.execute_next([area])
-	if (player.state_machine.get_state() == "FlagPole"):
-		player.state_machine.state.set_meta("playerUnderMe", false)
-
-func handle_step_collision(c: ModLoaderHookChain) -> void:
-	set_essencials(c, true)
-	
-	var collision_size = player.physics_params("COLLISION_SIZE")
-	if player.crouching:
-		collision_size = player.physics_params("CROUCH_COLLISION_SIZE")
-	collision_size = Vector2(collision_size[0], collision_size[1])
-	for i in player.get_meta("stepCollisions"):
-		var on_wall := false
-		for x in [player.get_node("StepWallChecks/LWall"), player.get_node("StepWallChecks/RWall")]:
-			x.position.x = ((collision_size.x / 2) + 1) * sign(x.position.x)
-			if x.is_colliding():
-				on_wall = true
-		var step_enabled = (not on_wall and (player.actual_velocity_y()) >= 0 and abs(player.velocity.x) > 5)
-		i.set_deferred("disabled", not step_enabled)
-		i.position.x = ((collision_size.x / 2)) * sign(i.position.x)
-		i.position.x += 1 * sign(i.position.x)
-
-func set_partner_mod_stuff() -> void:
-	var thingieNode = load("res://mods-unpacked/DawnLR-Partner/Scripts/Classes/PartnerThingie.gd").new()
-	thingieNode.name = "PartnerThingie"
-	player.add_child(thingieNode)
-	player.set_meta("PartnerMod", thingieNode)
-	thingie = thingieNode
-	
-	if (player.player_id == 0):
-		thingie.leader = player
-	player.set_meta("PowerStateDifference", 0)
-	player.set("thingie", thingieNode)
-	
-	var stepCollisions := []
-	for step in player.get_tree().get_nodes_in_group("StepCollision"):
-		if (step in player.get_children()):
-			stepCollisions.append(step)
-	player.set_meta("stepCollisions", stepCollisions)
-
-func play_animation(c: ModLoaderHookChain, animation_name := "", force := false) -> void:
-	set_essencials(c, true)
-	if (thingie != null):
-		thingie.playerOverride = animation_name 
-	c.execute_next([animation_name, force])
-
-func power_up_animation(c: ModLoaderHookChain, new_power_state := "") -> void:
-	set_essencials(c, true)
-	if (thingie != null):
-		thingie.playerOverride = "PowerUp"
-		thingie.old_power_state = player.power_state.state_name
-		thingie.new_power_state = new_power_state
-	c.execute_next_async([new_power_state])
-
-func set_essencials(chain: ModLoaderHookChain, setthingie: bool = false) -> void:
+func l_set_essencials(chain: ModLoaderHookChain, set_rest: bool = true) -> void:
 	player = chain.reference_object
-	if (player.get_meta("PartnerMod") == null):
-		return
-	thingie = player.get_meta("PartnerMod") if (setthingie) else thingie
+	if (set_rest):
+		input_handler = player.get_meta("input_handler")
+		communicator = player.get_meta("communicator")
+	
+	PartnersHandler = Global.get_meta("SubGlobals")["Partners"]
+	is_leader = (player.player_id == 0 && Global.get_tree().get_first_node_in_group("Players")) || (player == PartnersHandler.leader)

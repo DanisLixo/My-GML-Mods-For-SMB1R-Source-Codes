@@ -22,10 +22,14 @@ func install_script_hook_files() -> void:
 	ModLoaderMod.install_script_hooks("res://Scripts/Parts/LevelTransition.gd", extensions_dir_path.path_join("Scripts/Parts/LevelTransition.hooks.gd"))
 	ModLoaderMod.install_script_hooks("res://Scripts/Parts/TitleScreen.gd", extensions_dir_path.path_join("Scripts/Parts/TitleScreen.hooks.gd"))
 	ModLoaderMod.install_script_hooks("res://Scripts/Classes/Singletons/Global.gd", extensions_dir_path.path_join("Scripts/Classes/Singletons/Global.hooks.gd"))
+	ModLoaderMod.install_script_hooks("res://Scripts/UI/SettingsMenu.gd", extensions_dir_path.path_join("Scripts/UI/SettingsMenu.hooks.gd"))
+
+func _enter_tree() -> void:
+	ModLoaderMod.install_script_hooks("res://Scripts/Classes/Singletons/SettingsManager.gd", extensions_dir_path.path_join("Scripts/Classes/Singletons/SettingsManager.hooks.gd"))
+	ModLoaderMod.install_script_hooks("res://Scripts/Classes/Entities/Player.gd", extensions_dir_path.path_join("Scripts/Classes/Entities/Player.hooks.gd"))
 
 func _ready() -> void:
 	await Global.ready
 	
-	var CharacterRandomizer = load("res://mods-unpacked/DawnLR-CharacterRandomizer/Scripts/Classes/Singletons but not/CharacterRandomizer.gd").new()
-	CharacterRandomizer.name = "CharacterRandomizer"
+	var CharacterRandomizer = load("res://mods-unpacked/DawnLR-CharacterRandomizer/Singletons/RandomizerSettings.gd").new()
 	add_child(CharacterRandomizer)

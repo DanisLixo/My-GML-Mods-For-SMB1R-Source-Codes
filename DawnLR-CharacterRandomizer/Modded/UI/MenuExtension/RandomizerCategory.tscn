@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://smdct3joxpg6"]
+
+[ext_resource type="Script" uid="uid://d38o7mop8af3q" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/Scripts/RandomizerCategory.gd" id="1_5l4r8"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="1_phep6"]
+[ext_resource type="PackedScene" uid="uid://dbvy0rhwpv4w4" path="res://Scenes/Parts/SelectableOptionNode.tscn" id="2_is2la"]
+[ext_resource type="PackedScene" uid="uid://bhaekyi2jfwok" path="res://Scenes/Parts/SelectableOptionButton.tscn" id="3_g43la"]
+[ext_resource type="Script" uid="uid://b3lw1b8k7sgh0" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/Scripts/Selectables/RandomizerSelectableOptionNode.gd" id="3_ul2ex"]
+[ext_resource type="PackedScene" uid="uid://bflpf2fdtbgkt" path="res://Scenes/Parts/SelectableInputOptionNode.tscn" id="5_tlr5s"]
+[ext_resource type="Script" uid="uid://dqbnh4sd6vssa" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/Scripts/Appliers/ConfigApplier.gd" id="6_5l4r8"]
+[ext_resource type="Script" uid="uid://crjirpaaifaf5" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/Scripts/Appliers/InputMapAppiler.gd" id="8_lbbew"]
+
+[sub_resource type="GDScript" id="GDScript_tlr5s"]
+script/source = "extends VBoxContainer
+
+var can_input := true
+
+func _process(_delta: float) -> void:
+	owner.can_input = can_input
+"
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_lp0nu"]
+content_margin_top = 0.0
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_is2la"]
+
+[node name="RandomizerCategory" type="VBoxContainer" unique_id=277895140 node_paths=PackedStringArray("options", "description_node", "scroll_container")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5l4r8")
+category_name = "Randomizer Mod"
+options = [NodePath("ScrollContainer/Settings/Enabled"), NodePath("ScrollContainer/Settings/Start"), NodePath("ScrollContainer/Settings/Transition"), NodePath("ScrollContainer/Settings/OneShot"), NodePath("ScrollContainer/Settings/NotRandom"), NodePath("ScrollContainer/Settings/RandomizeLeader"), NodePath("ScrollContainer/Settings/UserListOnly"), NodePath("ScrollContainer/Settings/CustomListEditor"), NodePath("ScrollContainer/Settings/ExcludedListEditor"), NodePath("ScrollContainer/Settings/ToggleRandomizer")]
+description_node = NodePath("Description/AutoScrollContainer/MarginContainer/Desc")
+scroll_container = NodePath("ScrollContainer")
+
+[node name="Control" type="Control" parent="." unique_id=138474613]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1406043356]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+scroll_hint_mode = 3
+
+[node name="Settings" type="VBoxContainer" parent="ScrollContainer" unique_id=1831564967]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = -4
+script = SubResource("GDScript_tlr5s")
+
+[node name="InputMapApplier" type="Node" parent="ScrollContainer/Settings" unique_id=2008406480]
+unique_name_in_owner = true
+script = ExtResource("8_lbbew")
+
+[node name="Enabled" parent="ScrollContainer/Settings" unique_id=215292564 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "enabled"
+title = "Enabled"
+value_descs = Array[String](["Characters will not be randomized...", "Characters will be randomized!"])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="Start" parent="ScrollContainer/Settings" unique_id=917774102 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "randomize_on_start"
+title = "On Start"
+value_descs = Array[String](["Start Randomizing after the first screen transition", "Start Randomizing even when first getting a character."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="Transition" parent="ScrollContainer/Settings" unique_id=1957367190 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "every_transition"
+title = "Every Transition"
+value_descs = Array[String](["Randomizing works in level transitions.", "Randomizing works in EVERY transition."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="OneShot" parent="ScrollContainer/Settings" unique_id=361588871 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "one_shot_characters"
+title = "One Shot Characters"
+value_descs = Array[String](["Any character can appear anytime.", "Characters will appear once choosen and only reappears after everyone appears once."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="NotRandom" parent="ScrollContainer/Settings" unique_id=1621691445 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "not_random"
+title = "Not Random"
+value_descs = Array[String](["Characters are choosen at random (hence the name randomizer).", "Characters are choosen in alphabetical order or by your custom list."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="RandomizeLeader" parent="ScrollContainer/Settings" unique_id=1977976382 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "randomize_player_one_only"
+title = "Randomize Player 1 only"
+value_descs = Array[String](["(For more than one player mods) All current players can get a random character.", "(For more than one player mods) Only the first player can get a random character."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="UserListOnly" parent="ScrollContainer/Settings" unique_id=731664670 groups=["Options"] instance=ExtResource("2_is2la")]
+layout_mode = 2
+script = ExtResource("3_ul2ex")
+option_key = "use_user_character_list"
+title = "Use Custom Characters list"
+value_descs = Array[String](["Every character is available.", "Only characters inside the list are available. Overrides Exclusions List."])
+values = ["SETTING_OFF", "SETTING_ON"]
+settings_category = "options"
+
+[node name="CustomListEditor" parent="ScrollContainer/Settings" unique_id=103761395 groups=["Options"] instance=ExtResource("3_g43la")]
+layout_mode = 2
+title = "Open Custom List Editor"
+
+[node name="ExcludedListEditor" parent="ScrollContainer/Settings" unique_id=1968586682 groups=["Options"] instance=ExtResource("3_g43la")]
+layout_mode = 2
+title = "Open Excluded List Editor"
+
+[node name="ToggleRandomizer" parent="ScrollContainer/Settings" unique_id=1668701586 groups=["Options"] instance=ExtResource("5_tlr5s")]
+layout_mode = 2
+settings_category = "mods_keyboard"
+action_names = ["ui_toggle_randomizer"]
+title = "Randomizer Toggle"
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1771138834]
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_lp0nu")
+
+[node name="Description" type="PanelContainer" parent="." unique_id=568226360]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_is2la")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="Description" unique_id=1955432581]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("1_phep6")
+direction = 1
+is_active = true
+auto_connect_focus = false
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="MarginContainer" type="MarginContainer" parent="Description/AutoScrollContainer" unique_id=1334393153]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -4
+
+[node name="Desc" type="Label" parent="Description/AutoScrollContainer/MarginContainer" unique_id=1184858590]
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 2
+uppercase = true
+
+[node name="ConfigApplier" type="Node" parent="." unique_id=1812820771]
+script = ExtResource("6_5l4r8")
+
+[connection signal="value_changed" from="ScrollContainer/Settings/Enabled" to="ConfigApplier" method="enabled_toggled"]
+[connection signal="value_changed" from="ScrollContainer/Settings/Start" to="ConfigApplier" method="on_start_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/Transition" to="ConfigApplier" method="on_transition_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/OneShot" to="ConfigApplier" method="one_shot_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/NotRandom" to="ConfigApplier" method="not_random_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/RandomizeLeader" to="ConfigApplier" method="leader_only_changed"]
+[connection signal="value_changed" from="ScrollContainer/Settings/UserListOnly" to="ConfigApplier" method="user_list_use_changed"]
+[connection signal="button_pressed" from="ScrollContainer/Settings/CustomListEditor" to="." method="custom_list_pressed"]
+[connection signal="button_pressed" from="ScrollContainer/Settings/ExcludedListEditor" to="." method="excluded_list_pressed"]

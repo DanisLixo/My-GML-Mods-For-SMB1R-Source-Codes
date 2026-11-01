@@ -1,0 +1,10 @@
+{
+    "Normal": {
+        "source": "res://mods-unpacked/BawbLR-yeah/Assets/BGM/WarpZone.ogg",
+        "loop": 0.0
+    },
+    "Hurry": {
+        "source": "res://mods-unpacked/BawbLR-yeah/Assets/BGM/WarpZone.ogg",
+        "loop": 0.0
+    }
+}

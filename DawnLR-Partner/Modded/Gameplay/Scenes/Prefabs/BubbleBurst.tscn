@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://j402hb1y0v2q"]
+
+[ext_resource type="Texture2D" uid="uid://devsbwhmnubgg" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/BubbleBurst.png" id="1_d5x3x"]
+[ext_resource type="Script" uid="uid://dde1tbnfum3yr" path="res://Scripts/Classes/Components/PackParticles.gd" id="2_d5x3x"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j0nv3"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[node name="BubbleBurst" type="CPUParticles2D" unique_id=2077689363]
+material = SubResource("CanvasItemMaterial_j0nv3")
+emitting = false
+amount = 32
+texture = ExtResource("1_d5x3x")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+emission_shape = 6
+emission_ring_inner_radius = 0.0
+emission_ring_radius = 32.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+script = ExtResource("2_d5x3x")
+metadata/_custom_type_script = "uid://dde1tbnfum3yr"
+
+[connection signal="finished" from="." to="." method="queue_free"]

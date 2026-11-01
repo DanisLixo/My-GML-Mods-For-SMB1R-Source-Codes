@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://m8x4b3i8y1fv"]
+
+[ext_resource type="Script" uid="uid://c8w1dwn3pd2kv" path="res://mods-unpacked/DawnLR-Partner/Modded/UI/MenuExtension/Scripts/Selectables/SelectableBehaviorOptionNode.gd" id="1_2ttiu"]
+[ext_resource type="Texture2D" uid="uid://3p2l7rec0gh5" path="res://Assets/Sprites/UI/Cursor.png" id="2_1qlry"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="3_cyedq"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="5_p2jny"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="6_kcbob"]
+[ext_resource type="Texture2D" uid="uid://bgckb78kobtx3" path="res://Assets/Sprites/Players/Mario/LifeIcon.png" id="7_hkrav"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="8_utava"]
+[ext_resource type="Script" uid="uid://dwtrmo82e12ud" path="res://Scripts/Parts/ColourPaletteSampler.gd" id="9_rntdg"]
+[ext_resource type="Texture2D" uid="uid://fcpetyiuuyox" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/UI/BehaviorIcons.png" id="11_q35pv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qti1l"]
+atlas = ExtResource("2_1qlry")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_edurk"]
+color = Color(1, 1, 1, 1)
+grow_begin = -2.0
+grow_end = -2.0
+vertical = true
+
+[node name="PartnerBehavior" type="HBoxContainer" unique_id=2079942447]
+offset_right = 253.0
+offset_bottom = 8.0
+focus_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_2ttiu")
+title = "PARTNER player_id"
+values = Array[String](["NORMAL", "ENEMY", "AGRESSIVE", "GREEDY", "FREE"])
+value_descs = Array[String](["THEY WILL FOLLOW YOU TO KEEP THEMSELVES BEHIND YOUR BACK.", "THEY WILL FOLLOW YOU TO KILL YOU, DON'T TOUCH THEM.", "THEY WILL FOLLOW YOU UNLESS THEY FIND ENEMIES! THEY WILL GET TO YOUR BACK AFTER CLEANING UP.", "THEY WILL FOLLOW YOU UNLESS THEY FIND COOL STUFF! THEY WILL GET TO YOUR BACK AFTER CLEANING UP.", "THEY WILL DO WHATEVER IT TAKES TO FINISH THE LEVEL, BUT WILL WAIT FOR YOU IF YOU'RE FAR AWAY."])
+
+[node name="Cursor" type="Control" parent="." unique_id=2012555512]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="Cursor" type="TextureRect" parent="Cursor" unique_id=314026384]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 8.0
+offset_bottom = 12.0
+texture = SubResource("AtlasTexture_qti1l")
+stretch_mode = 2
+
+[node name="ResourceSetter" type="Node" parent="Cursor/Cursor" unique_id=2080829662 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_cyedq")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://Assets/Sprites/UI/Cursor.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="." unique_id=1960117789]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("5_p2jny")
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="Title" type="Label" parent="AutoScrollContainer" unique_id=72861631]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "modeadpiawjda:"
+uppercase = true
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=1256817389 node_paths=PackedStringArray("labels")]
+script = ExtResource("6_kcbob")
+labels = [NodePath("../AutoScrollContainer/Title"), null]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2102375877]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="LeftArrow" type="Label" parent="HBoxContainer" unique_id=116974858]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◄"
+uppercase = true
+
+[node name="CharacterIcon" type="TextureRect" parent="HBoxContainer" unique_id=929325382]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+texture = ExtResource("7_hkrav")
+stretch_mode = 3
+
+[node name="ResourceSetterNew" type="Node" parent="HBoxContainer/CharacterIcon" unique_id=1789482111 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_cyedq")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=2075125177]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_edurk")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=1293644935]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("5_p2jny")
+is_active = true
+auto_minimum_resize = true
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="Value" type="Label" parent="HBoxContainer/AutoScrollContainer" unique_id=1289871754]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "aaaaaa"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="TextShadowColourChanger" type="Node" parent="HBoxContainer/AutoScrollContainer/Value" unique_id=167740598 node_paths=PackedStringArray("labels")]
+script = ExtResource("8_utava")
+labels = [NodePath("..")]
+metadata/_custom_type_script = "uid://dt2p68xl462v2"
+
+[node name="ColourPaletteSampler" type="Node" parent="HBoxContainer/AutoScrollContainer/Value/TextShadowColourChanger" unique_id=1064382141 node_paths=PackedStringArray("node_to_affect")]
+unique_name_in_owner = true
+script = ExtResource("9_rntdg")
+node_to_affect = NodePath("..")
+value_to_set = "override_shadow_colour"
+metadata/_custom_type_script = "uid://dwtrmo82e12ud"
+
+[node name="PlayerColourTexture" type="Node" parent="HBoxContainer/AutoScrollContainer/Value/TextShadowColourChanger/ColourPaletteSampler" unique_id=2109862292 node_paths=PackedStringArray("node_to_affect")]
+unique_name_in_owner = true
+script = ExtResource("3_cyedq")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer" unique_id=346624251]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_edurk")
+
+[node name="BehaviorIcon" type="NinePatchRect" parent="HBoxContainer" unique_id=878519324]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("11_q35pv")
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="RightArrow" type="Label" parent="HBoxContainer" unique_id=1809556474]
+unique_name_in_owner = true
+layout_mode = 2
+text = "►"
+uppercase = true
+
+[connection signal="focus_entered" from="." to="." method="set_selected" binds= [true]]
+[connection signal="focus_exited" from="." to="." method="set_selected" binds= [false]]

@@ -3,16 +3,16 @@ extends Object
 func enter(c: ModLoaderHookChain, msg: ={}) -> void:
 	c.execute_next_async([msg])
 	
-	var thing = c.reference_object.player.get_meta("PartnerMod")
+	var thing = c.reference_object.player.get_meta("thingie")
 	
 	if (thing != null):
 		if (thing.isEnemy):
 			thing.leader.die()
-		elif (thing.leader == c.reference_object.player):
-			for i in c.reference_object.get_tree().get_nodes_in_group("CharPartners-Partners"):
+		elif (thing.is_leader()):
+			for i in c.reference_object.get_tree().get_nodes_in_group("Players-AI"):
 				if (i == null):
 					continue
-				if (i.get_meta("PartnerMod").isEnemy):
+				if (i.get_meta("thingie").isEnemy):
 					i.die_as_enemy()
 		
 		c.reference_object.set_meta("playerUnderMe", false)

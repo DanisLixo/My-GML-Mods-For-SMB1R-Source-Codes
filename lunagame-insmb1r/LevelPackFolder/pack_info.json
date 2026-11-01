@@ -1,0 +1,26 @@
+{
+	"author": "Smoke-le-Bloke",
+	"description": "Play the original yet unfinished Luna Game!",
+	"difficulty": 2,
+	"levels": [
+		"LunaGame.zip",
+		"Put your hope and curiosity to what really matters."
+	],
+	"levels_per_world": [
+		1
+	],
+	"name": "Luna Game",
+	"number_of_worlds": 1,
+	"resource_pack": "",
+	"text_colour": "623ab4",
+	"world_themes": [
+		[
+			"Overworld",
+			"Day"
+		],
+		[
+			"Overworld",
+			"Day"
+		],
+	]
+}

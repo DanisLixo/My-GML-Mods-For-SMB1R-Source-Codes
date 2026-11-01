@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cv5w5u2defbe3"]
+
+[ext_resource type="StyleBox" uid="uid://comkghpj0djcl" path="res://Resources/UI/Panel.tres" id="1_pf31t"]
+[ext_resource type="Script" uid="uid://4vuwdge8ytuy" path="res://mods-unpacked/DawnLR-Partner/Modded/Friendog/Scripts/FriendogWarning.gd" id="1_w8tci"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_34jd6"]
+color = Color(1, 0, 0, 1)
+
+[node name="FriendogWarning" type="Control" unique_id=867231928]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8tci")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2006476088]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -54.0
+offset_right = 109.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_pf31t")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2142979842]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=753724090]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1272479880]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "UH OH!"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/Label" unique_id=1796686194]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_34jd6")
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=450894265]
+layout_mode = 2
+text = "Your Friend dog is still not up to be in the editor with you... Maybe next time!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+autowrap_trim_flags = 0
+uppercase = true
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1320926225]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "OK..."
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="close"]

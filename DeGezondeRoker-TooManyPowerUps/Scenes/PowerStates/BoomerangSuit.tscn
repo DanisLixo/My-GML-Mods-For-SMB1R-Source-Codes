@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cm8iir1gsbvs6"]
+
+[ext_resource type="Script" uid="uid://d1qrajgtsmxkh" path="res://mods-unpacked/DeGezondeRoker-TooManyPowerUps/Scenes/PowerStates/BoomerangSuit.gd" id="1_hnikg"]
+
+[node name="BoomerangSuit" type="Node" unique_id=1598056979]
+script = ExtResource("1_hnikg")
+state_name = "BoomerangSuit"
+power_tier = 2
+hitbox_size = "Big"

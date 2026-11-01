@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://ba71d45ieg78f"]
+
+[ext_resource type="Script" uid="uid://cjkurwybsaywm" path="res://Scripts/Classes/Entities/Items/PowerUpItem.gd" id="1_7loer"]
+[ext_resource type="Texture2D" uid="uid://qwqprcst4mtg" path="res://Assets/Sprites/Items/FireFlower.png" id="2_vmmcv"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="3_8tet8"]
+[ext_resource type="Script" uid="uid://bx6r8sjar6cwr" path="res://Scripts/Classes/Components/BasicStaticMovement.gd" id="5_fobb0"]
+[ext_resource type="Script" uid="uid://d4a7yp6e55u8t" path="res://Scripts/Classes/Components/TrackJoint.gd" id="6_5u2i8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_db8fa"]
+atlas = ExtResource("2_vmmcv")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11cns"]
+atlas = ExtResource("2_vmmcv")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brn7u"]
+atlas = ExtResource("2_vmmcv")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwmx2"]
+atlas = ExtResource("2_vmmcv")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gid51"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_db8fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11cns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brn7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwmx2")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16uf3"]
+size = Vector2(8, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kjjbq"]
+size = Vector2(8, 8)
+
+[node name="HammerSuit" type="CharacterBody2D" unique_id=1590740076]
+z_index = -1
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_7loer")
+power_up_state = "HammerSuit"
+metadata/_custom_type_script = "uid://cjkurwybsaywm"
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1334159116]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_gid51")
+autoplay = "default"
+frame_progress = 0.157931
+
+[node name="ResourceSetterNew" type="Node" parent="Sprite" unique_id=976404610 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_8tet8")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/ModdedItems/HammerSuit.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1936006930]
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1824256969]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_16uf3")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1890563366]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_kjjbq")
+
+[node name="StaticEntityMovement" type="Node" parent="." unique_id=617940809]
+script = ExtResource("5_fobb0")
+auto_call = false
+
+[node name="TrackJoint" type="Node" parent="." unique_id=108950862 node_paths=PackedStringArray("movement_node")]
+script = ExtResource("6_5u2i8")
+movement_node = NodePath("../StaticEntityMovement")
+metadata/_custom_type_script = "uid://d4a7yp6e55u8t"
+
+[connection signal="physics_tick" from="." to="StaticEntityMovement" method="handle_movement"]
+[connection signal="area_entered" from="Hitbox" to="." method="on_area_entered"]

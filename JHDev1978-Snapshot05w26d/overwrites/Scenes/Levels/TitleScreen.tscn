@@ -1,0 +1,1298 @@
+[gd_scene format=4 uid="uid://dnlgawye840rs"]
+
+[ext_resource type="Script" uid="uid://bdf6va584ym2h" path="res://mods-unpacked/JHDev1978-Snapshot05w26d/overwrites/Scenes/Levels/TitleScreen.gd" id="1_vxdtw"]
+[ext_resource type="PackedScene" uid="uid://bksxgpygrdjl7" path="res://Scenes/Prefabs/LevelBG.tscn" id="2_4i276"]
+[ext_resource type="PackedScene" uid="uid://ct5rrpa7uehkk" path="res://Scenes/Parts/Tiles.tscn" id="3_aoy6m"]
+[ext_resource type="SpriteFrames" uid="uid://df4enjjl84mji" path="res://Resources/SpriteFrames/Player/Mario/Small.tres" id="4_kaq00"]
+[ext_resource type="Script" uid="uid://b08qfwj5jk6g1" path="res://Scripts/Parts/PlayerSprite.gd" id="5_xp8lw"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="6_mdpd3"]
+[ext_resource type="PackedScene" uid="uid://cinr6kcbmo6gr" path="res://Scenes/Parts/DropShadowRenderer.tscn" id="7_1mvdn"]
+[ext_resource type="Texture2D" uid="uid://d01emqx4qafd7" path="res://Assets/Sprites/UI/TitleSMB1.png" id="8_r5twy"]
+[ext_resource type="Script" uid="uid://caq1qiwmy0mox" path="res://Scripts/Parts/BetterAnimatedSprite.gd" id="9_dtea8"]
+[ext_resource type="Texture2D" uid="uid://brk81yoyccym" path="res://Assets/Sprites/UI/TitleScreenStars.png" id="10_vdci4"]
+[ext_resource type="Shader" uid="uid://x7lh23cq2u38" path="res://Scenes/Parts/ShadowShader.gdshader" id="11_ltsw1"]
+[ext_resource type="Texture2D" uid="uid://0kyh2v6vfhqp" path="res://Assets/Sprites/UI/Title2.png" id="12_gbbwu"]
+[ext_resource type="Script" uid="uid://bdq0373j5n5o0" path="res://Scripts/Parts/CameraRightLimit.gd" id="13_4gus5"]
+[ext_resource type="Script" uid="uid://c3c1o65wvi6tq" path="res://Scripts/UI/TitleScreenOptions.gd" id="14_xs8c7"]
+[ext_resource type="PackedScene" uid="uid://ci678koo0peoa" path="res://Scenes/Prefabs/UI/CharacterSelect.tscn" id="15_nrc5x"]
+[ext_resource type="PackedScene" uid="uid://bpx20uohhikd7" path="res://Scenes/Prefabs/UI/QuestSelect.tscn" id="18_ihsqp"]
+[ext_resource type="PackedScene" uid="uid://dntk2js0tu3y2" path="res://Scenes/Prefabs/UI/WorldSelect.tscn" id="19_pt88h"]
+[ext_resource type="PackedScene" uid="uid://bsfkt344e6j38" path="res://Scenes/Prefabs/UI/LevelSelectNew.tscn" id="20_p1rup"]
+[ext_resource type="PackedScene" uid="uid://b8e82usnfbw1t" path="res://Scenes/Prefabs/UI/ExtraWorldSelect.tscn" id="21_2iwm7"]
+[ext_resource type="Texture2D" uid="uid://3p2l7rec0gh5" path="res://Assets/Sprites/UI/Cursor.png" id="22_edxdi"]
+[ext_resource type="PackedScene" uid="uid://dnksdgorle8su" path="res://Scenes/Prefabs/UI/SettingsMenu.tscn" id="27_yymsh"]
+[ext_resource type="PackedScene" uid="uid://br018ivvrtsjd" path="res://Scenes/Prefabs/UI/SaveDeletionWarning.tscn" id="29_5b1di"]
+[ext_resource type="PackedScene" uid="uid://b75f3fd7xjeya" path="res://Scenes/Prefabs/UI/QuitDialog.tscn" id="31_a5vd2"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="32_xkdh1"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="33_8beia"]
+[ext_resource type="Script" uid="uid://cqif1li7otvpl" path="res://Scripts/Parts/SpriteFramesToJsonConverter.gd" id="34_xatp6"]
+[ext_resource type="Script" uid="uid://cmvlgsjmsk0v5" path="res://Scripts/Classes/Resources/ThemedResource.gd" id="35_x8vkx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgapq"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(0, 0, 176, 88)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sul0v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgapq")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kugbg"]
+atlas = ExtResource("10_vdci4")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rn7o"]
+atlas = ExtResource("10_vdci4")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtnxj"]
+atlas = ExtResource("10_vdci4")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l3ok6"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_kugbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rn7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtnxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rn7o")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsi03"]
+shader = ExtResource("11_ltsw1")
+shader_parameter/shadow_colour = Vector4(0, 0, 0, 1)
+shader_parameter/allow_transparency = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erf6"]
+atlas = ExtResource("12_gbbwu")
+region = Rect2(0, 0, 176, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7t6p"]
+atlas = ExtResource("12_gbbwu")
+region = Rect2(176, 0, 176, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8peil"]
+atlas = ExtResource("12_gbbwu")
+region = Rect2(352, 0, 176, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gxk2n"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_8erf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7t6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8peil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7t6p")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_8peil"]
+script/source = "extends Label
+
+func _ready() -> void:
+	Global.is_snapshot = true
+	
+	Global.version_number = \"0.9.2\"
+	Global.current_snapshot = \"05w26d\"
+	
+	text = \"V\" + Global.version_number
+	if Global.is_snapshot:
+		text += \"\\n\" + Global.current_snapshot
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkrxe"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(0, 128, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygit5"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(176, 128, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt5h5"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(352, 128, 176, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6t4fx"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_mkrxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygit5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt5h5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygit5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p54in"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(0, 384, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twc32"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(176, 384, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjo1g"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(352, 384, 176, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wsi03"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_p54in")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twc32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjo1g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twc32")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3ok6"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(0, 0, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41kgj"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(176, 0, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k68s0"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(352, 0, 176, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8t4ah"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_l3ok6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41kgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k68s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41kgj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqo3h"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(0, 256, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vckrk"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(176, 256, 176, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ft22"]
+atlas = ExtResource("8_r5twy")
+region = Rect2(352, 256, 176, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f6f73"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_rqo3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vckrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ft22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vckrk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Resource" id="Resource_jt40r"]
+script = ExtResource("35_x8vkx")
+Overworld = SubResource("SpriteFrames_8t4ah")
+Desert = SubResource("SpriteFrames_6t4fx")
+Snow = SubResource("SpriteFrames_f6f73")
+Jungle = SubResource("SpriteFrames_wsi03")
+metadata/_custom_type_script = "uid://cmvlgsjmsk0v5"
+
+[node name="TitleScreen" type="Node" unique_id=561921480 node_paths=PackedStringArray("active_options")]
+script = ExtResource("1_vxdtw")
+active_options = NodePath("CanvasLayer/Options1")
+room_type = 4
+auto_set_theme = true
+time_limit = 0
+vertical_height = -186
+metadata/_custom_type_script = "uid://bcqr1v25ygedb"
+
+[node name="LevelBG" parent="." unique_id=2067025581 instance=ExtResource("2_4i276")]
+position = Vector2(129, 192)
+time_of_day = 2
+primary_layer = 3
+
+[node name="Tiles" parent="." unique_id=1972826622 instance=ExtResource("3_aoy6m")]
+position = Vector2(129, -336)
+tile_map_data = PackedByteArray("AAAAACIAAAACAAAAAAAAACMAAAACAAIAAAABACIAAAACAAAAAAABACMAAAACAAIAAAACACIAAAACAAAAAAACACMAAAACAAIAAAADACIAAAACAAAAAAADACMAAAACAAIAAAAEACIAAAACAAAAAAAEACMAAAACAAIAAAAFACIAAAACAAAAAAAFACMAAAACAAIAAAAGACIAAAACAAAAAAAGACMAAAACAAIAAAAHACIAAAACAAAAAAAHACMAAAACAAIAAAAIACIAAAACAAAAAAAIACMAAAACAAIAAAAJACIAAAACAAAAAAAJACMAAAACAAIAAAAKACIAAAACAAAAAAAKACMAAAACAAIAAAALACIAAAACAAAAAAALACMAAAACAAIAAAAMACIAAAACAAAAAAAMACMAAAACAAIAAAANACIAAAACAAAAAAANACMAAAACAAIAAAAOACIAAAACAAAAAAAOACMAAAACAAIAAAAPACIAAAACAAAAAAAPACMAAAACAAIAAAAQACIAAAACAAAAAAAQACMAAAACAAIAAAARACIAAAACAAAAAAARACMAAAACAAIAAAASACIAAAACAAAAAAASACMAAAACAAIAAAATACIAAAACAAAAAAATACMAAAACAAIAAAAUACIAAAACAAAAAAAUACMAAAACAAIAAAAVACIAAAACAAAAAAAVACMAAAACAAIAAAAWACIAAAACAAAAAAAWACMAAAACAAIAAAAXACIAAAACAAAAAAAXACMAAAACAAIAAAAYACIAAAACAAAAAAAYACMAAAACAAIAAAAZACIAAAACAAAAAAAZACMAAAACAAIAAAAaACIAAAACAAAAAAAaACMAAAACAAIAAAAbACIAAAACAAAAAAAbACMAAAACAAIAAAAcACIAAAACAAAAAAAcACMAAAACAAIAAAAdACIAAAACAAAAAAAdACMAAAACAAIAAAAeACIAAAACAAAAAAAeACMAAAACAAIAAAAfACIAAAACAAAAAAAfACMAAAACAAIAAADm/yIAAAACAAAAAADm/yMAAAACAAIAAADn/yIAAAACAAAAAADn/yMAAAACAAIAAADo/yIAAAACAAAAAADo/yMAAAACAAIAAADp/yIAAAACAAAAAADp/yMAAAACAAIAAADq/yIAAAACAAAAAADq/yMAAAACAAIAAADr/yIAAAACAAAAAADr/yMAAAACAAIAAADs/yIAAAACAAAAAADs/yMAAAACAAIAAADt/yIAAAACAAAAAADt/yMAAAACAAIAAADu/yIAAAACAAAAAADu/yMAAAACAAIAAADv/yIAAAACAAAAAADv/yMAAAACAAIAAADw/yIAAAACAAAAAADw/yMAAAACAAIAAADx/yIAAAACAAAAAADx/yMAAAACAAIAAADy/yIAAAACAAAAAADy/yMAAAACAAIAAADz/yIAAAACAAAAAADz/yMAAAACAAIAAAD0/yIAAAACAAAAAAD0/yMAAAACAAIAAAD1/yIAAAACAAAAAAD1/yMAAAACAAIAAAD2/yIAAAACAAAAAAD2/yMAAAACAAIAAAD3/yIAAAACAAAAAAD3/yMAAAACAAIAAAD4/yIAAAACAAAAAAD4/yMAAAACAAIAAAD5/yIAAAACAAAAAAD5/yMAAAACAAIAAAD6/yIAAAACAAAAAAD6/yMAAAACAAIAAAD7/yIAAAACAAAAAAD7/yMAAAACAAIAAAD8/yIAAAACAAAAAAD8/yMAAAACAAIAAAD9/yIAAAACAAAAAAD9/yMAAAACAAIAAAD+/yIAAAACAAAAAAD+/yMAAAACAAIAAAD//yIAAAACAAAAAAD//yMAAAACAAIAAAAgACIAAAACAAAAAAAgACMAAAACAAIAAAAhACIAAAACAAAAAAAhACMAAAACAAIAAAAiACIAAAACAAAAAAAiACMAAAACAAIAAAAjACIAAAACAAAAAAAjACMAAAACAAIAAAAkACIAAAACAAAAAAAkACMAAAACAAIAAAAlACIAAAACAAAAAAAlACMAAAACAAIAAAAmACIAAAACAAAAAAAmACMAAAACAAIAAAAnACIAAAACAAAAAAAnACMAAAACAAIAAAAoACIAAAACAAAAAAAoACMAAAACAAIAAAApACIAAAACAAAAAAApACMAAAACAAIAAAAqACIAAAACAAAAAAAqACMAAAACAAIAAAArACIAAAACAAAAAAArACMAAAACAAIAAAAsACIAAAACAAAAAAAsACMAAAACAAIAAAAtACIAAAACAAAAAAAtACMAAAACAAIAAAAuACIAAAACAAAAAAAuACMAAAACAAIAAAAvACIAAAACAAAAAAAvACMAAAACAAIAAAAwACIAAAACAAAAAAAwACMAAAACAAIAAAAxACIAAAACAAAAAAAxACMAAAACAAIAAAAyACIAAAACAAAAAAAyACMAAAACAAIAAAAzACIAAAACAAAAAAAzACMAAAACAAIAAAA0ACIAAAACAAAAAAA0ACMAAAACAAIAAAA1ACIAAAACAAAAAAA1ACMAAAACAAIAAAA2ACIAAAACAAAAAAA2ACMAAAACAAIAAAA3ACIAAAACAAAAAAA3ACMAAAACAAIAAAA4ACIAAAACAAAAAAA4ACMAAAACAAIAAAA5ACIAAAACAAAAAAA5ACMAAAACAAIAAAA6ACIAAAACAAAAAAA6ACMAAAACAAIAAAA7ACIAAAACAAAAAAA7ACMAAAACAAIAAAA8ACIAAAACAAAAAAA8ACMAAAACAAIAAAA9ACIAAAACAAAAAAA9ACMAAAACAAIAAAA+ACIAAAACAAAAAAA+ACMAAAACAAIAAAA/ACIAAAACAAAAAAA/ACMAAAACAAIAAABAACIAAAACAAAAAABAACMAAAACAAIAAABBACIAAAACAAAAAABBACMAAAACAAIAAABCACIAAAACAAAAAABCACMAAAACAAIAAABDACIAAAACAAAAAABDACMAAAACAAIAAABEACIAAAACAAAAAABEACMAAAACAAIAAABFACIAAAACAAAAAABFACMAAAACAAIAAABGACIAAAACAAAAAABGACMAAAACAAIAAABHACIAAAACAAAAAABHACMAAAACAAIAAABIACIAAAACAAAAAABIACMAAAACAAIAAABJACIAAAACAAAAAABJACMAAAACAAIAAABKACIAAAACAAAAAABKACMAAAACAAIAAABLACIAAAACAAAAAABLACMAAAACAAIAAABMACIAAAACAAAAAABMACMAAAACAAIAAABNACIAAAACAAAAAABNACMAAAACAAIAAABOACIAAAACAAAAAABOACMAAAACAAIAAABPACIAAAACAAAAAABPACMAAAACAAIAAABQACIAAAACAAAAAABQACMAAAACAAIAAABRACIAAAACAAAAAABRACMAAAACAAIAAABSACIAAAACAAAAAABSACMAAAACAAIAAABTACIAAAACAAAAAABTACMAAAACAAIAAABUACIAAAACAAAAAABUACMAAAACAAIAAABVACIAAAACAAAAAABVACMAAAACAAIAAABWACIAAAACAAAAAABWACMAAAACAAIAAABXACIAAAACAAAAAABXACMAAAACAAIAAABYACIAAAACAAAAAABYACMAAAACAAIAAABZACIAAAACAAAAAABZACMAAAACAAIAAABaACIAAAACAAAAAABaACMAAAACAAIAAABbACIAAAACAAAAAABbACMAAAACAAIAAABcACIAAAACAAAAAABcACMAAAACAAIAAABdACIAAAACAAAAAABdACMAAAACAAIAAABeACIAAAACAAAAAABeACMAAAACAAIAAABfACIAAAACAAAAAABfACMAAAACAAIAAABgACIAAAACAAAAAABgACMAAAACAAIAAABhACIAAAACAAAAAABhACMAAAACAAIAAABiACIAAAACAAAAAABiACMAAAACAAIAAABjACIAAAACAAAAAABjACMAAAACAAIAAABkACIAAAACAAAAAABkACMAAAACAAIAAABlACIAAAACAAAAAABlACMAAAACAAIAAABmACIAAAACAAAAAABmACMAAAACAAIAAABnACIAAAACAAAAAABnACMAAAACAAIAAABoACIAAAACAAAAAABoACMAAAACAAIAAABpACIAAAACAAAAAABpACMAAAACAAIAAABqACIAAAACAAAAAABqACMAAAACAAIAAABrACIAAAACAAAAAABrACMAAAACAAIAAABsACIAAAACAAAAAABsACMAAAACAAIAAABtACIAAAACAAAAAABtACMAAAACAAIAAABuACIAAAACAAAAAABuACMAAAACAAIAAABvACIAAAADAAAAAABvACMAAAADAAIAAACR/yIAAAABAAMAAACS/yIAAAACAAMAAACT/yIAAAACAAMAAACU/yIAAAACAAMAAACV/yIAAAACAAMAAACW/yIAAAACAAMAAACX/yIAAAACAAMAAACY/yIAAAACAAMAAACZ/yIAAAACAAMAAACa/yIAAAACAAMAAACb/yIAAAACAAMAAACc/yIAAAACAAMAAACd/yIAAAACAAMAAACe/yIAAAACAAMAAACf/yIAAAACAAMAAACg/yIAAAABAAAAAACh/yIAAAACAAAAAACi/yIAAAACAAAAAACj/yIAAAACAAAAAACk/yIAAAACAAAAAACl/yIAAAACAAAAAACm/yIAAAACAAAAAACn/yIAAAACAAAAAACo/yIAAAACAAAAAACp/yIAAAACAAAAAACq/yIAAAACAAAAAACr/yIAAAACAAAAAACs/yIAAAACAAAAAACt/yIAAAACAAAAAACu/yIAAAACAAAAAACv/yIAAAACAAAAAACw/yIAAAACAAAAAACx/yIAAAACAAAAAACy/yIAAAACAAAAAACz/yIAAAACAAAAAAC0/yIAAAACAAAAAAC1/yIAAAACAAAAAAC2/yIAAAACAAAAAAC3/yIAAAACAAAAAAC4/yIAAAACAAAAAAC5/yIAAAACAAAAAAC6/yIAAAACAAAAAAC7/yIAAAACAAAAAAC8/yIAAAACAAAAAAC9/yIAAAACAAAAAAC+/yIAAAACAAAAAAC//yIAAAACAAAAAADA/yIAAAACAAAAAADB/yIAAAACAAAAAADC/yIAAAACAAAAAADD/yIAAAACAAAAAADE/yIAAAACAAAAAADF/yIAAAACAAAAAADG/yIAAAACAAAAAADH/yIAAAACAAAAAADI/yIAAAACAAAAAADJ/yIAAAACAAAAAADK/yIAAAACAAAAAADL/yIAAAACAAAAAADM/yIAAAACAAAAAADN/yIAAAACAAAAAADO/yIAAAACAAAAAADP/yIAAAACAAAAAADQ/yIAAAACAAAAAADR/yIAAAACAAAAAADS/yIAAAACAAAAAADT/yIAAAACAAAAAADU/yIAAAACAAAAAADV/yIAAAACAAAAAADW/yIAAAACAAAAAADX/yIAAAACAAAAAADY/yIAAAACAAAAAADZ/yIAAAACAAAAAADa/yIAAAACAAAAAADb/yIAAAACAAAAAADc/yIAAAACAAAAAADd/yIAAAACAAAAAADe/yIAAAACAAAAAADf/yIAAAACAAAAAADg/yIAAAACAAAAAADh/yIAAAACAAAAAADi/yIAAAACAAAAAADj/yIAAAACAAAAAADk/yIAAAACAAAAAADl/yIAAAACAAAAAADj/yMAAAACAAIAAADk/yMAAAACAAIAAADl/yMAAAACAAIAAACg/yMAAAABAAIAAACh/yMAAAACAAIAAACi/yMAAAACAAIAAACj/yMAAAACAAIAAACk/yMAAAACAAIAAACl/yMAAAACAAIAAACm/yMAAAACAAIAAACn/yMAAAACAAIAAACo/yMAAAACAAIAAACp/yMAAAACAAIAAACq/yMAAAACAAIAAACr/yMAAAACAAIAAACs/yMAAAACAAIAAACt/yMAAAACAAIAAACu/yMAAAACAAIAAACv/yMAAAACAAIAAACw/yMAAAACAAIAAACx/yMAAAACAAIAAACy/yMAAAACAAIAAACz/yMAAAACAAIAAAC0/yMAAAACAAIAAAC1/yMAAAACAAIAAAC2/yMAAAACAAIAAAC3/yMAAAACAAIAAAC4/yMAAAACAAIAAAC5/yMAAAACAAIAAAC6/yMAAAACAAIAAAC7/yMAAAACAAIAAAC8/yMAAAACAAIAAAC9/yMAAAACAAIAAAC+/yMAAAACAAIAAAC//yMAAAACAAIAAADA/yMAAAACAAIAAADB/yMAAAACAAIAAADC/yMAAAACAAIAAADD/yMAAAACAAIAAADE/yMAAAACAAIAAADF/yMAAAACAAIAAADG/yMAAAACAAIAAADH/yMAAAACAAIAAADI/yMAAAACAAIAAADJ/yMAAAACAAIAAADK/yMAAAACAAIAAADL/yMAAAACAAIAAADM/yMAAAACAAIAAADN/yMAAAACAAIAAADO/yMAAAACAAIAAADP/yMAAAACAAIAAADQ/yMAAAACAAIAAADR/yMAAAACAAIAAADS/yMAAAACAAIAAADT/yMAAAACAAIAAADU/yMAAAACAAIAAADV/yMAAAACAAIAAADW/yMAAAACAAIAAADX/yMAAAACAAIAAADY/yMAAAACAAIAAADZ/yMAAAACAAIAAADa/yMAAAACAAIAAADb/yMAAAACAAIAAADc/yMAAAACAAIAAADd/yMAAAACAAIAAADe/yMAAAACAAIAAADf/yMAAAACAAIAAADg/yMAAAACAAIAAADh/yMAAAACAAIAAADi/yMAAAACAAIAAAA=")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1574556845 node_paths=PackedStringArray("resource_setter")]
+position = Vector2(65, 209)
+sprite_frames = ExtResource("4_kaq00")
+animation = &"Idle"
+script = ExtResource("5_xp8lw")
+resource_setter = NodePath("ResourceSetterNew")
+metadata/_custom_type_script = "uid://b08qfwj5jk6g1"
+
+[node name="ResourceSetterNew" type="Node" parent="PlayerSprite" unique_id=1735872210]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="DropShadow" parent="." unique_id=1607903221 instance=ExtResource("7_1mvdn")]
+position = Vector2(129, 192)
+
+[node name="Logo" type="AnimatedSprite2D" parent="." unique_id=978665035]
+position = Vector2(129, 76)
+sprite_frames = SubResource("SpriteFrames_sul0v")
+autoplay = "default"
+script = ExtResource("9_dtea8")
+do_offset = false
+metadata/_custom_type_script = "uid://caq1qiwmy0mox"
+
+[node name="Control" type="Control" parent="Logo" unique_id=2133520292]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -88.0
+offset_top = -44.0
+offset_right = -80.0
+offset_bottom = 180.0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Logo/Control" unique_id=312455990]
+layout_mode = 1
+offset_left = 88.0
+offset_top = 12.0
+offset_right = 160.0
+offset_bottom = 44.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="Star1" type="Control" parent="Logo/Control/HFlowContainer" unique_id=357053556]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star1" unique_id=1553237382]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star1/Main" unique_id=499172844 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star2" type="Control" parent="Logo/Control/HFlowContainer" unique_id=73937220]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star2" unique_id=734725448]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star2/Main" unique_id=1109647269 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star3" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1171427361]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star3" unique_id=1239623585]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star3/Main" unique_id=1075178932 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star4" type="Control" parent="Logo/Control/HFlowContainer" unique_id=618981674]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star4" unique_id=1451764446]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star4/Main" unique_id=594595977 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star5" type="Control" parent="Logo/Control/HFlowContainer" unique_id=267640536]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star5" unique_id=2051141915]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star5/Main" unique_id=1471818144 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star6" type="Control" parent="Logo/Control/HFlowContainer" unique_id=699426085]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star6" unique_id=1238864522]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star6/Main" unique_id=1947712467 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star7" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1036679607]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star7" unique_id=823672794]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star7/Main" unique_id=1960057681 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star8" type="Control" parent="Logo/Control/HFlowContainer" unique_id=332543479]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star8" unique_id=482787744]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star8/Main" unique_id=1261222541 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star9" type="Control" parent="Logo/Control/HFlowContainer" unique_id=253878112]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star9" unique_id=2060505602]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star9/Main" unique_id=2112240448 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star10" type="Control" parent="Logo/Control/HFlowContainer" unique_id=182056034]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star10" unique_id=1971298762]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star10/Main" unique_id=2113047224 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star11" type="Control" parent="Logo/Control/HFlowContainer" unique_id=2037259172]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star11" unique_id=112507067]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star11/Main" unique_id=920848282 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star12" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1154834727]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star12" unique_id=605977668]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star12/Main" unique_id=1104592180 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star13" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1114016950]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star13" unique_id=328777739]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star13/Main" unique_id=1079909583 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star14" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1298433506]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star14" unique_id=170634313]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star14/Main" unique_id=224807636 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star15" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1221065101]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star15" unique_id=1445300801]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star15/Main" unique_id=70478759 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star16" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1173342246]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star16" unique_id=1255462949]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star16/Main" unique_id=1659280684 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star17" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1569602093]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star17" unique_id=11888675]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star17/Main" unique_id=915761435 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star18" type="Control" parent="Logo/Control/HFlowContainer" unique_id=576450944]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star18" unique_id=1367659579]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star18/Main" unique_id=586458916 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star19" type="Control" parent="Logo/Control/HFlowContainer" unique_id=989881866]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star19" unique_id=1070425164]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star19/Main" unique_id=1090169938 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star20" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1487199485]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star20" unique_id=65747941]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star20/Main" unique_id=1130455620 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star21" type="Control" parent="Logo/Control/HFlowContainer" unique_id=874684759]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star21" unique_id=1562036329]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star21/Main" unique_id=1297845840 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star22" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1034611023]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star22" unique_id=737328657]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star22/Main" unique_id=769019542 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star23" type="Control" parent="Logo/Control/HFlowContainer" unique_id=793058594]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star23" unique_id=480460098]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star23/Main" unique_id=1674600204 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star24" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1726622087]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star24" unique_id=323523696]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star24/Main" unique_id=1034048156 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star25" type="Control" parent="Logo/Control/HFlowContainer" unique_id=896988504]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star25" unique_id=1407168267]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star25/Main" unique_id=243486487 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star26" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1094666073]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star26" unique_id=806478080]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star26/Main" unique_id=1423094834 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star27" type="Control" parent="Logo/Control/HFlowContainer" unique_id=641171915]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star27" unique_id=1240877510]
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star27/Main" unique_id=752880956 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Star28" type="Control" parent="Logo/Control/HFlowContainer" unique_id=1629008196]
+top_level = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Logo/Control/HFlowContainer/Star28" unique_id=1706013143]
+layout_mode = 0
+offset_left = -88.0
+offset_top = -176.0
+offset_right = -48.0
+offset_bottom = -160.0
+text = "♕"
+
+[node name="Shadow" type="Label" parent="Logo/Control/HFlowContainer/Star28/Label" unique_id=1040881965]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_wsi03")
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+text = "♕"
+uppercase = true
+
+[node name="Main" type="AnimatedSprite2D" parent="Logo/Control/HFlowContainer/Star28" unique_id=732901782]
+position = Vector2(612, 2272)
+sprite_frames = SubResource("SpriteFrames_l3ok6")
+autoplay = "default"
+frame_progress = 0.877984
+centered = false
+
+[node name="ResourceSetter" type="Node" parent="Logo/Control/HFlowContainer/Star28/Main" unique_id=48009522]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+json_path = "res://Assets/Sprites/UI/TitleScreenStars.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="ResourceSetter" type="Node" parent="Logo" unique_id=1742840714 node_paths=PackedStringArray("node_to_affect", "property_node")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_node = NodePath("../..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/Title1.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Logo2" type="AnimatedSprite2D" parent="Logo" unique_id=535446542]
+visible = false
+position = Vector2(0, 64)
+sprite_frames = SubResource("SpriteFrames_gxk2n")
+autoplay = "default"
+frame_progress = 0.7019163
+script = ExtResource("9_dtea8")
+do_offset = false
+metadata/_custom_type_script = "uid://caq1qiwmy0mox"
+
+[node name="ResourceSetterNew" type="Node" parent="Logo/Logo2" unique_id=1669492361 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "sprite_frames"
+json_path = "res://Assets/Sprites/UI/Title2.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=326070355]
+position = Vector2(129, 120)
+process_callback = 0
+
+[node name="CameraRightLimit" type="Node2D" parent="." unique_id=1457159072]
+position = Vector2(129, 192)
+script = ExtResource("13_4gus5")
+metadata/_custom_type_script = "uid://bdq0373j5n5o0"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=426157151]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer2" unique_id=860450242]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+offset_right = 56.0
+grow_vertical = 0
+alignment = 2
+
+[node name="VersionLabel" type="Label" parent="CanvasLayer2/VBoxContainer" unique_id=1359614741]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "v1.0.0"
+uppercase = true
+script = SubResource("GDScript_8peil")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2/VBoxContainer/VersionLabel" unique_id=1002316436]
+visible = false
+modulate = Color(1, 1, 1, 0.50600004)
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DevBuildWarning" type="Label" parent="CanvasLayer2/VBoxContainer" unique_id=1652223342]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "VERSION_DEV"
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2/VBoxContainer/DevBuildWarning" unique_id=1506329783]
+modulate = Color(1, 1, 1, 0.50600004)
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=509490881]
+
+[node name="TextureRect" type="CenterContainer" parent="CanvasLayer" unique_id=1983341673]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect3" type="CenterContainer" parent="CanvasLayer" unique_id=504527688]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options1" type="VBoxContainer" parent="CanvasLayer" unique_id=701925031 node_paths=PackedStringArray("options")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(9, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -103.0
+offset_right = 84.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 8
+script = ExtResource("14_xs8c7")
+active = true
+options = [NodePath("PlayGame"), NodePath("Settings")]
+
+[node name="PlayGame" type="Label" parent="CanvasLayer/Options1" unique_id=14911350]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MENU_PLAY_GAME"
+uppercase = true
+
+[node name="Settings" type="Label" parent="CanvasLayer/Options1" unique_id=1300194758]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MENU_SETTINGS"
+uppercase = true
+
+[node name="StoryMode" type="Node" parent="CanvasLayer" unique_id=1643783396]
+
+[node name="StoryOptions" type="VBoxContainer" parent="CanvasLayer/StoryMode" unique_id=900296627 node_paths=PackedStringArray("options")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(9, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -103.0
+offset_right = 320.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 8
+script = ExtResource("14_xs8c7")
+options = [NodePath("New Game"), NodePath("Continue")]
+
+[node name="New Game" type="Label" parent="CanvasLayer/StoryMode/StoryOptions" unique_id=1561149232]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MENU_NEW_GAME"
+uppercase = true
+
+[node name="Continue" type="Label" parent="CanvasLayer/StoryMode/StoryOptions" unique_id=258654563]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MENU_CONTINUE"
+uppercase = true
+
+[node name="HighScore" type="Label" parent="CanvasLayer/StoryMode/StoryOptions" unique_id=282289430]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MENU_HIGH_SCORE"
+uppercase = true
+
+[node name="NewBeatenGame" type="Node" parent="CanvasLayer/StoryMode" unique_id=1323334796]
+
+[node name="QuestSelect" parent="CanvasLayer/StoryMode/NewBeatenGame" unique_id=1204400533 instance=ExtResource("18_ihsqp")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -30.5
+offset_right = 63.0
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldSelect" parent="CanvasLayer/StoryMode/NewBeatenGame" unique_id=363658055 instance=ExtResource("19_pt88h")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -26.0
+offset_right = 92.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelSelect" parent="CanvasLayer/StoryMode/NewBeatenGame" unique_id=37810407 instance=ExtResource("20_p1rup")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -40.0
+offset_right = 128.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BeatenCharSelect" parent="CanvasLayer/StoryMode/NewBeatenGame" unique_id=2050575856 instance=ExtResource("15_nrc5x")]
+visible = false
+offset_left = -62.0
+offset_top = -35.0
+offset_right = 62.0
+offset_bottom = 35.0
+
+[node name="ContinueBeatenGame" type="Node" parent="CanvasLayer/StoryMode" unique_id=1285791954]
+
+[node name="WorldSelect" parent="CanvasLayer/StoryMode/ContinueBeatenGame" unique_id=48098276 instance=ExtResource("19_pt88h")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -32.5
+offset_right = 90.0
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelSelect" parent="CanvasLayer/StoryMode/ContinueBeatenGame" unique_id=1006265118 instance=ExtResource("20_p1rup")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -40.0
+offset_right = 128.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharSelect" parent="CanvasLayer/StoryMode/ContinueBeatenGame" unique_id=1536431602 instance=ExtResource("15_nrc5x")]
+visible = false
+
+[node name="NewUnbeatenGame" type="Node" parent="CanvasLayer/StoryMode" unique_id=1238396573]
+
+[node name="NoBeatenCharSelect" parent="CanvasLayer/StoryMode/NewUnbeatenGame" unique_id=1836322396 instance=ExtResource("15_nrc5x")]
+visible = false
+offset_left = -62.0
+offset_top = -35.0
+offset_right = 62.0
+offset_bottom = 35.0
+
+[node name="ContinueUnbeatenGame" type="Node" parent="CanvasLayer/StoryMode" unique_id=1968790200]
+
+[node name="CharacterSelect" parent="CanvasLayer/StoryMode/ContinueUnbeatenGame" unique_id=653649760 instance=ExtResource("15_nrc5x")]
+visible = false
+
+[node name="World9" type="Node" parent="CanvasLayer" unique_id=277154173]
+
+[node name="ExtraWorldSelect" parent="CanvasLayer/World9" unique_id=747545855 instance=ExtResource("21_2iwm7")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -24.0
+offset_right = 90.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExtraLevelSelect" parent="CanvasLayer/World9" unique_id=1408376350 instance=ExtResource("20_p1rup")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -40.0
+offset_right = 128.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CharacterSelect" parent="CanvasLayer/World9" unique_id=706222428 instance=ExtResource("15_nrc5x")]
+visible = false
+offset_left = -64.0
+offset_top = -36.0
+offset_right = 64.0
+offset_bottom = 36.0
+
+[node name="Cursor" type="TextureRect" parent="CanvasLayer" unique_id=2090039310]
+unique_name_in_owner = true
+offset_left = 80.0
+offset_top = 176.0
+offset_right = 88.0
+offset_bottom = 184.0
+texture = ExtResource("22_edxdi")
+stretch_mode = 2
+
+[node name="ResourceSetter" type="Node" parent="CanvasLayer/Cursor" unique_id=985966308 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://Assets/Sprites/UI/Cursor.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="SettingsMenu" parent="CanvasLayer" unique_id=1402202267 instance=ExtResource("27_yymsh")]
+unique_name_in_owner = true
+offset_left = 0.0
+offset_right = 0.0
+
+[node name="LabelFontChanger" parent="CanvasLayer/SettingsMenu" index="1" unique_id=1797639177 node_paths=PackedStringArray("labels")]
+labels = [NodePath("../PanelContainer/MarginContainer/VBoxContainer/Title"), NodePath("../PanelContainer/MarginContainer/VBoxContainer/CategorySelect/HBoxContainer/Category"), null, null, null, null, null, null, null, NodePath("../PanelContainer/MarginContainer/VBoxContainer/Audio/SelectableOptionNode/Value"), null, NodePath("../PanelContainer/MarginContainer/VBoxContainer/Audio/SelectableOptionNode2/Value"), null, NodePath("../PanelContainer/MarginContainer/VBoxContainer/Audio/SelectableOptionNode3/Value"), NodePath("../PanelContainer/MarginContainer/VBoxContainer/Difficulty/Description/AutoScrollContainer/MarginContainer/Desc")]
+
+[node name="Label" parent="CanvasLayer/SettingsMenu/CanvasLayer/Panel/VBoxContainer" parent_id_path=PackedInt32Array(1402202267, 1535374695) index="0" unique_id=725078764]
+text = "EDITOR_DELETION_WARNING"
+
+[node name="Label2" parent="CanvasLayer/SettingsMenu/CanvasLayer/Panel/VBoxContainer" parent_id_path=PackedInt32Array(1402202267, 1535374695) index="1" unique_id=165644100]
+text = "DIFFI_PHYSICS_STYLE_WARNING"
+
+[node name="SaveDeletionWarning" parent="CanvasLayer" unique_id=1803265463 instance=ExtResource("29_5b1di")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -66.0
+offset_right = 84.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuitDialog" parent="CanvasLayer" unique_id=2087177884 instance=ExtResource("31_a5vd2")]
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=1869650285 node_paths=PackedStringArray("labels")]
+script = ExtResource("32_xkdh1")
+labels = [null, null, null, NodePath("../CanvasLayer/StoryMode/StoryOptions/New Game"), NodePath("../CanvasLayer/StoryMode/StoryOptions/Continue"), NodePath("../CanvasLayer/StoryMode/StoryOptions/HighScore"), null, null, null, null, null, null, NodePath("../CanvasLayer2/VBoxContainer/VersionLabel"), NodePath("../CanvasLayer/Options1/PlayGame"), NodePath("../CanvasLayer/Options1/Settings"), null, NodePath("../CanvasLayer2/VBoxContainer/VersionLabel"), NodePath("../CanvasLayer2/VBoxContainer/DevBuildWarning")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="TextShadowColourChanger" type="Node" parent="." unique_id=6653263 node_paths=PackedStringArray("labels")]
+script = ExtResource("33_8beia")
+labels = [null, null, null, NodePath("../CanvasLayer/StoryMode/StoryOptions/New Game"), NodePath("../CanvasLayer/StoryMode/StoryOptions/Continue"), NodePath("../CanvasLayer/StoryMode/StoryOptions/HighScore"), null, null, null, null, null, null, NodePath("../CanvasLayer2/VBoxContainer/VersionLabel"), NodePath("../CanvasLayer/Options1/PlayGame"), NodePath("../CanvasLayer/Options1/Settings"), null, NodePath("../CanvasLayer2/VBoxContainer/VersionLabel"), null]
+
+[node name="TextShadowColourChanger2" type="Node" parent="." unique_id=1696371433]
+script = ExtResource("33_8beia")
+metadata/_custom_type_script = "uid://dt2p68xl462v2"
+
+[node name="ThemedToJSONConverter" type="Node" parent="." unique_id=1912347214]
+script = ExtResource("34_xatp6")
+resource = SubResource("Resource_jt40r")
+json_file_path = "res://Assets/Sprites/UI/Title2.json"
+metadata/_custom_type_script = "uid://cqif1li7otvpl"
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1026535167]
+bus = &"Music"
+
+[node name="ResourceSetterNew" type="Node" parent="BGM" unique_id=1847431695 node_paths=PackedStringArray("node_to_affect")]
+process_mode = 3
+script = ExtResource("6_mdpd3")
+node_to_affect = NodePath("..")
+property_name = "stream"
+mode = 2
+json_path = "res://Assets/Audio/BGM/TitleBGM.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[connection signal="closed" from="CanvasLayer/Options1" to="CanvasLayer/Options1" method="show"]
+[connection signal="closed" from="CanvasLayer/Options1" to="CanvasLayer/QuitDialog" method="start"]
+[connection signal="option_1_selected" from="CanvasLayer/Options1" to="." method="get_highscore"]
+[connection signal="option_1_selected" from="CanvasLayer/Options1" to="CanvasLayer/Options1" method="close"]
+[connection signal="option_1_selected" from="CanvasLayer/Options1" to="CanvasLayer/StoryMode/StoryOptions" method="open"]
+[connection signal="option_2_selected" from="CanvasLayer/Options1" to="." method="open_options"]
+[connection signal="closed" from="CanvasLayer/StoryMode/StoryOptions" to="." method="on_story_options_closed"]
+[connection signal="option_1_selected" from="CanvasLayer/StoryMode/StoryOptions" to="." method="new_game_selected"]
+[connection signal="option_2_selected" from="CanvasLayer/StoryMode/StoryOptions" to="." method="continue_game"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/NewBeatenGame/QuestSelect" to="CanvasLayer/StoryMode/StoryOptions" method="open"]
+[connection signal="selected" from="CanvasLayer/StoryMode/NewBeatenGame/QuestSelect" to="CanvasLayer/StoryMode/NewBeatenGame/WorldSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/NewBeatenGame/WorldSelect" to="CanvasLayer/StoryMode/NewBeatenGame/QuestSelect" method="open"]
+[connection signal="world_selected" from="CanvasLayer/StoryMode/NewBeatenGame/WorldSelect" to="CanvasLayer/StoryMode/NewBeatenGame/LevelSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/NewBeatenGame/LevelSelect" to="CanvasLayer/StoryMode/NewBeatenGame/WorldSelect" method="open"]
+[connection signal="level_selected" from="CanvasLayer/StoryMode/NewBeatenGame/LevelSelect" to="CanvasLayer/StoryMode/NewBeatenGame/BeatenCharSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/NewBeatenGame/BeatenCharSelect" to="CanvasLayer/StoryMode/NewBeatenGame/LevelSelect" method="open"]
+[connection signal="selected" from="CanvasLayer/StoryMode/NewBeatenGame/BeatenCharSelect" to="." method="start_game"]
+[connection signal="selected" from="CanvasLayer/StoryMode/NewBeatenGame/BeatenCharSelect" to="." method="clear_stats"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/ContinueBeatenGame/WorldSelect" to="CanvasLayer/StoryMode/StoryOptions" method="open"]
+[connection signal="world_selected" from="CanvasLayer/StoryMode/ContinueBeatenGame/WorldSelect" to="CanvasLayer/StoryMode/ContinueBeatenGame/LevelSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/ContinueBeatenGame/LevelSelect" to="CanvasLayer/StoryMode/ContinueBeatenGame/WorldSelect" method="open"]
+[connection signal="level_selected" from="CanvasLayer/StoryMode/ContinueBeatenGame/LevelSelect" to="CanvasLayer/StoryMode/ContinueBeatenGame/CharSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/ContinueBeatenGame/CharSelect" to="CanvasLayer/StoryMode/ContinueBeatenGame/LevelSelect" method="open"]
+[connection signal="selected" from="CanvasLayer/StoryMode/ContinueBeatenGame/CharSelect" to="." method="start_game"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/NewUnbeatenGame/NoBeatenCharSelect" to="CanvasLayer/StoryMode/StoryOptions" method="open"]
+[connection signal="selected" from="CanvasLayer/StoryMode/NewUnbeatenGame/NoBeatenCharSelect" to="." method="start_game"]
+[connection signal="selected" from="CanvasLayer/StoryMode/NewUnbeatenGame/NoBeatenCharSelect" to="." method="clear_stats"]
+[connection signal="selected" from="CanvasLayer/StoryMode/NewUnbeatenGame/NoBeatenCharSelect" to="." method="go_back_to_first_level"]
+[connection signal="cancelled" from="CanvasLayer/StoryMode/ContinueUnbeatenGame/CharacterSelect" to="CanvasLayer/StoryMode/StoryOptions" method="open"]
+[connection signal="selected" from="CanvasLayer/StoryMode/ContinueUnbeatenGame/CharacterSelect" to="." method="start_game"]
+[connection signal="world_selected" from="CanvasLayer/World9/ExtraWorldSelect" to="CanvasLayer/World9/ExtraLevelSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/World9/ExtraLevelSelect" to="CanvasLayer/World9/ExtraWorldSelect" method="open"]
+[connection signal="level_selected" from="CanvasLayer/World9/ExtraLevelSelect" to="CanvasLayer/World9/CharacterSelect" method="open"]
+[connection signal="cancelled" from="CanvasLayer/World9/CharacterSelect" to="CanvasLayer/World9/ExtraLevelSelect" method="open"]
+[connection signal="selected" from="CanvasLayer/World9/CharacterSelect" to="." method="start_game"]
+[connection signal="achievements_deleted" from="CanvasLayer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/Data/DataDeletion" to="." method="setup_stars"]
+[connection signal="cancelled" from="CanvasLayer/SaveDeletionWarning" to="CanvasLayer/StoryMode/StoryOptions" method="open"]
+[connection signal="cancelled" from="CanvasLayer/QuitDialog" to="CanvasLayer/Options1" method="open"]
+[connection signal="updated" from="BGM/ResourceSetterNew" to="." method="play_bgm"]
+
+[editable path="CanvasLayer/SettingsMenu"]
+[editable path="CanvasLayer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/Video/Language"]
+[editable path="CanvasLayer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/Audio/SelectableOptionNode"]
+[editable path="CanvasLayer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/Audio/SelectableOptionNode2"]
+[editable path="CanvasLayer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/Audio/SelectableOptionNode3"]

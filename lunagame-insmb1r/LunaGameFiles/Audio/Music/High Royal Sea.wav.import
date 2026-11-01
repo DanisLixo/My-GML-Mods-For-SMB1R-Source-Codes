@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dtaoat5d8hhla"
+path="res://.godot/imported/High Royal Sea.wav-e65f31ae3f6d7fedae636d6a2bb3b28a.sample"
+
+[deps]
+
+source_file="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/Music/High Royal Sea.wav"
+dest_files=["res://.godot/imported/High Royal Sea.wav-e65f31ae3f6d7fedae636d6a2bb3b28a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=48000
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=3072000
+compress/mode=0

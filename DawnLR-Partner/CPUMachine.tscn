@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c05vk8da1eidd"]
+
+[ext_resource type="Script" uid="uid://uribh0f1jttq" path="res://Scripts/Classes/States/StateMachine.gd" id="1_opa5o"]
+
+[node name="CPUMachine" type="Node" unique_id=1782259408]
+script = ExtResource("1_opa5o")

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ua60m8wi6c1e"]
+
+[ext_resource type="AudioStream" uid="uid://cipfc8grlwefi" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/Music/Dark.wav" id="1"]
+[ext_resource type="Script" uid="uid://c6xt4jd6ndhoh" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/music.gd" id="2"]
+
+[node name="Dark" type="AudioStreamPlayer"]
+stream = ExtResource("1")
+volume_db = -2.0
+autoplay = true
+script = ExtResource("2")

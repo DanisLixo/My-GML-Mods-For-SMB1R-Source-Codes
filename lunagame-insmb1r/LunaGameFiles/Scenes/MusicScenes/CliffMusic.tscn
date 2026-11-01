@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c3swdxdyj280p"]
+
+[ext_resource type="AudioStream" uid="uid://bnwwn4jupxpio" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/Music/Cliffside.wav" id="1"]
+[ext_resource type="Script" uid="uid://c6xt4jd6ndhoh" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/music.gd" id="2"]
+
+[node name="Cliffs" type="AudioStreamPlayer"]
+stream = ExtResource("1")
+volume_db = -2.0
+autoplay = true
+script = ExtResource("2")

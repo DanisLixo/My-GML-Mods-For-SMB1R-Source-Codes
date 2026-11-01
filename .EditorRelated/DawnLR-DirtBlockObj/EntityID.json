@@ -1,0 +1,7 @@
+{
+	"comment": "Watch out to not use the same ID as others, some mods can be overwritten",
+	"Dg": [
+		"res://mods-unpacked/DawnLR-DirtBlockObj/DirtBlock/DirtBlock.tscn",
+		"0,0"
+	]
+}

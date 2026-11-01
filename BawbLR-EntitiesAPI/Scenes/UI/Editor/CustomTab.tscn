@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cwhr7l634soot"]
+
+[ext_resource type="Texture2D" uid="uid://cxeh76y6kty48" path="res://mods-unpacked/BawbLR-EntitiesAPI/Assets/Sprites/UI/CustomsEditorIcon.png" id="1_rayeb"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_q5vtq"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8kfgg"]
+color = Color(1, 1, 1, 1)
+
+[node name="Custom" type="VBoxContainer" unique_id=1486869591]
+
+[node name="Title" type="VBoxContainer" parent="." unique_id=914610583]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Title" unique_id=1541211741]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Title/HBoxContainer" unique_id=2146711505]
+layout_mode = 2
+texture = ExtResource("1_rayeb")
+stretch_mode = 3
+
+[node name="ResourceSetterNew" type="Node" parent="Title/HBoxContainer/TextureRect" unique_id=294802770 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_q5vtq")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://mods-unpacked/BawbLR-EntitiesAPI/Assets/Sprites/UI/CustomsEditorIcon.json"
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Label" type="Label" parent="Title/HBoxContainer" unique_id=1377077256]
+layout_mode = 2
+text = "Customs"
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="Title" unique_id=1261937207]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_8kfgg")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1291654845]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1295930008]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=906110417]
+layout_mode = 2
+text = "NO OBJECTS FOUND!"
+
+[node name="Customs" type="HFlowContainer" parent="MarginContainer/VBoxContainer" unique_id=555996242]
+unique_name_in_owner = true
+layout_mode = 2

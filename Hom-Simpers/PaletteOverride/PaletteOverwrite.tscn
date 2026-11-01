@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://bug3kk533hypq"]
+
+[ext_resource type="Texture2D" uid="uid://0jpafcbiitds" path="res://mods-unpacked/Hom-Simpers/Assets/Sprites/Palette/GamePalette.png" id="1_bcfub"]
+[ext_resource type="Script" uid="uid://b37m8b8j51ppl" path="res://mods-unpacked/Hom-Simpers/PaletteOverride/PaletteOverwrite.gd" id="1_d3l6p"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="3_kcp2o"]
+[ext_resource type="Texture2D" uid="uid://fqjtup67nua5" path="res://mods-unpacked/Hom-Simpers/Assets/Sprites/Palette/OverridePalette.png" id="4_nf7bg"]
+
+[sub_resource type="Shader" id="Shader_lb6ks"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform bool enabled = false;
+uniform float palette_size = 64.0;
+uniform float override_palette_size = 64.0;
+uniform float closest = 0.50;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform sampler2D game_palette: filter_nearest;
+uniform sampler2D override_palette: filter_nearest;
+
+void fragment() {
+	if (enabled)
+	{
+		vec3 source_col = texture(screen_texture, SCREEN_UV).rgb;
+	    float closest_distance = closest;
+
+	    for (int i = 0; i < int(palette_size); i++)
+		{
+		    float x_coord = (float(i) + 0.5) / palette_size;
+
+		    vec3 sampled = texture(game_palette, vec2(x_coord, 0.0)).rgb;
+
+		    float d = distance(sampled, source_col);
+		    if (d < closest_distance)
+		    {
+		        float inv_x_coord = (float(i) + 0.5) / palette_size;
+
+		        source_col = texture(override_palette, vec2(inv_x_coord, 0)).rgb;
+		        closest_distance = d;
+		    }
+		}
+		COLOR.rgb = source_col;
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lb6ks"]
+shader = SubResource("Shader_lb6ks")
+shader_parameter/enabled = true
+shader_parameter/palette_size = 64.0
+shader_parameter/override_palette_size = 64.0
+shader_parameter/closest = 0.5
+shader_parameter/game_palette = ExtResource("1_bcfub")
+shader_parameter/override_palette = ExtResource("4_nf7bg")
+
+[node name="PaletteOverwrite" type="CanvasLayer" unique_id=1992545538]
+layer = 2472
+script = ExtResource("1_d3l6p")
+
+[node name="Overrider" type="ColorRect" parent="." unique_id=2049347568]
+material = SubResource("ShaderMaterial_lb6ks")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1404752951]
+custom_minimum_size = Vector2(0, 2)
+offset_right = 64.0
+offset_bottom = 2.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="GamePalette" type="TextureRect" parent="VBoxContainer" unique_id=2045920362]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_bcfub")
+stretch_mode = 2
+flip_v = true
+
+[node name="ResourceSetterOriginal" type="Node" parent="VBoxContainer/GamePalette" unique_id=870360398 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_kcp2o")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://mods-unpacked/Hom-Simpers/Assets/Sprites/Palette/GamePalette.json"
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="OverridePalette" type="TextureRect" parent="VBoxContainer" unique_id=1179479130]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("4_nf7bg")
+expand_mode = 1
+stretch_mode = 1
+flip_v = true
+
+[node name="ResourceSetterOverride" type="Node" parent="VBoxContainer/OverridePalette" unique_id=2062771106 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_kcp2o")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://mods-unpacked/Hom-Simpers/Assets/Sprites/Palette/OverridePalette.json"
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="ResourceSetterNew" type="Node" parent="." unique_id=944867565 node_paths=PackedStringArray("node_to_affect", "property_node")]
+script = ExtResource("3_kcp2o")
+node_to_affect = NodePath("..")
+property_node = NodePath("..")
+property_name = "nearest_range"
+json_path = "res://mods-unpacked/Hom-Simpers/Assets/Sprites/Palette/PaletteSwap.json"
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"

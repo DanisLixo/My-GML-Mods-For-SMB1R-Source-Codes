@@ -1,0 +1,259 @@
+[gd_scene format=3 uid="uid://cg475fq20t3uo"]
+
+[ext_resource type="Script" uid="uid://knlt0agqib4h" path="res://mods-unpacked/DawnLR-Partner/Modded/Friendog/Scripts/FriendogLayer.gd" id="1_ods2p"]
+[ext_resource type="Texture2D" uid="uid://dxf1ds5ihbc21" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Editor/Friendog_Unused.png" id="2_ru8oa"]
+[ext_resource type="Texture2D" uid="uid://c5f65pekasj0x" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Editor/Friendog_Sit.png" id="3_0u1p5"]
+[ext_resource type="Texture2D" uid="uid://c0gu0vxgk1dkm" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Editor/Friendog_Idle.png" id="4_8sk61"]
+[ext_resource type="Script" uid="uid://b4ykjdw6j2ael" path="res://mods-unpacked/DawnLR-Partner/Modded/Friendog/Scripts/FriendogSprite.gd" id="5_0u1p5"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="5_4dki0"]
+[ext_resource type="Script" uid="uid://lrlmvhm7loiy" path="res://mods-unpacked/DawnLR-Partner/Modded/Gameplay/Scripts/Parts/CameraCorners.gd" id="7_8sk61"]
+[ext_resource type="Texture2D" uid="uid://yn2t36mho2dc" path="res://mods-unpacked/DawnLR-Partner/Assets/Sprites/Editor/zzz.png" id="8_4dki0"]
+
+[sub_resource type="Animation" id="Animation_vewp4"]
+resource_name = "Enter"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FriendogSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Enter"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FriendogSprite:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FriendogSprite:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-23.975, 239), Vector2(27.325, 188), Vector2(48, 240)]
+}
+
+[sub_resource type="Animation" id="Animation_uu0dd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FriendogSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FriendogSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Test"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FriendogSprite:state")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FriendogSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-49, 239)]
+}
+
+[sub_resource type="Animation" id="Animation_2j7q1"]
+resource_name = "TestLevel"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FriendogSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FriendogSprite:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jlxw6"]
+_data = {
+&"Enter": SubResource("Animation_vewp4"),
+&"RESET": SubResource("Animation_uu0dd"),
+&"TestLevel": SubResource("Animation_2j7q1")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fbmwa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ru8oa")
+}],
+"loop": true,
+"name": &"Enter",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0u1p5")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ru8oa")
+}],
+"loop": true,
+"name": &"Test",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_8sk61")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0u1p5"]
+radius = 9.055386
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dki0"]
+
+[sub_resource type="Curve" id="Curve_vewp4"]
+_limits = [0.0, 1.5, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_uu0dd"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vewp4"]
+size = Vector2(4, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu0dd"]
+size = Vector2(7, 239.875)
+
+[node name="FriendogLayer" type="CanvasLayer" unique_id=1847078807]
+script = ExtResource("1_ods2p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=331689104]
+libraries/ = SubResource("AnimationLibrary_jlxw6")
+
+[node name="FriendogSprite" type="AnimatedSprite2D" parent="." unique_id=1979786320]
+position = Vector2(-49, 239)
+sprite_frames = SubResource("SpriteFrames_fbmwa")
+animation = &"Test"
+offset = Vector2(0, -16)
+script = ExtResource("5_0u1p5")
+
+[node name="PetArea" type="Area2D" parent="FriendogSprite" unique_id=683970084]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FriendogSprite/PetArea" unique_id=404826875]
+position = Vector2(4.9750004, -27)
+shape = SubResource("CircleShape2D_0u1p5")
+
+[node name="Collision" type="Area2D" parent="FriendogSprite" unique_id=511002828]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FriendogSprite/Collision" unique_id=1774527004]
+position = Vector2(-0.024999619, -10)
+shape = SubResource("RectangleShape2D_4dki0")
+
+[node name="ResourceSetterNew" type="Node" parent="FriendogSprite" unique_id=1788222858 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("5_4dki0")
+node_to_affect = NodePath("..")
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="Timer" type="Timer" parent="FriendogSprite" unique_id=1849333676]
+process_callback = 0
+wait_time = 4.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="FriendogSprite" unique_id=517401375]
+visible = false
+position = Vector2(12.975, -38)
+amount = 3
+texture = ExtResource("8_4dki0")
+lifetime = 2.0
+direction = Vector2(0, -0.5)
+gravity = Vector2(7, -10)
+linear_accel_min = 8.0
+linear_accel_max = 8.0
+scale_amount_curve = SubResource("Curve_vewp4")
+color_ramp = SubResource("Gradient_uu0dd")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
+
+[node name="CameraCorners" type="Node2D" parent="." unique_id=560129619]
+script = ExtResource("7_8sk61")
+
+[node name="Area" type="Area2D" parent="CameraCorners" unique_id=271952954]
+
+[node name="LeftWall" type="CollisionShape2D" parent="CameraCorners/Area" unique_id=1305172626]
+position = Vector2(-2, 120)
+shape = SubResource("RectangleShape2D_vewp4")
+
+[node name="RightWall" type="CollisionShape2D" parent="CameraCorners/Area" unique_id=1679560711]
+position = Vector2(260, 120)
+shape = SubResource("RectangleShape2D_uu0dd")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="FriendogSprite" method="on_animation_finished"]
+[connection signal="timeout" from="FriendogSprite/Timer" to="FriendogSprite" method="on_timeout"]
+[connection signal="area_entered" from="CameraCorners/Area" to="FriendogSprite" method="on_area_entered"]

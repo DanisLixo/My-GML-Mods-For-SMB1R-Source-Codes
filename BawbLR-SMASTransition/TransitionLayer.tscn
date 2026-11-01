@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c2s34e2vlv4tu"]
+
+[ext_resource type="Script" uid="uid://7gkfc00ctp05" path="res://mods-unpacked/BawbLR-SMASTransition/TransitionLayer.gd" id="1_kqdyq"]
+[ext_resource type="Shader" uid="uid://bcr3fvogs51mw" path="res://mods-unpacked/BawbLR-SMASTransition/TransitionEffect.gdshader" id="1_pletu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_34jd6"]
+shader = ExtResource("1_pletu")
+
+[node name="TransitionLayer" type="CanvasLayer" unique_id=1601352676]
+process_mode = 3
+layer = 256
+script = ExtResource("1_kqdyq")
+
+[node name="PixelateEffect" type="ColorRect" parent="." unique_id=316289372]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("ShaderMaterial_34jd6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true

@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://dws3wm6rjouva"]
+
+[ext_resource type="Script" uid="uid://b3r40vsj24bwh" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scripts/ui.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://c5ke0gbfggsi7" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/Wrong.wav" id="2"]
+[ext_resource type="Texture2D" uid="uid://cr7wep8mcagj1" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/TOOSLOW.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ygrbxya1jxa" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/HURRY.png" id="4"]
+[ext_resource type="AudioStream" uid="uid://duselrrf05e1b" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Audio/SFX/WARNING.wav" id="5"]
+[ext_resource type="Texture2D" uid="uid://cd4mm61c6016" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/blackbarforhud.png" id="6"]
+[ext_resource type="FontFile" uid="uid://bkb0jvkkb4asf" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Emulogic-zrEw.ttf" id="7"]
+[ext_resource type="Texture2D" uid="uid://bs1ay4g6ukpus" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/starhud.png" id="8"]
+[ext_resource type="PackedScene" uid="uid://cmf7j3ckqlhn3" path="res://mods-unpacked/lunagame-insmb1r/LunaGameFiles/Scenes/Player/hearts.tscn" id="9"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpows"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_31bum"]
+line_spacing = -2.0
+font = ExtResource("7")
+font_size = 8
+outline_color = Color(0.364706, 0.223529, 0.654902, 1)
+shadow_size = 0
+shadow_color = Color(0.364706, 0.223529, 0.654902, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rnmla"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"Invisible",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
+"loop": 1,
+"name": &"TimeUp",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"TimeWarning",
+"speed": 6.0
+}]
+
+[node name="UI" type="CanvasLayer" unique_id=1803681699]
+script = ExtResource("1")
+
+[node name="Control" type="Control" parent="." unique_id=922253137]
+custom_minimum_size = Vector2(256, 34)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=978197211]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tpows")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" unique_id=1457461144]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer" unique_id=889053026]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1152840335]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Lives" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1684925692]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "LUNA* "
+label_settings = SubResource("LabelSettings_31bum")
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="IconsContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1421285012]
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="CContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/IconsContainer" unique_id=749749095 instance=ExtResource("9")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="CContainer2" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/IconsContainer" unique_id=1150982626 instance=ExtResource("9")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="CContainer3" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/IconsContainer" unique_id=1746778001 instance=ExtResource("9")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="CContainer4" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/IconsContainer" unique_id=901452950 instance=ExtResource("9")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=202587034]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Score" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1901461400]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "00000"
+label_settings = SubResource("LabelSettings_31bum")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="Control" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1241090941]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Star" type="TextureRect" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Control" unique_id=598614597]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8")
+stretch_mode = 3
+
+[node name="Money" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Control" unique_id=816631458]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "*"
+label_settings = SubResource("LabelSettings_31bum")
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=821521909]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Area" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3" unique_id=978625077]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+text = "AREA"
+label_settings = SubResource("LabelSettings_31bum")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="Time" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3" unique_id=375304658]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+text = "TIME"
+label_settings = SubResource("LabelSettings_31bum")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="HURRYUP" type="AnimatedSprite2D" parent="." unique_id=1466734090]
+position = Vector2(127, 56)
+scale = Vector2(0.79375, 1)
+sprite_frames = SubResource("SpriteFrames_rnmla")
+animation = &"TimeUp"
+autoplay = "Invisible"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1705592464]
+visible = false
+position = Vector2(128, 120)
+scale = Vector2(0.8, 1)
+texture = ExtResource("6")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Sprite2D" unique_id=1796738780]
+
+[node name="UITest" type="Label" parent="." unique_id=578512693]
+visible = false
+offset_top = 208.0
+offset_right = 319.0
+offset_bottom = 298.0
+text = "Hi :) This is a UI test. 
+If you're seeing this, it should be at 
+the bottom of the screen!
+
+Programming this game sure is a thing
+that I am currently doing at the time
+of writing this.
+Below is a Font test. I used Emulogic.
+
+abcdefghijklmnopqrstuvwxyz
+0123456789!@#$%^&*()-=_+[]{}?,.<>;':\"
+"
+label_settings = SubResource("LabelSettings_31bum")
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 2
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="Health Points go Under Here" type="Node" parent="." unique_id=614914979]
+
+[node name="no they dont" type="Node" parent="Health Points go Under Here" unique_id=1014101171]
+
+[node name="Node" type="Node" parent="." unique_id=1879452216]
+
+[node name="TIMEOUT" type="AudioStreamPlayer" parent="." unique_id=1371202539]
+stream = ExtResource("2")
+
+[node name="WARNING" type="AudioStreamPlayer" parent="." unique_id=2022016758]
+stream = ExtResource("5")
+volume_db = 2.751
+pitch_scale = 0.9
+
+[connection signal="finished" from="WARNING" to="." method="_on_warning_finished"]

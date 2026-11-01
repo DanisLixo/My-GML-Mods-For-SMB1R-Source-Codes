@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjq470u8531b2"]
+
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="2_i33mp"]
+
+[node name="ModdedPalette" type="Sprite2D"]
+visible = false
+scale = Vector2(8, 8)
+
+[node name="ResourceSetterNew" type="Node" parent="." node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("2_i33mp")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+use_cache = false
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"

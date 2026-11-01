@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://dyg4qqml0p0u2"]
+
+[ext_resource type="Script" uid="uid://ci53bhb0b4c0c" path="res://mods-unpacked/DawnLR-CharacterRandomizer/Modded/UI/MenuExtension/Selectables/SelectableCharacterNode.gd" id="1_an4cv"]
+[ext_resource type="Texture2D" uid="uid://3p2l7rec0gh5" path="res://Assets/Sprites/UI/Cursor.png" id="2_mw4jp"]
+[ext_resource type="Script" uid="uid://cbal8ms2oe1ik" path="res://Scripts/Classes/Components/ResourceSetterNew.gd" id="3_0sr2c"]
+[ext_resource type="Script" uid="uid://d63p6qr5a748" path="res://Scripts/UI/AutoScrollContainer.gd" id="4_xoho2"]
+[ext_resource type="Script" uid="uid://co6tjg3w6qpd8" path="res://Scripts/Parts/LabelFontChanger.gd" id="5_3neu6"]
+[ext_resource type="Texture2D" uid="uid://bgckb78kobtx3" path="res://Assets/Sprites/Players/Mario/LifeIcon.png" id="6_uyulk"]
+[ext_resource type="Script" uid="uid://dt2p68xl462v2" path="res://Scripts/Parts/TextShadowColourChanger.gd" id="7_hdd7h"]
+[ext_resource type="Script" uid="uid://dwtrmo82e12ud" path="res://Scripts/Parts/ColourPaletteSampler.gd" id="8_xnkt2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qti1l"]
+atlas = ExtResource("2_mw4jp")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_aasg5"]
+color = Color(1, 1, 1, 1)
+grow_begin = -2.0
+grow_end = -2.0
+vertical = true
+
+[node name="Character" type="HBoxContainer" unique_id=120713357 groups=["Options"]]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+focus_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_an4cv")
+title = "VIDEO_MODE"
+
+[node name="Cursor" type="Control" parent="." unique_id=1892869311]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="Cursor" type="TextureRect" parent="Cursor" unique_id=1773257334]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 8.0
+offset_bottom = 12.0
+texture = SubResource("AtlasTexture_qti1l")
+stretch_mode = 2
+
+[node name="ResourceSetter" type="Node" parent="Cursor/Cursor" unique_id=1174534210 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_0sr2c")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+json_path = "res://Assets/Sprites/UI/Cursor.json"
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="." unique_id=288141223]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("4_xoho2")
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="Title" type="Label" parent="AutoScrollContainer" unique_id=1911421801]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add Character:"
+uppercase = true
+
+[node name="LabelFontChanger" type="Node" parent="." unique_id=612617705 node_paths=PackedStringArray("labels")]
+script = ExtResource("5_3neu6")
+labels = [NodePath("../AutoScrollContainer/Title")]
+metadata/_custom_type_script = "uid://co6tjg3w6qpd8"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=211792413]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="LeftArrow" type="Label" parent="HBoxContainer" unique_id=2080774576]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◄"
+uppercase = true
+
+[node name="CharacterIcon" type="TextureRect" parent="HBoxContainer" unique_id=1466867118]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_uyulk")
+stretch_mode = 3
+
+[node name="ResourceSetterNew" type="Node" parent="HBoxContainer/CharacterIcon" unique_id=1358058168 node_paths=PackedStringArray("node_to_affect")]
+script = ExtResource("3_0sr2c")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=1904584865]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_aasg5")
+
+[node name="AutoScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=1731460027]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("4_xoho2")
+is_active = true
+auto_minimum_resize = true
+metadata/_custom_type_script = "uid://d63p6qr5a748"
+
+[node name="Value" type="Label" parent="HBoxContainer/AutoScrollContainer" unique_id=1680390702]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "aaaaaa"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="TextShadowColourChanger" type="Node" parent="HBoxContainer/AutoScrollContainer/Value" unique_id=867828671 node_paths=PackedStringArray("labels")]
+script = ExtResource("7_hdd7h")
+labels = [NodePath("..")]
+metadata/_custom_type_script = "uid://dt2p68xl462v2"
+
+[node name="ColourPaletteSampler" type="Node" parent="HBoxContainer/AutoScrollContainer/Value/TextShadowColourChanger" unique_id=1968114710 node_paths=PackedStringArray("node_to_affect")]
+unique_name_in_owner = true
+script = ExtResource("8_xnkt2")
+node_to_affect = NodePath("..")
+value_to_set = "override_shadow_colour"
+metadata/_custom_type_script = "uid://dwtrmo82e12ud"
+
+[node name="PlayerColourTexture" type="Node" parent="HBoxContainer/AutoScrollContainer/Value/TextShadowColourChanger/ColourPaletteSampler" unique_id=1444587048 node_paths=PackedStringArray("node_to_affect")]
+unique_name_in_owner = true
+script = ExtResource("3_0sr2c")
+node_to_affect = NodePath("..")
+property_name = "texture"
+mode = 1
+metadata/_custom_type_script = "uid://cbal8ms2oe1ik"
+
+[node name="RightArrow" type="Label" parent="HBoxContainer" unique_id=2034842880]
+unique_name_in_owner = true
+layout_mode = 2
+text = "►"
+uppercase = true
+
+[connection signal="focus_entered" from="." to="." method="set_selected" binds= [true]]
+[connection signal="focus_exited" from="." to="." method="set_selected" binds= [false]]
